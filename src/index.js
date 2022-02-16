@@ -11,7 +11,7 @@ const app = express();
 
 // register view engine
 app.set('view engine', 'ejs');
-
+app.listen(PORT);
 // middleware & static files
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
@@ -21,37 +21,37 @@ app.use(function (req, res, next) {
   next();
 });
 
-
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  console.log('new request made:');
-  console.log('host: ', req.hostname);
-  console.log('path: ', req.path);
-  console.log('method: ', req.method);
-  next();
+    console.log('new request made:');
+    console.log('host: ', req.hostname);
+    console.log('path: ', req.path);
+    console.log('method: ', req.method);
+    next();
 });
 
 app.use((req, res, next) => {
-  res.locals.path = req.path;
-  next();
+    res.locals.path = req.path;
+    next();
 });
 
 app.use(session({
-  cookie: {
-    maxAge: 30 * 86400 * 1000,
-    sameSite: true,
-    secure: env.environment === 'production',
-  },
-  name: env.SESSION_NAME,
-  resave: false,
-  saveUninitialized: false,
-  secret: env.SESSION_SECRET,
+    cookie: {
+        maxAge: 30 * 86400 * 1000,
+        sameSite: true,
+        secure: env.environment === 'production',
+    },
+    name: env.SESSION_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: env.SESSION_SECRET,
 }));
 
 app.use('/', indexRoutes);
 
 // 404 page
 app.use((req, res) => {
-  res.status(404).json({ fname: '404', lname: 'Page' });
+    res.status(404).json({ fname: '404', lname: 'Page' });
 });
+console.log('here')
