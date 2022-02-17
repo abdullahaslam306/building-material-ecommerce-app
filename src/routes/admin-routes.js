@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-
 // admin login route
 router.get('/',(req, res)=>{
-   console.log('not admin')
+   res.render('admin/admin-login')
 })
+
 module.exports = router;

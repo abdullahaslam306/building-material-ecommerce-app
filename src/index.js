@@ -1,7 +1,11 @@
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const indexRoutes = require('./routes/index-route');
 const methodOverride = require('method-override');
+
+const indexRoutes = require('./routes/index-route');
+const AdminRoutes = require('./routes/admin-routes');
+
 const PORT = process.env.PORT || 3000;
 const env = require('./configs/env');
 // express app
@@ -11,10 +15,13 @@ const app = express();
 
 // register view engine
 app.set('view engine', 'ejs');
+app.set('views',path.join(__dirname, '/views'))
 app.listen(PORT);
 // middleware & static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+
 
 app.use(function (req, res, next) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -48,10 +55,9 @@ app.use(session({
     secret: env.SESSION_SECRET,
 }));
 
-app.use('/', indexRoutes);
-
+app.use('/user', indexRoutes);
+app.use('/admin', AdminRoutes);
 // 404 page
 app.use((req, res) => {
     res.status(404).json({ fname: '404', lname: 'Page' });
 });
-console.log('here')
