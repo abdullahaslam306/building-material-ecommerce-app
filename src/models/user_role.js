@@ -24,7 +24,7 @@ module.exports = (sequelize, sequelizeDataTypes) => {
             type: sequelizeDataTypes.BOOLEAN,
             allowNull: false
         },
-        'update_privilidge': {
+        'delete_privilidge': {
             type: sequelizeDataTypes.BOOLEAN,
             allowNull: false
         }
