@@ -2,12 +2,14 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const { databases } = require('./lib');
 
 const indexRoutes = require('./routes/index-route');
 const AdminRoutes = require('./routes/admin-routes');
 
 const PORT = process.env.PORT || 3000;
 const env = require('./configs/env');
+const { database } = require('./lib');
 // express app
 const app = express();
 
@@ -52,6 +54,13 @@ app.use(session({
   saveUninitialized: false,
   secret: env.SESSION_SECRET,
 }));
+ database.openConnection()
+ .then(connection => {
+  console.log(connection)
+ })
+ .catch(error => {
+console.log(error)
+ })
 
 app.use('/user', indexRoutes);
 app.use('/admin', AdminRoutes);
