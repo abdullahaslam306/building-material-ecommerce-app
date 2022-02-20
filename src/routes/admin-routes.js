@@ -1,6 +1,8 @@
 const express = require('express');
-const { CreateEvent } = require('../controllers')
-
+const {
+  CreateEvent,
+  CreateProduct,
+} = require('../controllers');
 
 const router = express.Router();
 
@@ -24,5 +26,11 @@ router.get('/create-event', (req, res) => {
 });
 
 router.post('/create-event', CreateEvent.upload.single('cover'), CreateEvent.create);
+
+router.get('/create-product', (req, res) => {
+  res.render('admin/product.ejs');
+});
+
+router.post('/create-product', CreateProduct.upload.single('image'), CreateProduct.create);
 
 module.exports = router;

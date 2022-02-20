@@ -1,3 +1,4 @@
 const CreateEvent = require('./events/create');
+const CreateProduct = require('./product/create');
 
-module.exports = { CreateEvent, }
+module.exports = { CreateEvent, CreateProduct };

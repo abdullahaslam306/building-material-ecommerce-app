@@ -6,7 +6,6 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = require('../../configs/env');
 
-// change the vaues here
 const {
   DB_PORT: port,
   DB_HOSTNAME: host,
@@ -51,7 +50,7 @@ async function openConnection() {
       connection[modelName].associate(connection);
     }
   });
-  await sequelize.sync();
+  await sequelize.sync({ alter: true });
   connection.sequelize = sequelize;
   connection.Sequelize = Sequelize;
 

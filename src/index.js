@@ -2,8 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const { databases } = require('./lib');
-
 const indexRoutes = require('./routes/index-route');
 const AdminRoutes = require('./routes/admin-routes');
 
@@ -22,19 +20,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 // app.use((req, res, next) => {
-  //   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  //   next();
-  // });
-  
-  
-  app.use((req, res, next) => {
-    console.log('new request made:');
-    console.log('host: ', req.hostname);
-    console.log('path: ', req.path);
-    console.log('method: ', req.method);
-    next();
-});
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// });
 
+app.use((req, res, next) => {
+  console.log('new request made:');
+  console.log('host: ', req.hostname);
+  console.log('path: ', req.path);
+  console.log('method: ', req.method);
+  console.log('method:', req.body)
+  next();
+});
 
 app.use((req, res, next) => {
   res.locals.path = req.path;
@@ -53,15 +50,14 @@ app.use(session({
   secret: env.SESSION_SECRET,
 }));
 database.openConnection()
-.then(connection => {
-  console.log('connection Successful')
-})
-.catch(error => {
-  console.log(error)
-})
+  .then((connection) => {
+    console.log('connection Successful');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use('/user', indexRoutes);
 app.use('/admin', AdminRoutes);

@@ -1,5 +1,5 @@
 /**
- * Class to access and manage customers
+ * Class to access and manage events
  */
 
 class Event {
