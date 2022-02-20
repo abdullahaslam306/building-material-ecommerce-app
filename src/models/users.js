@@ -10,26 +10,26 @@ module.exports = (sequelize, sequelizeDataTypes) => {
     },
     'name': {
       type: sequelizeDataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     'email': {
       type: sequelizeDataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     'role_link': {
       type: sequelizeDataTypes.INTEGER,
       allowNull: false,
-      default: 1,
+      'default': 1,
       references: {
         models: 'user_role',
         key: 'id',
-        deferable: Sequalize.Deferrable.INITIALLY_IMMEDIATE
-      }
+        deferable: Sequalize.Deferrable.INITIALLY_IMMEDIATE,
+      },
     },
     'password': {
       type: sequelizeDataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }, {
     timestamps: true,
   });
