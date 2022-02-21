@@ -382,7 +382,7 @@ Tabs
       register() {
         f <= 9 || v.State.isGingerbread || (x.Lists.transformsBase = x.Lists.transformsBase.concat(x.Lists.transforms3D)); for (var e = 0; e < x.Lists.transformsBase.length; e++)!(function () { const t = x.Lists.transformsBase[e]; x.Normalizations.registered[t] = function (e, r, n) { switch (e) { case 'name': return 'transform'; case 'extract': return i(r) === a || i(r).transformCache[t] === a ? /^scale/i.test(t) ? 1 : 0 : i(r).transformCache[t].replace(/[()]/g, ''); case 'inject': var o = !1; switch (t.substr(0, t.length - 1)) { case 'translate': o = !/(%|px|em|rem|vw|vh|\d)$/i.test(n); break; case 'scal': case 'scale': v.State.isAndroid && i(r).transformCache[t] === a && n < 1 && (n = 1), o = !/(\d)$/i.test(n); break; case 'skew': o = !/(deg|\d)$/i.test(n); break; case 'rotate': o = !/(deg|\d)$/i.test(n); } return o || (i(r).transformCache[t] = `(${n})`), i(r).transformCache[t]; } }; }()); for (var e = 0; e < x.Lists.colors.length; e++) {
           !(function () {
-            let t = x.Lists.colors[e]; x.Normalizations.registered[t] = function (e, r, n) {
+            const t = x.Lists.colors[e]; x.Normalizations.registered[t] = function (e, r, n) {
               switch (e) {
                 case 'name': return t; case 'extract': var o; if (x.RegEx.wrappedValueAlreadyExtracted.test(n))o = n; else {
                   let i; const s = {

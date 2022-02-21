@@ -1,0 +1,90 @@
+<%- include("./header.ejs") %>
+<ul class="list-inline menu-left mb-0">
+    <li class="list-inline-item">
+        <button type="button" class="button-menu-mobile open-left waves-effect">
+            <i class="ion-navicon"></i>
+        </button>
+    </li>
+    <li class="hide-phone list-inline-item app-search">
+        <h3 class="page-title">Manage Events</h3>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+</nav>
+
+</div>
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+                           
+                            <div class="row">
+                            
+                                <div class="col-md-10"></div>
+                                <div class="col-md-2">
+                                    <a href="/admin/event/create"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Create Event</button></a>
+                                 </div>
+                                </div>
+                                <br>  
+                            <!-- <div class="row" >
+                                <div class="col-md-4">
+                                
+                                  </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <input type="text" id="myInput" class="form-control" placeholder="Search ...">
+                                </div>
+                            </div> -->
+
+                           
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table  table-striped" style="margin-left:auto; margin-right:auto">
+                                            <thead>
+                                            <tr>
+                                                
+                                                <th data-priority="1">Ttile</th>
+                                                <th data-priority="2">Description</th>
+                                                <th data-priority="3">Date/Time</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% events.forEach(function(event) { %> 
+                                            <tr>
+                                               
+                                                <td><%= event.title %></td>
+                                                <td><%= event.desc %></td>
+                                                <td><%= event.date %></td>
+                                                <td>
+                                                  
+                                                 
+                                                    <a class="btn btn-primary" href="/admin/event/edit/<%= event.id%>"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-primary" href="/admin/event/delete/<%= event.id%>"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <% }) %> 
+                                         
+                                          
+                                            
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+
+                                </div>
+                                
+                            
+
+                               
+                            
+
+                  
+                        </div><!-- container-fluid -->
+
+
+                    </div>
+
+
+<%- include("./footer.ejs") %>
