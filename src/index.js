@@ -2,8 +2,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override');
-const { databases } = require('./lib');
-
 const indexRoutes = require('./routes/index-route');
 const AdminRoutes = require('./routes/admin-routes');
 
@@ -31,6 +29,7 @@ app.use((req, res, next) => {
   console.log('host: ', req.hostname);
   console.log('path: ', req.path);
   console.log('method: ', req.method);
+  console.log('method:', req.body)
   next();
 });
 

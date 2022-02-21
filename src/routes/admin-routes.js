@@ -1,5 +1,5 @@
 const express = require('express');
-const { CreateEvent, ListEvents, DeleteEvent } = require('../controllers');
+const { CreateEvent, ListEvents, DeleteEvent, CreateProduct } = require('../controllers');
 
 const router = express.Router();
 
@@ -30,5 +30,11 @@ router.get('/event/list', ListEvents.list);
 // router.get('/event/edit/:id', EditEvent.update);
 
 router.get('/event/delete/:id', DeleteEvent.deleteEvent);
+
+router.get('/create-product', (req, res) => {
+  res.render('admin/product.ejs');
+});
+
+router.post('/create-product', CreateProduct.upload.single('image'), CreateProduct.create);
 
 module.exports = router;

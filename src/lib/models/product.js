@@ -20,6 +20,10 @@ module.exports = (sequelize, sequelizeDataTypes) => {
       type: sequelizeDataTypes.STRING,
       allowNull: false,
     },
+    'image': {
+      type: sequelizeDataTypes.STRING,
+      allowNull: false,
+    },
     'properties': {
       type: sequelizeDataTypes.TEXT,
       allowNull: false,
