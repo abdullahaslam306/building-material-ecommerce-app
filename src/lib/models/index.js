@@ -50,7 +50,7 @@ async function openConnection() {
       connection[modelName].associate(connection);
     }
   });
-  await sequelize.sync({ alter: true });
+  // await sequelize.sync({ alter: true });
   connection.sequelize = sequelize;
   connection.Sequelize = Sequelize;
 

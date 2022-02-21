@@ -30,22 +30,18 @@ class Event {
     return events;
   }
 
-  async getById() {
-    const events = await this.dbInstance.event.findAll();
-    console.log(events);
-    if ((events === null || events.length === 0)) {
-      throw new Error('Exception in listing events.');
+  async getById(id) {
+    const where = { id };
+    const event = await this.dbInstance.event.findOne({where});
+    console.log(event);
+    if (!(event instanceof this.dbInstance.event)) {
+      throw new Error('Event not found.');
     }
-    return events;
+    return event;
   }
   async delete(id) {
-    const where = { id };
-    const event = await this.dbInstance.event.destroy({ where });
-    console.log(event);
-    // if ((events === null || events.length === 0)) {
-    //   throw new Error('Exception in deleting event.');
-    // }
-    return event;
+  const where = { id };
+  await this.dbInstance.event.destroy({ where });
   }
 
 }

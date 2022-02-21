@@ -4,7 +4,7 @@ const update = async (req, res) => {
   try {
     const id = req.params.id;
 
-    if(typeof id != 'number' || id === 'undefined' || id === null) {
+    if(id === 'undefined' || id === null) {
         throw new Error('Provide valid identifier.');
     }
     

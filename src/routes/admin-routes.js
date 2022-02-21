@@ -1,5 +1,5 @@
 const express = require('express');
-const { CreateEvent, ListEvents, DeleteEvent, CreateProduct } = require('../controllers');
+const { CreateEvent, ListEvents, DeleteEvent, CreateProduct, GetEvent } = require('../controllers');
 
 const router = express.Router();
 
@@ -27,10 +27,15 @@ router.post('/event/create', CreateEvent.upload.single('cover'), CreateEvent.cre
 
 router.get('/event/list', ListEvents.list);
 
-// router.get('/event/edit/:id', EditEvent.update);
+router.get('/event/edit/:id', GetEvent.getEvent);
 
 router.get('/event/delete/:id', DeleteEvent.deleteEvent);
 
+
+
+/**
+ * Product Routes
+ */
 router.get('/create-product', (req, res) => {
   res.render('admin/product.ejs');
 });
