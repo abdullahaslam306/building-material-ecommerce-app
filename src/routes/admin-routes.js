@@ -1,5 +1,16 @@
 const express = require('express');
-const { CreateEvent, ListEvents, DeleteEvent, CreateProduct, GetEvent } = require('../controllers');
+const {
+  CreateEvent,
+  ListEvents,
+  DeleteEvent,
+  CreateProduct,
+  GetEvent,
+  CreateUserRole,
+  GetUserRole,
+  ListUserRole,
+  UpdateUserRole,
+  DeleteUserRole, 
+} = require('../controllers');
 
 const router = express.Router();
 
@@ -32,6 +43,24 @@ router.get('/event/edit/:id', GetEvent.getEvent);
 router.get('/event/delete/:id', DeleteEvent.deleteEvent);
 
 
+/**
+ * User Roles Routes
+ */
+
+ router.get('/role/create', (req, res) => {
+  res.render('admin/add-user-role');
+});
+
+router.post('/role/create', CreateUserRole.create);
+
+
+router.get('/role/list', ListUserRole.list);
+
+router.get('/role/edit/:id', GetUserRole.getUserRole);
+
+router.get('/role/delete/:id', DeleteUserRole.deleteUserRole);
+
+router.post('/role/update/:id', UpdateUserRole.update);
 
 /**
  * Product Routes
