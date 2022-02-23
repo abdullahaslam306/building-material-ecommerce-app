@@ -60,7 +60,7 @@ router.get('/role/edit/:id', GetUserRole.getUserRole);
 
 router.get('/role/delete/:id', DeleteUserRole.deleteUserRole);
 
-router.post('/role/update/:id', UpdateUserRole.update);
+router.post('/role/update', UpdateUserRole.update);
 
 /**
  * Product Routes

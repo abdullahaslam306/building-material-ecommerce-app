@@ -1,0 +1,146 @@
+<%- include("./header.ejs") %>
+
+
+<ul class="list-inline menu-left mb-0">
+    <li class="list-inline-item">
+        <button type="button" class="button-menu-mobile open-left waves-effect">
+            <i class="ion-navicon"></i>
+        </button>
+    </li>
+    <li class="hide-phone list-inline-item app-search">
+        <h3 class="page-title">Edit User Role</h3>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+</nav>
+
+</div>
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+                         
+
+                           
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <form action="/admin/role/update" onsubmit = 'return verify()' method="post" >
+                                        <input type="hidden" name = "id" value = "<%= role.id %>" />
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">name</label>
+                                        <div class="col-sm-10">
+                                           <input type="text" name = "role_name" value = "<%= role.name %>"class="form-control" required>   </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">View Access</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="view_access"  id ="view" required>
+                                                <% if (role.access_privilidge) { %>
+                                                <option value="true" selected>True</option>
+                                                <option value="false">False</option>
+                                                <% } else { %>
+                                                    <option value="true">True</option>
+                                                    <option value="false" selected>False</option>
+                                                    <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Create Access</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="create_access" id ="create" required>
+                                                
+                                                <% if (role.create_privilidge) { %>
+                                                    <option disabled>---Select---</option>
+                                                    <option value="true" selected>True</option>
+                                                    <option value="false">False</option>
+                                                    <% } else { %>
+                                                        <option readonly>---Select---</option>
+                                                        <option value="true">True</option>
+                                                        <option value="false" selected>False</option>
+                                                        <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Update Access</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="update_access" id ="update" required>
+                                                <% if (role.update_privilidge) { %>
+                                                    <option disabled>---Select---</option>
+                                                    <option value="true" selected>True</option>
+                                                    <option value="false">False</option>
+                                                    <% } else { %>
+                                                        <option disabled>---Select---</option>
+                                                        <option value="true">True</option>
+                                                        <option value="false" selected>False</option>
+                                                        <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Delete Access</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="delete_access" id ="delete" required>
+                                                <% if (role.delete_privilidge) { %>
+                                                    <option disabled>---Select---</option>
+                                                    <option value="true" selected>True</option>
+                                                    <option value="false">False</option>
+                                                    <% } else { %>
+                                                        <option readonly>---Select---</option>
+                                                        <option value="true">True</option>
+                                                        <option value="false" selected>False</option>
+                                                        <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                           
+                                   
+                                    <div class="button-items">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light btn-lg">Save Changes</button>
+
+                            
+
+                                    </div>
+
+                                </div>     
+
+                                </div>
+
+                            </form>
+
+                            </div>
+
+
+                            </div>
+
+                  
+                        </div>
+
+
+                    </div>
+
+
+<script>
+     function verify() {
+
+        const canView =  document.getElementById('view').value;
+        const canDelete =  document.getElementById('delete').value;
+        const canCreate = document.getElementById('create').value;
+        const canUpdate = document.getElementById('update').value;
+        if(canView == "false") {
+            if(canDelete == "true" || canCreate == "true" || canUpdate == "true") {
+                alert('View access must be granted for any Create, Update, Delete operation.')
+                return false;
+            } 
+            alert('At least one Access must be granted for user role.')
+            return false;
+        }
+        return true;
+
+     }
+</script>
+
+<%- include("./footer.ejs") %>

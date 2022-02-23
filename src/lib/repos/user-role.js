@@ -16,7 +16,7 @@ class UserRole {
       access_privilidge,
       delete_privilidge,
     });
-
+    console.log(userRole)
     if (!(userRole instanceof this.dbInstance.user_roles)) {
       throw new Error('Unable to create role.');
     }
@@ -24,14 +24,17 @@ class UserRole {
   }
 
   async update(id ,name, create_privilidge, update_privilidge, access_privilidge, delete_privilidge) {
+    const where = {
+      id
+    }
     const userRole = await this.dbInstance.user_roles.update({
       name,
       create_privilidge,
       update_privilidge,
       access_privilidge,
       delete_privilidge,
-    });
-
+    }, { where });
+    console.log(userRole)
     if (!(userRole instanceof this.dbInstance.user_roles)) {
       throw new Error('Unable to update role.');
     }
@@ -50,9 +53,10 @@ class UserRole {
   async getById(id) {
     const where = { id };
     const userRole = await this.dbInstance.user_roles.findOne({where});
-    if (!(userRole instanceof this.dbInstance.userRole)) {
+    if (!(userRole instanceof this.dbInstance.user_roles)) {
       throw new Error('Userole not found.');
     }
+    console.log(userRole)
     return userRole;
   }
 
@@ -62,3 +66,4 @@ class UserRole {
   }
 
   }
+  module.exports = UserRole;
