@@ -16,7 +16,7 @@ module.exports = (sequelize, sequelizeDataTypes) => {
       type: sequelizeDataTypes.STRING,
       allowNull: false,
     },
-    'role_link': {
+    'user_role_id': {
       type: sequelizeDataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -32,6 +32,8 @@ module.exports = (sequelize, sequelizeDataTypes) => {
   }, {
     timestamps: true,
   });
-
+  users.associate = (models) =>{
+    users.belongsTo(models.user_roles, { foreignkey: 'user_role_id'})
+  }
   return users;
 };

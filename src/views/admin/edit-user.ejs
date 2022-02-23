@@ -1,0 +1,90 @@
+<%- include("./header.ejs") %>
+<ul class="list-inline menu-left mb-0">
+    <li class="list-inline-item">
+        <button type="button" class="button-menu-mobile open-left waves-effect">
+            <i class="ion-navicon"></i>
+        </button>
+    </li>
+    <li class="hide-phone list-inline-item app-search">
+        <h3 class="page-title">Edit User</h3>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+</nav>
+
+</div>
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                            
+                                <div class="col-md-10"></div>
+                                <div class="col-md-2">
+                                    <a href="/admin/role/list"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Manage User Role</button></a>
+                                 </div>
+                                </div>
+                                <br>  
+
+                           
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <form action="/admin/user/update" method="post">
+                                        <input type="hidden" name = "id" value = "<%= user.id %>" />
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Username</label>
+                                        <div class="col-sm-10">
+                                           <input type="text" name = "name" class="form-control" value = "<%= user.name%>">   </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input name="email" required class="form-control" value = "<%= user.email%>" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Select Role</label>
+                                        <div class="col-sm-10">
+                                           <select class="form-control" required  name="user_role">
+                                               <option Selected disabled>---Select---</option>
+                                            <% roles.forEach(function(role) { %> 
+                                                <% if(user.user_role_id == role.id) { %>
+                                                <option value="<%=role.id%>" Selected><%=role.name%></option>
+                                                <% } else { %>
+                                                    <option value="<%=role.id%>"><%=role.name%></option>
+                                             <% } })%>
+                                           </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-search-input" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input name="password" required class="form-control" value = "<%= user.password%>" type="password">
+                                        </div>
+                                    </div>
+                                    <div class="button-items">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light btn-lg">Save</button>
+
+                            
+
+                                    </div>
+
+                                </div>     
+
+                                </div>
+
+                            </form>
+
+                            </div>
+
+
+                            </div>
+
+                  
+                        </div>
+
+
+                    </div>
+
+<%- include("./footer.ejs") %>
