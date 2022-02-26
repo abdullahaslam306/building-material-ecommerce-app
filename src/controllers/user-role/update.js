@@ -9,10 +9,9 @@ const update = async (req, res) => {
     const userRoleRepo = new repositories.UserRole(connection);
 
     await userRoleRepo.update(id ,name, create, update, view, remove);
-    res.redirect("/admin/role/list?message =User role updated successfully");
+    res.redirect("/admin/role/list?success=User role updated successfully.");
   } catch (exception) {
-      console.log(exception);
-    res.redirect("/admin/role/list?message =User role updated successfully");
+    res.redirect("/admin/role/list?err=Unable to update event.");
   }
 };
 

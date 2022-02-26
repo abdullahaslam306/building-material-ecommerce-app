@@ -1,4 +1,5 @@
 const express = require('express');
+const { route } = require('express/lib/application');
 const {
   CreateEvent,
   ListEvents,
@@ -15,8 +16,7 @@ const {
   CreateUser,
   UpdateUser,
   DeleteUser,
-
-
+  UpdateEvent,
 } = require('../controllers');
 
 const router = express.Router();
@@ -37,7 +37,7 @@ router.get('/dashboard', (req, res) => {
  * Events Routes
  */
 router.get('/event/create', (req, res) => {
-  res.render('admin/add-event');
+  res.render('admin/add-event', {success: null, error: null});
 });
 
 router.post('/event/create', CreateEvent.upload.single('cover'), CreateEvent.create);
@@ -47,6 +47,8 @@ router.get('/event/list', ListEvents.list);
 
 router.get('/event/edit/:id', GetEvent.getEvent);
 
+router.post('/event/update', UpdateEvent.upload.single('cover'),UpdateEvent.update)
+
 router.get('/event/delete/:id', DeleteEvent.deleteEvent);
 
 
@@ -55,7 +57,7 @@ router.get('/event/delete/:id', DeleteEvent.deleteEvent);
  */
 
  router.get('/role/create', (req, res) => {
-  res.render('admin/add-user-role');
+  res.render('admin/add-user-role', {success: null, error: null});
 });
 
 router.post('/role/create', CreateUserRole.create);
@@ -91,7 +93,7 @@ router.post('/user/update', UpdateUser.update);
  * Product Routes
  */
 router.get('/create-product', (req, res) => {
-  res.render('admin/product.ejs');
+  res.render('admin/product.ejs', {success: null, error: null});
 });
 
 router.post('/create-product', CreateProduct.upload.single('image'), CreateProduct.create);

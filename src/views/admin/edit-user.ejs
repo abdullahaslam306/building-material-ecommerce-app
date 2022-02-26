@@ -18,7 +18,31 @@
                     <div class="page-content-wrapper ">
 
                         <div class="container-fluid">
+                            <% if (success) { %>
+                               
+                              
+                                <div class="alert alert-success" role="alert" id='error-msg'>
+                                    <script>setTimeout(function(){
+                                        document.getElementById('error-msg').style.display = 'none';
+                                     }, 3000);</script>
+                                    <%= success %> 
+                                  </div>
+                                
+                                <% } %>
+                                <% if (error) { %>
+                               
+                              
+                                    <div class="alert alert-success" role="alert" id='error-msg'>
+                                        <script>setTimeout(function(){
+                                            document.getElementById('error-msg').style.display = 'none';
+                                         }, 3000);</script>
+                                        <%= error %> 
+                                      </div>
+                                    
+                                    <% } %>
+
                             <div class="row">
+
                             
                                 <div class="col-md-10"></div>
                                 <div class="col-md-2">
@@ -35,7 +59,7 @@
                                     <div class="form-group row">
                                         <label for="example-search-input" class="col-sm-2 col-form-label">Username</label>
                                         <div class="col-sm-10">
-                                           <input type="text" name = "name" class="form-control" value = "<%= user.name%>">   </div>
+                                           <input type="text" name = "name" class="form-control" required value = "<%= user.name%>">   </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="example-search-input" class="col-sm-2 col-form-label">Email</label>

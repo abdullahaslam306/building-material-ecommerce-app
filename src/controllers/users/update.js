@@ -8,7 +8,7 @@ const update = async (req, res) => {
     const UserRepo = new repositories.Users(connection);
 
     await UserRepo.update(id ,name, email, password, roleId);
-    res.redirect("/admin/user/list?message =User updated successfully");
+    res.redirect("/admin/user/list?success=User updated successfully");
   } catch (exception) {
       console.log(exception);
     res.redirect("/admin/user/list?err="+exception.message);

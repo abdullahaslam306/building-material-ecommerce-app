@@ -34,10 +34,7 @@ class UserRole {
       access_privilidge,
       delete_privilidge,
     }, { where });
-    console.log(userRole)
-    if (!(userRole instanceof this.dbInstance.user_roles)) {
-      throw new Error('Unable to update role.');
-    }
+
     return userRole;
   }
 

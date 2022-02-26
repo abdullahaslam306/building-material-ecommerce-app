@@ -11,7 +11,7 @@ const getEvent = async (req, res) => {
     const eventRepo = new repositories.Event(connection);
 
     const event = await eventRepo.getById(id);
-    res.render('admin/edit-event', { event, success: 'Event created successfully', error: null });
+    res.render('admin/edit-event', { event, success: null, error: null });
   } catch (exception) {
     console.log(exception)
     res.render('admin/edit-event', { event : {}, success: null, error: exception.message });

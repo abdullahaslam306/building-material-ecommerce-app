@@ -13,7 +13,7 @@ const getUserRole = async (req, res) => {
     const roles = await userRoleRepo.listAll();
 
     const user = await userRepo.getById(id);
-    res.render('admin/edit-user', { user, roles, success: '', error: null });
+    res.render('admin/edit-user', { user, roles, success: null, error: null });
   } catch (exception) {
     console.log(exception)
     res.render('admin/edit-user', { user : {},roles: [], success: null, error: exception.message });

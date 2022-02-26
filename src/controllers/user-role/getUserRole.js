@@ -10,7 +10,7 @@ const getUserRole = async (req, res) => {
     const userRoleRepo = new repositories.UserRole(connection);
 
     const role = await userRoleRepo.getById(id);
-    res.render('admin/edit-user-role', { role, success: '', error: null });
+    res.render('admin/edit-user-role', { role, success: null, error: null });
   } catch (exception) {
     console.log(exception)
     res.render('admin/edit-user-role', { role : {}, success: null, error: exception.message });

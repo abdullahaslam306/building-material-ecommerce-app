@@ -11,7 +11,7 @@ try {
   const connection = await database.openConnection();
   const userRepo = new repositories.Users(connection);
   await userRepo.delete(id);
-  res.redirect("/admin/user/list?message=User deleted successfully");
+  res.redirect("/admin/user/list?success=User deleted successfully");
 } catch (exception) {
   res.redirect("/admin/user/list?err=Unable to delete user.");
 }

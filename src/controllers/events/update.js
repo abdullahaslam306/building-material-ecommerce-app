@@ -1,21 +1,36 @@
+const multer = require('multer');
 const { database, repositories } = require('../../lib');
+
 
 const update = async (req, res) => {
   try {
-    const id = req.params.id;
-
-    if(id === 'undefined' || id === null) {
-        throw new Error('Provide valid identifier.');
+    let fileName = null;
+    const { id, title, description, event_date: eventDate } = req.body;
+    console.log('here', req.body)
+    if(req.file) {
+      fileName = `/uploads/${req.file.filename}`;
     }
-    
     const connection = await database.openConnection();
     const eventRepo = new repositories.Event(connection);
 
-    const events = await eventRepo.getById(id);
-    res.render('admin/manage-events', { events, success: 'Event created successfully', error: null });
+    await eventRepo.update(id, title, description, eventDate, fileName);
+    res.redirect("/admin/event/list?success=Event updated successfully");
   } catch (exception) {
-    res.render('admin/manage-events', { events : [],success: null, error: exception.message });
+    console.log(exception)
+    res.redirect("/admin/event/list?err=Unable to update event.");
+
   }
 };
 
-module.exports = { update };
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './src/public/uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}`);
+  },
+});
+
+const upload = multer({ storage });
+
+module.exports = { update, upload };

@@ -2,7 +2,7 @@ const CreateEvent = require('./events/create');
 const ListEvents = require('./events/list');
 const DeleteEvent = require('./events/delete');
 const GetEvent = require('./events/getEvent');
-
+const UpdateEvent = require('./events/update');
 /**
  * Product
  */
@@ -33,6 +33,7 @@ module.exports = {
   GetEvent,
   ListEvents,
   DeleteEvent,
+  UpdateEvent,
   CreateEvent,
   CreateProduct,
   CreateUserRole,

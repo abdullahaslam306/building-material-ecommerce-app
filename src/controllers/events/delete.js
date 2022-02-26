@@ -11,7 +11,7 @@ try {
   const connection = await database.openConnection();
   const eventRepo = new repositories.Event(connection);
   await eventRepo.delete(id);
-  res.redirect("/admin/event/list?message =Event deleted successfully");
+  res.redirect("/admin/event/list?success=Event deleted successfully");
 } catch (exception) {
   res.redirect("/admin/event/list?err=Unable to delete the event");
 }

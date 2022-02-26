@@ -20,7 +20,29 @@
                     <div class="page-content-wrapper ">
 
                         <div class="container-fluid">
-                         
+                            <% if (success) { %>
+                               
+                              
+                                <div class="alert alert-success" role="alert" id='error-msg'>
+                                    <script>setTimeout(function(){
+                                        document.getElementById('error-msg').style.display = 'none';
+                                     }, 3000);</script>
+                                    <%= success %> 
+                                  </div>
+                                
+                                <% } %>
+                                <% if (error) { %>
+                               
+                              
+                                    <div class="alert alert-success" role="alert" id='error-msg'>
+                                        <script>setTimeout(function(){
+                                            document.getElementById('error-msg').style.display = 'none';
+                                         }, 3000);</script>
+                                        <%= error %> 
+                                      </div>
+                                    
+                                    <% } %>
+
 
                            
                             <div class="row">

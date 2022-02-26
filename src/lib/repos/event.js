@@ -23,11 +23,27 @@ class Event {
 
   async listAll() {
     const events = await this.dbInstance.event.findAll();
-    console.log(events);
     if ((events === null || events.length === 0)) {
       throw new Error('Exception in listing events.');
     }
     return events;
+  }
+
+  async update(id ,title, desc, date, cover) {
+    const where = {
+      id
+    }
+    console.log(cover)
+    const eventToUpdate = {
+      title,
+      desc,
+      date,
+    }
+    if(cover != undefined || cover != null) {
+      eventToUpdate.cover = cover
+    }
+    const event = await this.dbInstance.event.update(eventToUpdate, { where });
+    return event;
   }
 
   async getById(id) {

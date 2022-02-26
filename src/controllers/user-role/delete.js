@@ -11,7 +11,7 @@ try {
   const connection = await database.openConnection();
   const userRoleRepo = new repositories.UserRole(connection);
   await userRoleRepo.delete(id);
-  res.redirect("/admin/role/list?message=User role deleted successfully");
+  res.redirect("/admin/role/list?success=User role deleted successfully");
 } catch (exception) {
   res.redirect("/admin/role/list?err=Unable to delete user role.");
 }
