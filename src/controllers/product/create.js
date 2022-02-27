@@ -23,9 +23,9 @@ const create = async (req, res) => {
     // TODO: Replace Category ID when Category work is done.
     await productRepo.createProduct(name, desc, link, image, 1, properties);
 
-    res.render('admin/add-event', { success: 'Product created successfully', error: null });
+    res.render('admin/add-product', { success: 'Product created successfully', error: null });
   } catch (exception) {
-    res.render('admin/add-event', { success: null, error: exception.message });
+    res.render('admin/add-product', { success: null, error: exception.message });
   }
 };
 

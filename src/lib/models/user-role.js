@@ -31,6 +31,6 @@ module.exports = (sequelize, sequelizeDataTypes) => {
   }, {
     timestamps: true,
   });
-  
+
   return userRoles;
 };

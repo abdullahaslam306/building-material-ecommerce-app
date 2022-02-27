@@ -35,7 +35,7 @@ module.exports = (sequelize, sequelizeDataTypes) => {
       references: {
         model: 'categories',
         key: 'id',
-        deferable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
       },
     },
   }, {

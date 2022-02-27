@@ -18,6 +18,14 @@ const ListUserRole = require('./user-role/list');
  const DeleteUserRole = require('./user-role/delete');
  const GetUserRole = require('./user-role/getUserRole');
 
+/**
+ * Category
+ */
+
+const CreateCategory = require('./category/create');
+const ListCategory = require('./category/list');
+const DeleteCategory = require('./category/delete');
+const UpdateCategory = require('./category/update');
 
  /**
  * User Role
@@ -46,4 +54,8 @@ module.exports = {
   CreateUser,
   UpdateUser,
   DeleteUser,
+  CreateCategory,
+  ListCategory,
+  DeleteCategory,
+  UpdateCategory,
 };

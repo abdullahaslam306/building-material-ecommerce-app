@@ -49,13 +49,7 @@ app.use(session({
   saveUninitialized: false,
   secret: env.SESSION_SECRET,
 }));
-database.openConnection()
-  .then((connection) => {
-    console.log('connection Successful');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+database.syncDatabase();
 
 app.use(express.urlencoded({ extended: true }));
 

@@ -17,6 +17,10 @@ const {
   UpdateUser,
   DeleteUser,
   UpdateEvent,
+  CreateCategory,
+  ListCategory,
+  DeleteCategory,
+  UpdateCategory,
 } = require('../controllers');
 
 const router = express.Router();
@@ -90,10 +94,22 @@ router.get('/user/delete/:id', DeleteUser.deleteUser);
 router.post('/user/update', UpdateUser.update);
 
 /**
+ * Category Routes
+ */
+
+router.get('/category/create', CreateCategory.loadCreatePage);
+router.post('/category/create', CreateCategory.create);
+router.get('/category/list', ListCategory.listAll);
+router.get('/category/delete/:id', DeleteCategory.deleteCategory);
+router.get('/category/edit/:id', UpdateCategory.loadUpdatePage);
+router.post('/category/edit/', UpdateCategory.update);
+
+
+/**
  * Product Routes
  */
 router.get('/create-product', (req, res) => {
-  res.render('admin/product.ejs', {success: null, error: null});
+  res.render('admin/add-product.ejs', {success: null, error: null});
 });
 
 router.post('/create-product', CreateProduct.upload.single('image'), CreateProduct.create);
