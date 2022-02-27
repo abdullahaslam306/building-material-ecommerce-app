@@ -3,11 +3,11 @@ const { database, repositories } = require('../../lib');
 const update = async (req, res) => {
   try {
 
-    const { name, email, user_role: roleId, password, id } = req.body;
+    const { name, email, user_role, password, id } = req.body;
     const connection = await database.openConnection();
     const UserRepo = new repositories.Users(connection);
 
-    await UserRepo.update(id ,name, email, password, roleId);
+    await UserRepo.update(id ,name, email, password, user_role);
     res.redirect("/admin/user/list?success=User updated successfully");
   } catch (exception) {
       console.log(exception);

@@ -2,15 +2,16 @@ const { database, repositories } = require('../../lib');
 
 const list = async (req, res) => {
   try {
+    console.log(req.session.username)
     const { success, error } =  getMessage(req);
     const connection = await database.openConnection();
     const userRepo = new repositories.Users(connection);
 
     const users = await userRepo.listAll();
-    res.render('admin/manage-user', { users, success, error });
+    res.render('admin/manage-user', { users, success , error });
   } catch (exception) {
     console.log(exception);
-    res.render('admin/manage-user', { users : [], success, error: exception.message });
+    res.render('admin/manage-user', { users : [], success:null, error: exception.message });
   }
 };
 
