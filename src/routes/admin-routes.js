@@ -24,39 +24,69 @@ const {
   ListProduct,
   DeleteProduct,
   UpdateProduct,
+  UserLogin,
 } = require('../controllers');
 
 const router = express.Router();
 
+
+
+
+const userAuthentication = (req, res, next) => {
+  console.log('email', req.session.email)
+  if(req.session.email)
+  next();
+  else
+  {
+    console.log(req.session)
+    res.redirect('/admin/');
+  }
+}
+
+const redirectAdminLogin = (req, res, next) => {
+  console.log('here')
+  console.log(req.session)
+    if(req.session.type != 'admin')
+    {
+      res.redirect('/admin/dashboard')
+    }
+    else{
+      next();
+    }
+  }
+
 // admin login route
 router.get('/', (req, res) => {
-  res.render('admin/admin-login');
+  res.render('admin/admin-login', {success: null, error: null});
 });
+
+router.post('/login', UserLogin.login);
+
 
 router.get('/recover-password', (req, res) => {
   res.render('admin/recover-password');
 });
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', userAuthentication,(req, res) => {
   res.render('admin/dashboard');
 });
 /**
  * Events Routes
  */
-router.get('/event/create', (req, res) => {
+router.get('/event/create', userAuthentication,(req, res) => {
   res.render('admin/add-event', {success: null, error: null});
 });
 
-router.post('/event/create', CreateEvent.upload.single('cover'), CreateEvent.create);
+router.post('/event/create', userAuthentication, CreateEvent.upload.single('cover'), CreateEvent.create);
 
 
-router.get('/event/list', ListEvents.list);
+router.get('/event/list', userAuthentication,ListEvents.list);
 
-router.get('/event/edit/:id', GetEvent.getEvent);
+router.get('/event/edit/:id', userAuthentication,GetEvent.getEvent);
 
-router.post('/event/update', UpdateEvent.upload.single('cover'),UpdateEvent.update)
+router.post('/event/update', userAuthentication,UpdateEvent.upload.single('cover'),UpdateEvent.update)
 
-router.get('/event/delete/:id', DeleteEvent.deleteEvent);
+router.get('/event/delete/:id', userAuthentication,DeleteEvent.deleteEvent);
 
 
 /**
@@ -67,34 +97,36 @@ router.get('/event/delete/:id', DeleteEvent.deleteEvent);
   res.render('admin/add-user-role', {success: null, error: null});
 });
 
-router.post('/role/create', CreateUserRole.create);
+router.post('/role/create', userAuthentication,CreateUserRole.create);
 
 
-router.get('/role/list', ListUserRole.list);
+router.get('/role/list', userAuthentication,ListUserRole.list);
 
-router.get('/role/edit/:id', GetUserRole.getUserRole);
+router.get('/role/edit/:id', userAuthentication,GetUserRole.getUserRole);
 
-router.get('/role/delete/:id', DeleteUserRole.deleteUserRole);
+router.get('/role/delete/:id', userAuthentication,DeleteUserRole.deleteUserRole);
 
-router.post('/role/update', UpdateUserRole.update);
+router.post('/role/update', userAuthentication,UpdateUserRole.update);
 
 
 /**
  * User Routes
  */
 
- router.get('/user/create', CreateUser.Load);
+ router.get('/user/create', redirectAdminLogin,(req, res) =>{
+   res.render('admin/add-user', {success: null, error: null})
+ });
 
-router.post('/user/create', CreateUser.create);
+router.post('/user/create',redirectAdminLogin ,CreateUser.create);
 
 
-router.get('/user/list', ListUser.list);
+router.get('/user/list', redirectAdminLogin,ListUser.list);
 
-router.get('/user/edit/:id', GetUser.getUserRole);
+router.get('/user/edit/:id', redirectAdminLogin,GetUser.getUserRole);
 
-router.get('/user/delete/:id', DeleteUser.deleteUser);
+router.get('/user/delete/:id', redirectAdminLogin,DeleteUser.deleteUser);
 
-router.post('/user/update', UpdateUser.update);
+router.post('/user/update', redirectAdminLogin,UpdateUser.update);
 
 /**
  * Category Routes

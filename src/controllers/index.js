@@ -30,8 +30,9 @@ const DeleteCategory = require('./category/delete');
 const UpdateCategory = require('./category/update');
 
  /**
- * User Role
+ * User
  */
+const UserLogin = require('./users/login')
 const ListUser = require('./users/list');
 const CreateUser = require('./users/create');
 const UpdateUser = require('./users/update');
@@ -63,4 +64,5 @@ module.exports = {
   ListProduct,
   DeleteProduct,
   UpdateProduct
+  UserLogin
 };

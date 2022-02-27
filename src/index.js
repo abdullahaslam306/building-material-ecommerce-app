@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const indexRoutes = require('./routes/index-route');
@@ -26,6 +27,7 @@ app.use(methodOverride('_method'));
 
 app.use((req, res, next) => {
   console.log('new request made:');
+  console.log('session', req.session)
   console.log('host: ', req.hostname);
   console.log('path: ', req.path);
   console.log('method: ', req.method);
@@ -37,7 +39,8 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
-
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(session({
   cookie: {
     maxAge: 30 * 86400 * 1000,
@@ -46,12 +49,11 @@ app.use(session({
   },
   name: env.SESSION_NAME,
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   secret: env.SESSION_SECRET,
 }));
 database.syncDatabase();
 
-app.use(express.urlencoded({ extended: true }));
 
 app.use('/user', indexRoutes);
 app.use('/admin', AdminRoutes);

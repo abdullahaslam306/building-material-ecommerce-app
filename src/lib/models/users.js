@@ -15,15 +15,11 @@ module.exports = (sequelize, sequelizeDataTypes) => {
     'email': {
       type: sequelizeDataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    'user_role_id': {
-      type: sequelizeDataTypes.INTEGER,
+    'user_role': {
+      type: sequelizeDataTypes.STRING,
       allowNull: false,
-      references: {
-        model: 'user_roles',
-        key: 'id',
-        deferable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
-      },
     },
     'password': {
       type: sequelizeDataTypes.STRING,
@@ -32,8 +28,6 @@ module.exports = (sequelize, sequelizeDataTypes) => {
   }, {
     timestamps: true,
   });
-  users.associate = (models) => {
-    users.belongsTo(models.user_roles, { foreignkey: 'user_role_id'})
-  }
+ 
   return users;
 };

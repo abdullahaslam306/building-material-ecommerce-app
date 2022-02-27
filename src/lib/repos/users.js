@@ -1,19 +1,19 @@
 /**
  * Class to access and manage user
  */
-
+ const bcrypt = require('bcrypt');
  class Users {
 
     constructor(dbConnection) {
       this.dbInstance = dbConnection;
     }
   
-    async create(name, email, password, user_role_id) {
+    async create(name, email, password, user_role) {
       const user = await this.dbInstance.users.create({
        name,
        email,
        password,
-       user_role_id,
+       user_role
       });
       if (!(user instanceof this.dbInstance.users)) {
         throw new Error('Unable to create user.');
@@ -21,42 +21,43 @@
       return user;
     }
   
-    async update(id ,name, email, password, user_role_id) {
+    async update(id ,name, email, password, user_role) {
       const where = {
         id
       }
-      const user = await this.dbInstance.users.update({
+      const attributeToUpdate = {
         name,
-       email,
-       password,
-       user_role_id,
-      }, { where });
+        email,
+        user_role,
+      }
+      if(password !== null && password.length > 0) {
+        const salt = await bcrypt.genSalt(10);
+        const hasedpassword = await bcrypt.hash(password, salt)
+        attributeToUpdate.password = hasedpassword;
+      }
+
+      const user = await this.dbInstance.users.update(attributeToUpdate, { where });
       return user;
     }
   
     async listAll() {
-        // Join with user role
-    const include = { 
-        model : this.dbInstance.user_roles,
-        required : true// making inner join
-    }
-      const users = await this.dbInstance.users.findAll({ include });
+      const users = await this.dbInstance.users.findAll();
       if ((users === null || users.length === 0)) {
-        throw new Error('User role not found.');
+        throw new Error('No user exist.');
       }
       return users;
     }
   
-    async getById(id) {
-      const where = { id };
-      const include = { 
-        model : this.dbInstance.user_roles,
-        required : true, // making inner join
-    }
-      const user = await this.dbInstance.users.findOne({where, include});
-      if (!(user instanceof this.dbInstance.users)) {
-        throw new Error('User not found.');
+    async getByCriteria(id = null, email = null) {
+      let where = {};
+      if(id !== null) {
+        where.id = id;
       }
+      if(email !== null) {
+        where.email = email;
+      } 
+      const user = await this.dbInstance.users.findOne({where});
+     
       return user;
     }
   

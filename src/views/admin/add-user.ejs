@@ -40,14 +40,14 @@
                                       </div>
                                     
                                     <% } %>
-                            <div class="row">
+                            <!-- <div class="row">
                             
                                 <div class="col-md-10"></div>
                                 <div class="col-md-2">
                                     <a href="/admin/role/list"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Manage User Role</button></a>
                                  </div>
                                 </div>
-                                <br>  
+                                <br>   -->
 
                            
                             <div class="row">
@@ -70,10 +70,9 @@
                                         <label for="example-search-input" class="col-sm-2 col-form-label">Select Role</label>
                                         <div class="col-sm-10">
                                            <select class="form-control" required  name="user_role">
-                                               <option Selected disabled>---Select---</option>
-                                            <% roles.forEach(function(role) { %> 
-                                                <option value="<%=role.id%>"><%=role.name%></option>
-                                             <% }) %>
+                                               <option  disabled>---Select---</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="user">User</option>
                                            </select>
                                         </div>
                                     </div>   
