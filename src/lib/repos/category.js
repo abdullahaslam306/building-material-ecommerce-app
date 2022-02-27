@@ -26,8 +26,11 @@ class Category {
     const include = {
       model: this.dbInstance.categories,
       required: true, // making inner join
+      as: 'category_child'
     };
-    const categories = await this.dbInstance.categories.findAll(include);
+
+    const categories = await this.dbInstance.categories.findAll({include});
+    console.log('here', categories[0].category_child);
     if ((categories === null || categories.length === 0)) {
       throw new Error('Exception in listing category.');
     }
