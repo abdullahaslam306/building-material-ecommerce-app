@@ -8,15 +8,17 @@ const getUserRole = async (req, res) => {
     }
     const connection = await database.openConnection();
     const userRepo = new repositories.Users(connection);
-    const userRoleRepo = new repositories.UserRole(connection);
 
-    const roles = await userRoleRepo.listAll();
+    const user = await userRepo.getByCriteria(id);
 
-    const user = await userRepo.getById(id);
-    res.render('admin/edit-user', { user, roles, success: null, error: null });
+    if (!(user instanceof connection.users)) {
+      throw new Error('User not found.');
+    }
+    
+    res.render('admin/edit-user', { user, success: null, error: null });
   } catch (exception) {
     console.log(exception)
-    res.render('admin/edit-user', { user : {},roles: [], success: null, error: exception.message });
+    res.render('admin/edit-user', { user : {}, success: null, error: exception.message });
   }
 };
 

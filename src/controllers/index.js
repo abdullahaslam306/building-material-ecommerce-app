@@ -20,8 +20,9 @@ const ListUserRole = require('./user-role/list');
 
 
  /**
- * User Role
+ * User 
  */
+const UserLogin = require('./users/login')
 const ListUser = require('./users/list');
 const CreateUser = require('./users/create');
 const UpdateUser = require('./users/update');
@@ -46,4 +47,5 @@ module.exports = {
   CreateUser,
   UpdateUser,
   DeleteUser,
+  UserLogin
 };
