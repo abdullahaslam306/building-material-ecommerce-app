@@ -43,8 +43,6 @@ const loadUpdatePage = async (req, res) => {
 
     await database.closeConnection(connection);
 
-    console.log(categories);
-
     res.render('admin/edit-category', {
       categoryToUpdate, categories, success: null, error: null,
     });

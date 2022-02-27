@@ -32,7 +32,7 @@ module.exports = (sequelize, sequelizeDataTypes) => {
   }, {
     timestamps: true,
   });
-  users.associate = (models) =>{
+  users.associate = (models) => {
     users.belongsTo(models.user_roles, { foreignkey: 'user_role_id'})
   }
   return users;

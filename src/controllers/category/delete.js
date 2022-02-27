@@ -11,9 +11,9 @@ const deleteCategory = async (req, res) => {
     const connection = await database.openConnection();
     const categoryRepo = new repositories.Category(connection);
     await categoryRepo.delete(id);
-    res.redirect('/admin/category/list?success=Event deleted successfully');
+    res.redirect('/admin/category/list?success=Category deleted successfully');
   } catch (exception) {
-    res.redirect('/admin/category/list?err=Unable to delete the event');
+    res.redirect('/admin/category/list?err=Unable to delete the Category');
   }
 
 };

@@ -1,4 +1,3 @@
-
 <%- include("./header.ejs") %>
 <ul class="list-inline menu-left mb-0">
     <li class="list-inline-item">
@@ -7,7 +6,7 @@
         </button>
     </li>
     <li class="hide-phone list-inline-item app-search">
-        <h3 class="page-title">Manage Events</h3>
+        <h3 class="page-title">Manage Products</h3>
     </li>
 </ul>
 
@@ -18,21 +17,25 @@
 </div>
 <div class="page-content-wrapper ">
 
-    <% if (success) { %>
-        <div class="alert alert-success" role="alert" id='error-msg'>
-            <script>setTimeout(function(){
-                document.getElementById('error-msg').style.display = 'none';
-              }, 5000);</script>
-            <%= success %>
-        </div>
-
-    <% } %>
     <div class="container-fluid">
-        <% if (error) { %>
-            <div class="alert alert-danger" role="alert" id='error-msg'>
+        <% if (success) { %>
+
+
+            <div class="alert alert-success" role="alert" id='error-msg'>
                 <script>setTimeout(function(){
                     document.getElementById('error-msg').style.display = 'none';
-                  }, 5000);</script>
+                  }, 3000);</script>
+                <%= success %>
+            </div>
+
+        <% } %>
+        <% if (error) { %>
+
+
+            <div class="alert alert-success" role="alert" id='error-msg'>
+                <script>setTimeout(function(){
+                    document.getElementById('error-msg').style.display = 'none';
+                  }, 3000);</script>
                 <%= error %>
             </div>
 
@@ -43,7 +46,7 @@
 
             <div class="col-md-10"></div>
             <div class="col-md-2">
-                <a href="/admin/category/create"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Create Category</button></a>
+                <a href="/admin/product/create"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Create Product</button></a>
             </div>
         </div>
         <br>
@@ -65,28 +68,25 @@
                     <tr>
 
                         <th data-priority="1">Name</th>
-                        <th data-priority="2">Parent</th>
+                        <th data-priority="2">Description</th>
+                        <th data-priority="3">Category</th>
+                        <th data-priority="4">Link</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <% categories.forEach(function(category) { %>
+                    <% products.forEach(function(product) { %>
                         <tr>
-
-                            <td><%= category.name %></td>
+                            <td><%= product.name %></td>
+                            <td><%= product.desc %></td>
+                            <td><%= product.categoryData.name %></td>
+                            <td><%= product.link%></td>
                             <td>
-                            <% if(category.parentData !== null) { %>
-                            <%= category.parentData.name %><% } %>
-                            </td>
-
-                            <td>
-                                <a class="btn btn-primary" href="/admin/category/edit/<%= category.id%>"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-primary" href="/admin/category/delete/<%= category.id%>"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-primary" href="/admin/product/edit/<%= product.id%>"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-primary" href="/admin/product/delete/<%= product.id%>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <% }) %>
-
-
 
                     </tbody>
                 </table>
@@ -94,12 +94,6 @@
             </div>
 
         </div>
-
-
-
-
-
-
 
     </div><!-- container-fluid -->
 

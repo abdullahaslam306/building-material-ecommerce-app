@@ -6,7 +6,7 @@ const mapPropertiesIntoJson = (propertiesKeys, propertiesValues) => {
   propertiesKeys = new Array([propertiesKeys]);
   propertiesValues = new Array([propertiesValues]);
   for (let i = 0; i < propertiesKeys.length; i++) {
-   properties[propertiesKeys[0][i]] = propertiesValues[0][i];
+    properties[propertiesKeys[0][i]] = propertiesValues[0][i];
   }
   return JSON.stringify(properties);
 };
@@ -20,12 +20,31 @@ const create = async (req, res) => {
     const connection = await database.openConnection();
     const properties = mapPropertiesIntoJson(propertiesKeys, propertiesValues);
     const productRepo = new repositories.Product(connection);
-    // TODO: Replace Category ID when Category work is done.
-    await productRepo.createProduct(name, desc, link, image, 1, properties);
+    await productRepo.createProduct(name, desc, link, image, category, properties);
+    const categoryRepo = new repositories.Category(connection);
+    const categories = await categoryRepo.listCategoriesForProductSelection();
+    await database.closeConnection(connection);
 
-    res.render('admin/add-product', { success: 'Product created successfully', error: null });
+
+    res.render('admin/add-product', { categories, success: 'Product created successfully', error: null });
   } catch (exception) {
-    res.render('admin/add-product', { success: null, error: exception.message });
+    res.render('admin/add-product', { categories: [], success: null, error: exception.message });
+  }
+};
+
+const loadCreatePage = async (req, res) => {
+  try {
+    const connection = await database.openConnection();
+
+    const categoryRepo = new repositories.Category(connection);
+
+    const categories = await categoryRepo.listCategoriesForProductSelection();
+
+    await database.closeConnection(connection);
+
+    res.render('admin/add-product', { categories, success: null, error: null });
+  } catch (exception) {
+    res.render('admin/add-product', { categories: [], success: null, error: exception.message });
   }
 };
 
@@ -40,4 +59,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-module.exports = { create, upload };
+module.exports = { create, upload, loadCreatePage };

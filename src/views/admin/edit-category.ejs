@@ -61,7 +61,7 @@
                                     <option value=""></option>
                                     <% categories.forEach(function(category) {
 
-                                        if(category.name !== categoryToUpdate.name) {
+                                        if(category.name !== categoryToUpdate.name && category.level > categoryToUpdate.level) {
                                     %>
                                         <option value="<%= category.id %>"><%= category.name %></option>
                                     <% } }) %>

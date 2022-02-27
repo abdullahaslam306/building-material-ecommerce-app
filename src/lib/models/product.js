@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = (sequelize, sequelizeDataTypes) => {
-  const product = sequelize.define('product', {
+  const products = sequelize.define('product', {
     'id': {
       type: sequelizeDataTypes.INTEGER,
       primaryKey: true,
@@ -42,5 +42,9 @@ module.exports = (sequelize, sequelizeDataTypes) => {
     timestamps: true,
   });
 
-  return product;
+  products.associate = (models) => {
+    products.belongsTo(models.categories, { as: 'categoryData', foreignKey: 'category' });
+  };
+
+  return products;
 };

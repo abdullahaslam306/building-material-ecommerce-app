@@ -10,7 +10,7 @@ const list = async (req, res) => {
     res.render('admin/manage-user', { users, success, error });
   } catch (exception) {
     console.log(exception);
-    res.render('admin/manage-user', { users: [], success, error: exception.message });
+    res.render('admin/manage-user', { users: [], success: null, error: exception.message });
   }
 };
 

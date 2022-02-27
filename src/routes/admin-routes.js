@@ -21,6 +21,9 @@ const {
   ListCategory,
   DeleteCategory,
   UpdateCategory,
+  ListProduct,
+  DeleteProduct,
+  UpdateProduct,
 } = require('../controllers');
 
 const router = express.Router();
@@ -108,10 +111,11 @@ router.post('/category/edit/', UpdateCategory.update);
 /**
  * Product Routes
  */
-router.get('/create-product', (req, res) => {
-  res.render('admin/add-product.ejs', {success: null, error: null});
-});
-
-router.post('/create-product', CreateProduct.upload.single('image'), CreateProduct.create);
+router.get('/product/create', CreateProduct.loadCreatePage);
+router.post('/product/create', CreateProduct.upload.single('image'), CreateProduct.create);
+router.get('/product/list', ListProduct.listAll);
+router.get('/product/delete/:id', DeleteProduct.deleteProduct);
+router.get('/product/edit/:id', UpdateProduct.loadUpdatePage);
+router.post('/product/edit',UpdateProduct.upload.single('image') ,UpdateProduct.update);
 
 module.exports = router;

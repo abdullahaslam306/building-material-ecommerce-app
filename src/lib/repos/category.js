@@ -25,8 +25,7 @@ class Category {
   async listAll() {
     const include = {
       model: this.dbInstance.categories,
-      required: true, // making inner join
-      as: 'category_child'
+      as: 'parentData',
     };
 
     const categories = await this.dbInstance.categories.findAll({include});

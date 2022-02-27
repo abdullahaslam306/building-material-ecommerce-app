@@ -18,19 +18,16 @@ const listAll = async (req, res) => {
 
     const connection = await database.openConnection();
 
-    const categoryRepo = new repositories.Category(connection);
+    const productRepo = new repositories.Product(connection);
 
-    const categories = await categoryRepo.listAll();
+    const products = await productRepo.listAll();
 
     await database.closeConnection(connection);
 
-    console.log(categories[1].toJSON());
-
-    res.render('admin/manage-category', { categories, success, error });
+    res.render('admin/manage-product', { products, success, error });
   } catch (exception) {
-    res.render('admin/manage-category', { categories: [], success: [], error: exception.message });
+    res.render('admin/manage-product', { products: [], success: [], error: exception.message });
   }
 };
-
 
 module.exports = { listAll };
