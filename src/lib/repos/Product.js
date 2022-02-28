@@ -31,7 +31,7 @@ class Product {
     };
     const products = await this.dbInstance.product.findAll({ include });
     if ((products === null || products.length === 0)) {
-      throw new Error('Exception in listing products.');
+      throw new Error('No Products Found.');
     }
     return products;
   }

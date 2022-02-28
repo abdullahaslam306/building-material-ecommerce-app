@@ -8,7 +8,7 @@
         </button>
     </li>
     <li class="hide-phone list-inline-item app-search">
-        <h3 class="page-title">Create Event</h3>
+        <h3 class="page-title">Edit Category</h3>
     </li>
 </ul>
 
@@ -61,10 +61,10 @@
                                     <option value=""></option>
                                     <% categories.forEach(function(category) {
 
-                                        if(category.name !== categoryToUpdate.name && category.level > categoryToUpdate.level) {
                                     %>
-                                        <option value="<%= category.id %>"><%= category.name %></option>
-                                    <% } }) %>
+                                        <option value="<%= category.id %>"  <% if(category.name === categoryToUpdate.parentData.name) { %> selected="selected" <% }%>>
+                                            <%= category.name  %></option>
+                                    <%  }) %>
                                 </select>
                             </div>
                         </div>

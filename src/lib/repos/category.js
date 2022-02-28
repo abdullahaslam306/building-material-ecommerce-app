@@ -29,9 +29,9 @@ class Category {
     };
 
     const categories = await this.dbInstance.categories.findAll({include});
-    console.log('here', categories[0].category_child);
+
     if ((categories === null || categories.length === 0)) {
-      throw new Error('Exception in listing category.');
+      throw new Error('No Categories Found.');
     }
     return categories;
   }
@@ -64,8 +64,12 @@ class Category {
   }
 
   async getById(id) {
+    const include = {
+      model: this.dbInstance.categories,
+      as: 'parentData',
+    };
     const where = { id };
-    const category = await this.dbInstance.categories.findOne({ where });
+    const category = await this.dbInstance.categories.findOne({ include, where });
     console.log(category);
     if ((category === null || category.length === 0)) {
       throw new Error('Exception in getting category.');

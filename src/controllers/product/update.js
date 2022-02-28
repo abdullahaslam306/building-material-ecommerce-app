@@ -65,7 +65,7 @@ const loadUpdatePage = async (req, res) => {
 
     const categoryRepo = new repositories.Category(connection);
 
-    const categories = await categoryRepo.listParentCategories();
+    const categories = await categoryRepo.listCategoriesForProductSelection();
 
     await database.closeConnection(connection);
 

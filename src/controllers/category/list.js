@@ -24,11 +24,9 @@ const listAll = async (req, res) => {
 
     await database.closeConnection(connection);
 
-    console.log(categories[1].toJSON());
-
     res.render('admin/manage-category', { categories, success, error });
   } catch (exception) {
-    res.render('admin/manage-category', { categories: [], success: [], error: exception.message });
+    res.render('admin/manage-category', { categories: [], success: null, error: exception.message });
   }
 };
 

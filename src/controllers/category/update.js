@@ -7,7 +7,7 @@ const update = async (req, res) => {
       name, parent, id, level,
     } = req.body;
 
-    let parentId = null;
+    let parentId = Number.parseInt(parent);
 
     const connection = await database.openConnection();
 

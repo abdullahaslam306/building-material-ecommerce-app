@@ -9,24 +9,24 @@ const login = async (req, res) => {
 
     const user = await userRepo.getByCriteria(null, email);
 
-    if(!user) {
-        throw new Error('No user exists for given email')
+    if (!user) {
+      throw new Error('No user exists for given email');
     }
 
-    const isLoggedIn =  bcrypt.compareSync(password, user.password) 
+    const isLoggedIn = bcrypt.compareSync(password, user.password);
 
-    if(!isLoggedIn) {
-        throw new Error('Incorrect email/password.')
+    if (!isLoggedIn) {
+      throw new Error('Incorrect email/password.');
     }
 
     req.session.email = user.email;
     req.session.username = user.name;
     req.session.type = user.user_role;
-    console.log(req.session)
+    console.log(req.session);
     res.redirect('/admin/dashboard');
   } catch (exception) {
     console.log(exception);
-    res.json({success: null, error: exception.message });
+    res.render('admin/admin-login', { success: null, error: exception.message });
   }
 };
 

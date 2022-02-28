@@ -26,7 +26,7 @@ const listAll = async (req, res) => {
 
     res.render('admin/manage-product', { products, success, error });
   } catch (exception) {
-    res.render('admin/manage-product', { products: [], success: [], error: exception.message });
+    res.render('admin/manage-product', { products: [], success: null, error: exception.message });
   }
 };
 

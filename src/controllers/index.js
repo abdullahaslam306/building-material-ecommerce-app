@@ -63,6 +63,6 @@ module.exports = {
   UpdateCategory,
   ListProduct,
   DeleteProduct,
-  UpdateProduct
-  UserLogin
+  UpdateProduct,
+  UserLogin,
 };

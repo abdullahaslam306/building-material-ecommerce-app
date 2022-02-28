@@ -3,9 +3,16 @@ const { database, repositories } = require('../../lib');
 
 const mapPropertiesIntoJson = (propertiesKeys, propertiesValues) => {
   const properties = {};
-  propertiesKeys = new Array([propertiesKeys]);
-  propertiesValues = new Array([propertiesValues]);
-  for (let i = 0; i < propertiesKeys.length; i++) {
+  if(!Array.isArray(propertiesValues)) {
+    propertiesKeys = new Array([propertiesKeys]);
+    propertiesValues = new Array([propertiesValues]);
+  }
+  else
+  {
+    propertiesKeys = new Array(propertiesKeys);
+    propertiesValues = new Array(propertiesValues);
+  }
+  for (let i = 0; i < propertiesKeys[0].length; i++) {
     properties[propertiesKeys[0][i]] = propertiesValues[0][i];
   }
   return JSON.stringify(properties);
