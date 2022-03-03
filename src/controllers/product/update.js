@@ -1,5 +1,5 @@
-const multer = require('multer');
 const { database, repositories } = require('../../lib');
+const multer = require('multer');
 
 const mapPropertiesIntoJson = (propertiesKeys, propertiesValues) => {
   const properties = {};
@@ -18,30 +18,50 @@ const mapPropertiesIntoJson = (propertiesKeys, propertiesValues) => {
   return JSON.stringify(properties);
 };
 
-const create = async (req, res) => {
+const update = async (req, res) => {
   try {
     const {
-      name, desc, link, category, propertiesKeys, propertiesValues,
+      id, image, name, desc, link, category, propertiesKeys, propertiesValues,
     } = req.body;
-    const image = `/uploads/${req.file.filename}`;
+    let fileName = image;
+    if (req.file) {
+      fileName = `/uploads/${req.file.filename}`;
+    }
     const connection = await database.openConnection();
     const properties = mapPropertiesIntoJson(propertiesKeys, propertiesValues);
     const productRepo = new repositories.Product(connection);
-    await productRepo.createProduct(name, desc, link, image, category, properties);
-    const categoryRepo = new repositories.Category(connection);
-    const categories = await categoryRepo.listCategoriesForProductSelection();
+    await productRepo.update(id, name, desc, link, fileName, category, properties);
+
     await database.closeConnection(connection);
 
-
-    res.render('admin/add-product', { categories, success: 'Product created successfully', error: null });
+    res.redirect('/admin/product/list?success=Product updated successfully');
   } catch (exception) {
-    res.render('admin/add-product', { categories: [], success: null, error: exception.message });
+    res.redirect(`/admin/product/list?err=Unable to update the Product, ${exception}`);
   }
 };
 
-const loadCreatePage = async (req, res) => {
+function mapJsonToArray(props) {
+  const properties = JSON.parse(props);
+  const keys = Object.keys(properties);
+  const values = Object.values(properties);
+  const prop = new Array();
+  for (let i = 0; i < keys.length; i++) {
+    prop.push({ 'key': keys[i], 'value': values[i] });
+  }
+  return prop;
+}
+
+const loadUpdatePage = async (req, res) => {
   try {
+    const { id } = req.params;
+
     const connection = await database.openConnection();
+
+    const productRepo = new repositories.Product(connection);
+
+    const product = await productRepo.getById(id);
+
+    const properties = mapJsonToArray(product.properties);
 
     const categoryRepo = new repositories.Category(connection);
 
@@ -49,9 +69,11 @@ const loadCreatePage = async (req, res) => {
 
     await database.closeConnection(connection);
 
-    res.render('admin/add-product', { categories, success: null, error: null });
+    res.render('admin/edit-product', {
+      properties, product, categories, success: null, error: null,
+    });
   } catch (exception) {
-    res.render('admin/add-product', { categories: [], success: null, error: exception.message });
+    res.redirect(`/admin/product/list?err=Unable to update product. Error :${exception}`);
   }
 };
 
@@ -66,4 +88,5 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-module.exports = { create, upload, loadCreatePage };
+
+module.exports = { update, loadUpdatePage, upload };

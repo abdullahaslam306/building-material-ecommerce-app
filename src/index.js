@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const indexRoutes = require('./routes/index-route');
 const AdminRoutes = require('./routes/admin-routes');
 
-const PORT = process.env.PORT || 60000;
+const PORT = process.env.PORT || 3000;
 const env = require('./configs/env');
 const { database } = require('./lib');
 // express app
@@ -39,15 +39,8 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
-database.openConnection()
-  .then((connection) => {
-    console.log('connection Successful');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  app.use(express.urlencoded({ extended: true }));
-  app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(session({
   cookie: {
     maxAge: 30 * 86400 * 1000,
@@ -59,6 +52,7 @@ app.use(session({
   saveUninitialized: true,
   secret: env.SESSION_SECRET,
 }));
+database.syncDatabase();
 
 
 app.use('/user', indexRoutes);

@@ -17,12 +17,17 @@ const {
   UpdateUser,
   DeleteUser,
   UpdateEvent,
+  CreateCategory,
+  ListCategory,
+  DeleteCategory,
+  UpdateCategory,
+  ListProduct,
+  DeleteProduct,
+  UpdateProduct,
   UserLogin,
 } = require('../controllers');
 
 const router = express.Router();
-
-
 
 
 const userAuthentication = (req, res, next) => {
@@ -38,7 +43,6 @@ const userAuthentication = (req, res, next) => {
 }
 
 const redirectAdminLogin = (req, res, next) => {
-
     // if(req.session.type != 'admin')
     // {
     //   res.redirect('/admin/dashboard')
@@ -122,12 +126,25 @@ router.get('/user/delete/:id', redirectAdminLogin,DeleteUser.deleteUser);
 router.post('/user/update', redirectAdminLogin,UpdateUser.update);
 
 /**
+ * Category Routes
+ */
+
+router.get('/category/create', CreateCategory.loadCreatePage);
+router.post('/category/create', CreateCategory.create);
+router.get('/category/list', ListCategory.listAll);
+router.get('/category/delete/:id', DeleteCategory.deleteCategory);
+router.get('/category/edit/:id', UpdateCategory.loadUpdatePage);
+router.post('/category/edit/', UpdateCategory.update);
+
+
+/**
  * Product Routes
  */
-router.get('/create-product', userAuthentication,(req, res) => {
-  res.render('admin/product.ejs', {success: null, error: null});
-});
-
-router.post('/create-product', userAuthentication,CreateProduct.upload.single('image'), CreateProduct.create);
+router.get('/product/create', CreateProduct.loadCreatePage);
+router.post('/product/create', CreateProduct.upload.single('image'), CreateProduct.create);
+router.get('/product/list', ListProduct.listAll);
+router.get('/product/delete/:id', DeleteProduct.deleteProduct);
+router.get('/product/edit/:id', UpdateProduct.loadUpdatePage);
+router.post('/product/edit',UpdateProduct.upload.single('image') ,UpdateProduct.update);
 
 module.exports = router;

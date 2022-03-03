@@ -50,15 +50,20 @@ async function openConnection() {
       connection[modelName].associate(connection);
     }
   });
-  // await sequelize.sync({ alter: true });
   connection.sequelize = sequelize;
   connection.Sequelize = Sequelize;
 
   return connection;
 }
 
+async function syncDatabase() {
+  const connection = await openConnection();
+  connection.sequelize.sync({ alter: true }).then(console.log('Sync Successful'))
+    .catch((err) => console.log(err));
+}
+
 function closeConnection(connection) {
   return connection.sequelize.close();
 }
 
-module.exports = { openConnection, closeConnection };
+module.exports = { openConnection, closeConnection, syncDatabase };

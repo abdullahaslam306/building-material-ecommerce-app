@@ -24,7 +24,7 @@ class Event {
   async listAll() {
     const events = await this.dbInstance.event.findAll();
     if ((events === null || events.length === 0)) {
-      throw new Error('Exception in listing events.');
+      throw new Error('Unable to list events.');
     }
     return events;
   }

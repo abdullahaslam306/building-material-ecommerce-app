@@ -7,7 +7,9 @@ const UpdateEvent = require('./events/update');
  * Product
  */
 const CreateProduct = require('./product/create');
-
+const ListProduct = require('./product/list');
+const DeleteProduct = require('./product/delete');
+const UpdateProduct = require('./product/update');
 
 /**
  * User Role
@@ -18,9 +20,17 @@ const ListUserRole = require('./user-role/list');
  const DeleteUserRole = require('./user-role/delete');
  const GetUserRole = require('./user-role/getUserRole');
 
+/**
+ * Category
+ */
+
+const CreateCategory = require('./category/create');
+const ListCategory = require('./category/list');
+const DeleteCategory = require('./category/delete');
+const UpdateCategory = require('./category/update');
 
  /**
- * User 
+ * User
  */
 const UserLogin = require('./users/login')
 const ListUser = require('./users/list');
@@ -47,5 +57,12 @@ module.exports = {
   CreateUser,
   UpdateUser,
   DeleteUser,
-  UserLogin
+  CreateCategory,
+  ListCategory,
+  DeleteCategory,
+  UpdateCategory,
+  ListProduct,
+  DeleteProduct,
+  UpdateProduct,
+  UserLogin,
 };

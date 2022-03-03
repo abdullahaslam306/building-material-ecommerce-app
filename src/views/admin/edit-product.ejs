@@ -1,0 +1,197 @@
+<%- include("./header.ejs") %>
+<ul class="list-inline menu-left mb-0">
+    <li class="list-inline-item">
+        <button type="button" class="button-menu-mobile open-left waves-effect">
+            <i class="ion-navicon"></i>
+        </button>
+    </li>
+    <li class="hide-phone list-inline-item app-search">
+        <h3 class="page-title">Product Management</h3>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+</nav>
+
+</div>
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+        <% if (success) { %>
+
+
+            <div class="alert alert-success" role="alert" id='error-msg'>
+                <script>setTimeout(function(){
+                    document.getElementById('error-msg').style.display = 'none';
+                  }, 3000);</script>
+                <%= success %>
+            </div>
+
+        <% } %>
+        <% if (error) { %>
+
+
+            <div class="alert alert-success" role="alert" id='error-msg'>
+                <script>setTimeout(function(){
+                    document.getElementById('error-msg').style.display = 'none';
+                  }, 3000);</script>
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+
+        <div class="row">
+            <div class="col-md-7">
+                <form action="/admin/product/edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name = "id" value="<%= product.id %>">
+                    <input type="hidden" name = "image" value="<%= product.image %>">
+
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input name="name" required class="form-control" value="<%= product.name %>" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <input name="desc" required class="form-control" value="<%= product.desc %>"  type="textarea">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Category</label>
+                        <div class="col-sm-10">
+                            <select name="category" class="form-control" selected="2"  id="">
+                                <option value=""></option>
+                                <% categories.forEach(function(category) { %>
+                                    <option value="<%= category.id %>"   <% if(category.name === product.categoryData.name) { %> selected="selected" <% }%> >
+                                        <%= category.name %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Image</label>
+                        <div class="col-sm-10">
+                            <input name="image" accept="image/*"  class="form-control" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">URL</label>
+                        <div class="col-sm-10">
+                            <input name="link" required class="form-control" value="<%= product.link %>"  type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Properties</label>
+                        <div class="col-sm-4">
+                            <input id="key"  class="form-control" type="text">
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="value" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="button-items col-sm-4">
+                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="addProperty()">Add Property</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card m-b-20">
+                                <div class="card-body">
+                                    <table id="mainTable" class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Property</th>
+                                            <th>Data</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                                <%
+                                                properties.forEach(function (property) { %>
+                                                  <tr>
+                                                      <td><input name = "propertiesKeys" required type = "text" value = " <%= property.key%>"> </td>
+                                                      <td><input name = "propertiesValues" required type = "text" value = "<%= property.value%>"> </td>
+                                                  </tr>
+                                               <% })%>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+                    <div class="button-items">
+                        <button type="submit" class="btn btn-info waves-effect waves-light btn-lg">Update</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<!-- jQuery  -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/tether.min.js"></script><!-- Tether for Bootstrap -->
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/detect.js"></script>
+<script src="/js/fastclick.js"></script>
+<script src="/js/jquery.slimscroll.js"></script>
+<script src="/js/jquery.blockUI.js"></script>
+<script src="/js/waves.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+
+<script src="/plugins/tiny-editable/mindmup-editabletable.js"></script>
+<script src="/plugins/tiny-editable/numeric-input-example.js"></script>
+
+<!-- App js -->
+<script src="/js/app.js"></script>
+
+<script>function addProperty() {
+    if (document.getElementById("key").value == "" || document.getElementById("value").value == "" )
+    {
+      alert("Kindly Fill the Empty Values!");
+    }
+    else {
+    let table = document.getElementById('mainTable');
+    const tbodyRowCount = table.tBodies[0].rows.length;
+    let row = table.insertRow(tbodyRowCount + 1);
+    let key = row.insertCell(0);
+
+      key.innerHTML += '<input name = "propertiesKeys" required type = "text" value = " ' + document.getElementById("key").value + '">';
+      let value = row.insertCell(1)
+      value.innerHTML += '<input name = "propertiesValues" required type = "text" value = " ' + document.getElementById("value").value + '">';
+      document.getElementById("key").value = "";
+      document.getElementById("value").value = "";
+      document.getElementById("key")
+        .focus();
+    }
+  }
+
+  $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+</script>
+
+<script>
+
+</script>
+
+<%- include("./footer.ejs") %>

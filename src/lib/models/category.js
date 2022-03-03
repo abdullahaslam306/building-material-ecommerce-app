@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = (sequelize, sequelizeDataTypes) => {
-  const category = sequelize.define('categories', {
+  const categories = sequelize.define('categories', {
     'id': {
       type: sequelizeDataTypes.INTEGER,
       primaryKey: true,
@@ -23,12 +23,15 @@ module.exports = (sequelize, sequelizeDataTypes) => {
       references: {
         model: 'categories',
         key: 'id',
-        deferable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
       },
     },
   }, {
     timestamps: true,
   });
 
-  return category;
+  categories.associate = (models) => {
+    categories.belongsTo(models.categories, { as: 'parentData', foreignKey: 'parent' });
+  };
+  return categories;
 };

@@ -7,7 +7,7 @@
         </button>
     </li>
     <li class="hide-phone list-inline-item app-search">
-        <h3 class="page-title">Create Event</h3>
+        <h3 class="page-title">Edit Event</h3>
     </li>
 </ul>
 
@@ -19,35 +19,35 @@
                     <div class="page-content-wrapper ">
 
                         <div class="container-fluid">
-                         
+
                             <% if (success) { %>
-                               
-                              
+
+
                                 <div class="alert alert-success" role="alert" id='error-msg'>
                                     <script>setTimeout(function(){
                                         document.getElementById('error-msg').style.display = 'none';
                                      }, 3000);</script>
-                                    <%= success %> 
+                                    <%= success %>
                                   </div>
-                                
+
                                 <% } %>
                                 <% if (error) { %>
-                               
-                              
+
+
                                     <div class="alert alert-success" role="alert" id='error-msg'>
                                         <script>setTimeout(function(){
                                             document.getElementById('error-msg').style.display = 'none';
                                          }, 3000);</script>
-                                        <%= error %> 
+                                        <%= error %>
                                       </div>
-                                    
+
                                     <% } %>
 
-                           
+
                             <div class="row">
                                 <div class="col-md-7">
                                     <form action="/admin/event/update" method="post" enctype="multipart/form-data">
-                                    
+
                                     <input type="hidden" name = "id" value = "<%= event.id %>" required/>
                                     <div class="form-group row">
                                         <label for="example-search-input" class="col-sm-2 col-form-label">Date</label>
@@ -79,12 +79,12 @@
                                             <input name="cover" accept="image/*" class="form-control" type="file" value="<%= event.cover %>">
                                         </div>
                                     </div>
-                                           
-                                   
+
+
                                     <div class="button-items">
                                         <button type="submit" class="btn btn-success waves-effect waves-light btn-lg">Save Changes</button>
                                     </div>
-                                </div>     
+                                </div>
                             </div>
                             </form>
                             </div>
@@ -92,7 +92,7 @@
 
                             </div>
 
-                  
+
                         </div>
 
 

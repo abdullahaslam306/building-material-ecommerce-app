@@ -1,0 +1,110 @@
+
+<%- include("./header.ejs") %>
+<ul class="list-inline menu-left mb-0">
+    <li class="list-inline-item">
+        <button type="button" class="button-menu-mobile open-left waves-effect">
+            <i class="ion-navicon"></i>
+        </button>
+    </li>
+    <li class="hide-phone list-inline-item app-search">
+        <h3 class="page-title">Manage Categories</h3>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+
+</nav>
+
+</div>
+<div class="page-content-wrapper ">
+
+    <% if (success) { %>
+        <div class="alert alert-success" role="alert" id='error-msg'>
+            <script>setTimeout(function(){
+                document.getElementById('error-msg').style.display = 'none';
+              }, 5000);</script>
+            <%= success %>
+        </div>
+
+    <% } %>
+    <div class="container-fluid">
+        <% if (error) { %>
+            <div class="alert alert-danger" role="alert" id='error-msg'>
+                <script>setTimeout(function(){
+                    document.getElementById('error-msg').style.display = 'none';
+                  }, 5000);</script>
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+        <div class="row">
+
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <a href="/admin/category/create"> <button type="button" class="btn btn-dark btn-block"><i class="fa fa-plus"></i>Create Category</button></a>
+            </div>
+        </div>
+        <br>
+        <!-- <div class="row" >
+            <div class="col-md-4">
+
+              </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="text" id="myInput" class="form-control" placeholder="Search ...">
+            </div>
+        </div> -->
+
+
+        <div class="table-rep-plugin">
+            <div class="table-responsive b-0" data-pattern="priority-columns">
+                <table id="tech-companies-1" class="table  table-striped" style="margin-left:auto; margin-right:auto">
+                    <thead>
+                    <tr>
+
+                        <th data-priority="1">Name</th>
+                        <th data-priority="2">Parent</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% categories.forEach(function(category) { %>
+                        <tr>
+
+                            <td><%= category.name %></td>
+                            <td>
+                            <% if(category.parentData !== null) { %>
+                            <%= category.parentData.name %><% } %>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-primary" href="/admin/category/edit/<%= category.id%>"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-primary" href="/admin/category/delete/<%= category.id%>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    <% }) %>
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+    </div><!-- container-fluid -->
+
+
+</div>
+
+
+<%- include("./footer.ejs") %>
