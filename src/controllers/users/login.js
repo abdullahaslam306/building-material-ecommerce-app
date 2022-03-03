@@ -26,6 +26,7 @@ const login = async (req, res) => {
     res.redirect('/admin/dashboard');
   } catch (exception) {
     console.log(exception);
+
     res.render('admin/admin-login', { success: null, error: exception.message });
   }
 };

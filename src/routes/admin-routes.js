@@ -43,8 +43,14 @@ const userAuthentication = (req, res, next) => {
 }
 
 const redirectAdminLogin = (req, res, next) => {
-  next();
-}
+    // if(req.session.type != 'admin')
+    // {
+    //   res.redirect('/admin/dashboard')
+    // }
+    // else{
+    // }
+    next();
+  }
 
 // admin login route
 router.get('/', (req, res) => {
