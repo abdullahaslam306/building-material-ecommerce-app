@@ -26,26 +26,26 @@ const router = express.Router();
 
 
 const userAuthentication = (req, res, next) => {
-  console.log('email', req.session.email)
-  if(req.session.email)
+  // console.log('email', req.session.email)
+  // if(req.session.email)
+  // next();
+  // else
+  // {
+  //   console.log(req.session)
+  //   res.redirect('/admin/');
+  // }
   next();
-  else
-  {
-    console.log(req.session)
-    res.redirect('/admin/');
-  }
 }
 
 const redirectAdminLogin = (req, res, next) => {
-  console.log('here')
-  console.log(req.session)
-    if(req.session.type != 'admin')
-    {
-      res.redirect('/admin/dashboard')
-    }
-    else{
-      next();
-    }
+
+    // if(req.session.type != 'admin')
+    // {
+    //   res.redirect('/admin/dashboard')
+    // }
+    // else{
+    // }
+    next();
   }
 
 // admin login route

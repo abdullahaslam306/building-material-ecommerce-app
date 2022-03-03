@@ -4,6 +4,6 @@ const router = express.Router();
 
 // admin login route
 router.get('/', (req, res) => {
-  console.log('not admin');
+  res.render('customer/index')
 });
 module.exports = router;
