@@ -9,7 +9,14 @@ const {
   GetUserRole,
   ListUserRole,
   UpdateUserRole,
-  DeleteUserRole, 
+  DeleteUserRole,
+  GetUser,
+  ListUser,
+  CreateUser,
+  UpdateUser,
+  DeleteUser,
+
+
 } = require('../controllers');
 
 const router = express.Router();
@@ -61,6 +68,24 @@ router.get('/role/edit/:id', GetUserRole.getUserRole);
 router.get('/role/delete/:id', DeleteUserRole.deleteUserRole);
 
 router.post('/role/update', UpdateUserRole.update);
+
+
+/**
+ * User Routes
+ */
+
+ router.get('/user/create', CreateUser.Load);
+
+router.post('/user/create', CreateUser.create);
+
+
+router.get('/user/list', ListUser.list);
+
+router.get('/user/edit/:id', GetUser.getUserRole);
+
+router.get('/user/delete/:id', DeleteUser.deleteUser);
+
+router.post('/user/update', UpdateUser.update);
 
 /**
  * Product Routes

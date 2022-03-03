@@ -19,6 +19,16 @@ const ListUserRole = require('./user-role/list');
  const GetUserRole = require('./user-role/getUserRole');
 
 
+ /**
+ * User Role
+ */
+const ListUser = require('./users/list');
+const CreateUser = require('./users/create');
+const UpdateUser = require('./users/update');
+const DeleteUser = require('./users/delete');
+const GetUser = require('./users/getUser');
+
+
 module.exports = {
   GetEvent,
   ListEvents,
@@ -30,4 +40,9 @@ module.exports = {
   ListUserRole,
   UpdateUserRole,
   DeleteUserRole,
+  GetUser,
+  ListUser,
+  CreateUser,
+  UpdateUser,
+  DeleteUser,
 };
