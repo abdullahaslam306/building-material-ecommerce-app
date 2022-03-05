@@ -1,4 +1,6 @@
 <%- include("./header.ejs") %>
+<script src="https://cdn.ckeditor.com/4.17.2/basic/ckeditor.js"></script>
+
 <ul class="list-inline menu-left mb-0">
     <li class="list-inline-item">
         <button type="button" class="button-menu-mobile open-left waves-effect">
@@ -57,7 +59,11 @@
                     <div class="form-group row">
                         <label for="example-search-input" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <input name="desc" required class="form-control" type="textarea">
+                            <textarea name="desc" required class="form-control" type="textarea">
+                            </textarea>
+                            <script>
+                                CKEDITOR.replace( 'desc' );
+                            </script>
                         </div>
                     </div>
 
