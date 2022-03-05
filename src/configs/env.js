@@ -8,6 +8,6 @@ module.exports = {
   DB_PORT: 5432,
   DB_HOSTNAME: 'localhost',
   DB_USERNAME: 'postgres',
-  DB_PASSWORD: 'hassan123',
+  DB_PASSWORD: '12345678',
   DB_NAME: 'BuildingMaterial',
 };

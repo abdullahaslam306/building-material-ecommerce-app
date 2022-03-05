@@ -33,5 +33,9 @@ module.exports = (sequelize, sequelizeDataTypes) => {
   categories.associate = (models) => {
     categories.belongsTo(models.categories, { as: 'parentData', foreignKey: 'parent' });
   };
+
+  categories.associate = (models) => {
+    categories.hasMany(models.categories, { as: 'children', foreignKey: 'parent' });
+  };
   return categories;
 };

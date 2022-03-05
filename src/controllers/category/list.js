@@ -30,5 +30,22 @@ const listAll = async (req, res) => {
   }
 };
 
+const listNav = async (req, res) => {
+  try {
+    const { success, error } = getMessage(req);
 
-module.exports = { listAll };
+    const connection = await database.openConnection();
+
+    const categoryRepo = new repositories.Category(connection);
+
+    const categories = await categoryRepo.getCategoriesList();
+
+    await database.closeConnection(connection);
+
+    res.render('customer/index', { categories, success, error });
+  } catch (exception) {
+    res.render('customer/index', { categories: [], success: null, error: exception.message });
+  }
+};
+
+module.exports = { listAll, listNav };

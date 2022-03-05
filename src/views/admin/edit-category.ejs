@@ -62,9 +62,9 @@
                                     <% categories.forEach(function(category) {
 
                                     %>
-                                        <option value="<%= category.id %>"  <% if(category.name === categoryToUpdate.parentData.name) { %> selected="selected" <% }%>>
+                                        <option value="<%= category.id %>"  <% if(category.parentData) { if(category.name === categoryToUpdate.parentData.name) { %> selected="selected" <% }%>>
                                             <%= category.name  %></option>
-                                    <%  }) %>
+                                    <%  } }) %>
                                 </select>
                             </div>
                         </div>

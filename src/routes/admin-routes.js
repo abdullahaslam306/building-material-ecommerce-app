@@ -132,6 +132,8 @@ router.post('/user/update', redirectAdminLogin,UpdateUser.update);
 router.get('/category/create', CreateCategory.loadCreatePage);
 router.post('/category/create', CreateCategory.create);
 router.get('/category/list', ListCategory.listAll);
+router.get('/category/test', ListCategory.listNav);
+
 router.get('/category/delete/:id', DeleteCategory.deleteCategory);
 router.get('/category/edit/:id', UpdateCategory.loadUpdatePage);
 router.post('/category/edit/', UpdateCategory.update);

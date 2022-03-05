@@ -39,7 +39,7 @@ class Category {
   async listParentCategories() {
     const where = {
       level: {
-        [Op.ne]: 2,
+        [Op.ne]: 1,
       },
     };
     const categories = await this.dbInstance.categories.findAll({ where });
@@ -61,6 +61,19 @@ class Category {
       throw new Error('Exception in listing category.');
     }
     return events;
+  }
+
+  async getCategoriesList() {
+    const include = {
+      model: this.dbInstance.categories,
+      as: 'children',
+    };
+    const category = await this.dbInstance.categories.findAll({ include });
+    console.log(category);
+    if ((category === null || category.length === 0)) {
+      throw new Error('Exception in getting category.');
+    }
+    return category;
   }
 
   async getById(id) {
