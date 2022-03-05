@@ -378,7 +378,7 @@
                         </svg></a></li>
                 <% categories.forEach(function(subcategory){ %>
                     <li class="level--1 haschildren children--3">
-                        <a href="" target=_self><%= subcategory.name%></a> <ul>
+                        <a href="/user/category/product/<%=subcategory.id%>" target=_self><%= subcategory.name%></a> <ul>
                             <% if(subcategory.level == 0) {
                             subcategory.children.forEach(function(category){ %>
                             <li class="level--2 0">
