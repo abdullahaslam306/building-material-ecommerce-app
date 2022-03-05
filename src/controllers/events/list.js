@@ -17,6 +17,21 @@ const list = async (req, res) => {
   }
 };
 
+const listNews = async (req, res) => {
+
+  try {
+    const connection = await database.openConnection();
+    const eventRepo = new repositories.Event(connection);
+
+    const events = await eventRepo.listAll();
+    res.render('customer/news-event', { categories : navValues() })
+  } catch (exception) {
+    console.log(exception)
+    res.render('customer/news-event', { categories : navValues() })
+  }
+
+}
+
 const getMessage = (request) =>{
   if(request.query) {
     if(request.query.success) {
@@ -30,4 +45,4 @@ const getMessage = (request) =>{
 
 }
 
-module.exports = { list };
+module.exports = { list, listNews };

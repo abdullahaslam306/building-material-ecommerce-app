@@ -15,7 +15,7 @@ class Category {
       level,
       parent,
     });
-
+    console.log(category);
     if (!(category instanceof this.dbInstance.categories)) {
       throw new Error('Unable to create category.');
     }
