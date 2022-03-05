@@ -167,51 +167,28 @@
         <div class="menu menu--main">
           <ul>
             <li class="level--1 children--3" data-home=true><a href="/user" target=_self>
-                <svg id=svg-home viewBox="0 0 24 24"
-                  style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
+                <svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
-                  </path>
-                  <path d="M0 0h24v24H0z" fill=none></path>
+                  </path><path d="M0 0h24v24H0z" fill=none></path>
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
-              <li class="level--1 haschildren children--3">
-                <a href="" target=_self>
-                  <%= subcategory.name%>
-                </a>
-                <ul>
-                  <% if(subcategory.level==0) { subcategory.children.forEach(function(category){ %>
-                    <li class="level--2 haschildren children--3">
-                      <a href="/category/products/<%=category.id%>" target=_self>
-                        <%=category.name%>
-                      </a>
-                      <div class=custom__block></div>
-                    </li>
-                    <%})%>
-                </ul>
-              </li>
-              <%}})%>
-          </ul>
-        </div>
-        <div class="menu menu--secondary">
-          <ul>
-            <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home
-                  viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
-                  <path d="M0 0h24v24H0z" fill=none></path>
-                </svg></a></li>
-            <li class="level--1 0"><a href="#" target=_self>Customer Service</a>
-              <div class=custom__block></div>
+            <li class="level--1 haschildren children--3">
+              <a href="/user/category/product/<%=subcategory.id%>" target=_self><%= subcategory.name%></a> <ul>
+                <% if(subcategory.level == 0) {
+                subcategory.children.forEach(function(category){ %>
+                <li class="level--2 0">
+                  <a href="/user/category/product/<%=category.id%>" target=_self><%=category.name%></a>
+                  <div class=custom__block></div>
+                </li>
+                <%})%>
+              </ul>
             </li>
-            <li class="level--1 0"><a href="#" target=_self>Delivery</a>
-              <div class=custom__block></div>
-            </li>
-            <li class="level--1 0"><a href="#" target=_self>FAQ</a>
-              <div class=custom__block></div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+            <%}})%>
+          </ul></div>
+
+        <!-- Nav BAr ends here -->
+
+        <div class="menu menu--secondary"> <ul> <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); "><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path><path d="M0 0h24v24H0z" fill=none></path></svg></a></li><li class="level--1 0"><a href="support.html" target=_self>Customer Service</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>Delivery</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>FAQ</a><div class=custom__block></div></li></ul></div></div></div>
     <div data-aw-csblock-block-name=csblock_home_menu_top></div>
     <div data-aw-csblock-block-name=csblock_home_menu_bottom></div>
     <div class=top-container>

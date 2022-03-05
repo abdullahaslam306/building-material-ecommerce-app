@@ -28,7 +28,7 @@ class Category {
       as: 'parentData',
     };
 
-    const categories = await this.dbInstance.categories.findAll({include});
+    const categories = await this.dbInstance.categories.findAll({ include });
 
     if ((categories === null || categories.length === 0)) {
       throw new Error('No Categories Found.');
@@ -63,6 +63,29 @@ class Category {
     return events;
   }
 
+  async getProductsByCategory(id) {
+    const category = await this.getByIdWithChildren(id);
+    if (category.level === 1) {
+      const where = { category: category.id };
+      const products = await this.dbInstance.product.findAll({ where });
+      return products;
+    }
+
+    const allProducts = [];
+    for await (const subCategory of category.children) {
+      const where = { category: subCategory.id };
+      const products = await this.dbInstance.product.findAll({ where });
+      for (const product of products) {
+        allProducts.push(product);
+      }
+    }
+    return allProducts;
+  }
+
+  async getProducts(categorId) {
+
+  }
+
   async getCategoriesList() {
     const include = {
       model: this.dbInstance.categories,
@@ -80,6 +103,20 @@ class Category {
     const include = {
       model: this.dbInstance.categories,
       as: 'parentData',
+    };
+    const where = { id };
+    const category = await this.dbInstance.categories.findOne({ include, where });
+    console.log(category);
+    if ((category === null || category.length === 0)) {
+      throw new Error('Exception in getting category.');
+    }
+    return category;
+  }
+
+  async getByIdWithChildren(id) {
+    const include = {
+      model: this.dbInstance.categories,
+      as: 'children',
     };
     const where = { id };
     const category = await this.dbInstance.categories.findOne({ include, where });

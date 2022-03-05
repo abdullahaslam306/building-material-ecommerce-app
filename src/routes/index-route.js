@@ -1,279 +1,40 @@
 const express = require('express');
+const { ListCategory, ListProduct } = require('../controllers');
 
 const router = express.Router();
 
 const {
   GetEvent,
   ListEvents,
-  } = require('../controllers');
+} = require('../controllers');
 
-const navValues = () => {
-  return   [
-      {
-        name: 'Category 1',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 2',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 3',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 4',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 5',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 6',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-      {
-        name: 'Category 7',
-        children: [
-          {
-            name: 'Sub 1',
-          },
-          {
-            name: 'Sub 2',
-          },
-          {
-            name: 'Sub 3',
-          },
-          {
-            name: 'Sub 4',
-          },
-        ],
-      },
-    ]
-}
+const loadNav = async (req, res, next) => {
+  res.locals.categories = await ListCategory.listCategoriesNavbar();
+  next();
+};
 
-router.get('/faqs',(req, res) => {
-  res.render('customer/faqs',{ categories: navValues()})
-})
 
-router.get('/contact-us',(req, res) => {
-  res.render('customer/contactus',{ categories: navValues()})
-})
-// user routes
-router.get('/privacy/policy',(req, res) => {
-  res.render('customer/privacy-policy',{ categories: navValues()})
-})
-
-router.get('/about-us',(req, res) => {
-  res.render('customer/aboutus',{ categories: navValues()})
-})
-
-router.get('/event/details/:id', GetEvent.getPublicEvent)
-
-router.get('/event-news', ListEvents.listNews);
-router.get('/', (req, res) => {
-  res.render('customer/index',
-    {
-      categories: [
-        {
-          name: 'Category 1',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 2',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 3',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 4',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 5',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 6',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-        {
-          name: 'Category 7',
-          children: [
-            {
-              name: 'Sub 1',
-            },
-            {
-              name: 'Sub 2',
-            },
-            {
-              name: 'Sub 3',
-            },
-            {
-              name: 'Sub 4',
-            },
-          ],
-        },
-      ],
-    });
+router.get('/faqs', loadNav, (req, res) => {
+  res.render('customer/faqs', { categories: res.locals.categories });
 });
+
+router.get('/contact-us', loadNav,(req, res) => {
+  res.render('customer/contactus', { categories: res.locals.categories });
+});
+// user routes
+router.get('/privacy/policy',loadNav, (req, res) => {
+  res.render('customer/privacy-policy', { categories: res.locals.categories });
+});
+
+router.get('/about-us', loadNav, (req, res) => {
+  res.render('customer/aboutus', { categories: res.locals.categories });
+});
+
+router.get('/event/details/:id',loadNav, GetEvent.getPublicEvent);
+
+router.get('/event-news', loadNav , ListEvents.listNews);
+
+router.get('/category/product/:id', loadNav, ListCategory.listProductByCategory);
+router.get('/product/:id', loadNav, ListProduct.getProduct);
+
 module.exports = router;
