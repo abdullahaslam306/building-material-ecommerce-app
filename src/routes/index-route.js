@@ -1,5 +1,5 @@
 const express = require('express');
-const { ListCategory, ListProduct } = require('../controllers');
+const { ListCategory, ListProduct,  } = require('../controllers');
 
 const router = express.Router();
 
@@ -12,6 +12,8 @@ const loadNav = async (req, res, next) => {
   res.locals.categories = await ListCategory.listCategoriesNavbar();
   next();
 };
+
+router.get('/', ListCategory.listNav);
 
 
 router.get('/faqs', loadNav, (req, res) => {

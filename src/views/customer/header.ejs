@@ -11,6 +11,7 @@
   <meta name=viewport content="width=device-width, initial-scale=1" />
   <meta name=format-detection content="telephone=no" />
   <title>Milgo Traders</title>
+  <link rel="stylesheet" href="/app.css" />
   <link rel=stylesheet type="text/css" media=all
     href="/static/version1643217956/_cache/merged/4d0c65b6b724a36a7c93bfbfc562082d.min.css">
 
@@ -42,7 +43,6 @@
   <link rel="canonical" href="https://www.buildingmaterials.co.uk/nuts-and-bolts/news-and-events" />
   <meta charset="utf-8" />
   <!-- CSS -->
-  <link rel="stylesheet" href="https://www.buildingmaterials.co.uk/nuts-and-bolts/assets/css/app.css" />
 
 
   <!-- Symplify -->
@@ -94,15 +94,34 @@
     </iframe></noscript>
   <div class=page-wrapper>
     <header class=page-header>
+      <div class="panel wrapper">
+        <div class="panel header">
+          <ul class="trustcall">
+            <li class="header-top__trust-pilot">
+              <div class="trustpilot-widget"> Trustpilot</div>
+            </li>
+            <li class="header-top__call"> <a href="tel:01628674910"> <img
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22
+                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" />
+                <span>Call our trade experts&nbsp;|&nbsp;</span>
+                <span class=InfinityNumber>
+                  01628674910
+                </span>
+              </a>
+            </li>
+          </ul>
 
+
+          <a class="action skip contentarea" href="#contentarea"> <span> Skip to Content </span></a>
+        </div>
+      </div>
       <div class="header content">
         <span data-action=toggle-nav class="action nav-toggle">
           <span>Toggle Nav</span>
-        </span> <a class=logo href="#" title="Milgo&#x20;Traders" aria-label="store logo">
+        </span> <a class=logo href="index.html" title="Milgo&#x20;Traders" aria-label="store logo">
           <picture>
 
-            <img src="/images/logo.jpeg" title="Milgo&#x20;Traders" height="200px" alt="Milgo Logo"
-              data-src="/images/logo.jpeg" />
+            <img src="milgoLogo.jpeg" title="Milgo&#x20;Traders" alt="Milgo Logo" data-src="milgoLogo.jpeg" />
           </picture>
         </a>
         <div class=dropdownix>
@@ -143,7 +162,7 @@
                   <div id=search_autocomplete class=search-autocomplete>
                   </div>
                   <div class=nested>
-                    <a class="action advanced" href="#" data-action=advanced-search>
+                    <a class="action advanced" href="catalogsearch/advanced/index.html" data-action=advanced-search>
                       Advanced Search </a>
                   </div>
                 </div>
@@ -167,28 +186,54 @@
         <div class="menu menu--main">
           <ul>
             <li class="level--1 children--3" data-home=true><a href="/user" target=_self>
-                <svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
+                <svg id=svg-home viewBox="0 0 24 24"
+                  style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
-                  </path><path d="M0 0h24v24H0z" fill=none></path>
+                  </path>
+                  <path d="M0 0h24v24H0z" fill=none></path>
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
-            <li class="level--1 haschildren children--3">
-              <a href="/user/category/product/<%=subcategory.id%>" target=_self><%= subcategory.name%></a> <ul>
-                <% if(subcategory.level == 0) {
-                subcategory.children.forEach(function(category){ %>
-                <li class="level--2 0">
-                  <a href="/user/category/product/<%=category.id%>" target=_self><%=category.name%></a>
-                  <div class=custom__block></div>
-                </li>
-                <%})%>
-              </ul>
-            </li>
-            <%}})%>
-          </ul></div>
+              <li class="level--1 haschildren children--3">
+                <a href="" target=_self>
+                  <%= subcategory.name%>
+                </a>
+                <ul>
+                  <% if(subcategory.level==0) { subcategory.children.forEach(function(category){ %>
+                    <li class="level--2 0">
+                      <a href="/category/products/<%=category.id%>" target=_self>
+                        <%=category.name%>
+                      </a>
+                      <div class=custom__block></div>
+                    </li>
+                    <%})%>
+                </ul>
+              </li>
+              <%}})%>
+          </ul>
+        </div>
 
         <!-- Nav BAr ends here -->
 
-        <div class="menu menu--secondary"> <ul> <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); "><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path><path d="M0 0h24v24H0z" fill=none></path></svg></a></li><li class="level--1 0"><a href="support.html" target=_self>Customer Service</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>Delivery</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>FAQ</a><div class=custom__block></div></li></ul></div></div></div>
+        <div class="menu menu--secondary">
+          <ul>
+            <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home
+                  viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+                  <path d="M0 0h24v24H0z" fill=none></path>
+                </svg></a></li>
+            <li class="level--1 0"><a href="support.html" target=_self>Customer Service</a>
+              <div class=custom__block></div>
+            </li>
+            <li class="level--1 0"><a href="index.html" target=_self>Delivery</a>
+              <div class=custom__block></div>
+            </li>
+            <li class="level--1 0"><a href="index.html" target=_self>FAQ</a>
+              <div class=custom__block></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div data-aw-csblock-block-name=csblock_home_menu_top></div>
     <div data-aw-csblock-block-name=csblock_home_menu_bottom></div>
     <div class=top-container>
@@ -197,7 +242,7 @@
     <div class="widget block block-static-block">
       <div class=top-banner>
         <div class=top-banner__item>
-          <div class=top-banner__item__img><a href="#">
+          <div class=top-banner__item__img><a href="nuts-and-bolts/customer-services/what-makes-us-different.html">
               <picture>
                 <source type="image/webp"
                   srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -233,7 +278,7 @@
           </div>
         </div>
         <div class=top-banner__item>
-          <div class=top-banner__item__img><a href="#">
+          <div class=top-banner__item__img><a href="nuts-and-bolts/customer-services/what-makes-us-different.html">
               <picture>
                 <source type="image/webp"
                   srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -249,7 +294,7 @@
           </div>
         </div>
         <div class=top-banner__item>
-          <div class=top-banner__item__img><a href="#">
+          <div class=top-banner__item__img><a href="nuts-and-bolts/customer-services/what-makes-us-different.html">
               <picture>
                 <source type="image/webp"
                   srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
