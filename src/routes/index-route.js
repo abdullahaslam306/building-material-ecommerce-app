@@ -2,6 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
+const {
+  GetEvent,
+  ListEvents,
+  } = require('../controllers');
 
 const navValues = () => {
   return   [
@@ -127,11 +131,25 @@ const navValues = () => {
     ]
 }
 
-// user routes
-
-router.get('/event-news',(req, res) => {
-  res.render('customer/news-event', { categories : navValues() })
+router.get('/faqs',(req, res) => {
+  res.render('customer/faqs',{ categories: navValues()})
 })
+
+router.get('/contact-us',(req, res) => {
+  res.render('customer/contactus',{ categories: navValues()})
+})
+// user routes
+router.get('/privacy/policy',(req, res) => {
+  res.render('customer/privacy-policy',{ categories: navValues()})
+})
+
+router.get('/about-us',(req, res) => {
+  res.render('customer/aboutus',{ categories: navValues()})
+})
+
+router.get('/event/details/:id', GetEvent.getPublicEvent)
+
+router.get('/event-news', ListEvents.listNews);
 router.get('/', (req, res) => {
   res.render('customer/index',
     {

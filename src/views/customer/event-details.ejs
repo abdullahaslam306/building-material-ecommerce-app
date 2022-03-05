@@ -1,0 +1,75 @@
+<%- include("./header.ejs") %>
+    <section class="hero hero-red">
+        <div class="hero-text-cont">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+
+                        <div class="hero-heading">
+                            <h1>
+                                <%= event.title %>
+                            </h1>
+                        </div>
+                    </div><!-- /Col -->
+                </div><!-- /Row -->
+                <div class="row hero-info-row">
+                    <!-- Info -->
+                    <div class="col-12 col-desk-8">
+                        <div class="hero-postinfo-social">
+                            <div class="postinfo  postinfo-white ">
+                                <span class="postinfo-author">MilGo Traders</span>
+                                <span class="postinfo-date">
+                                    <%= event.createdAt %>
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div><!-- /Col -->
+                    <!-- Categories -->
+                </div><!-- /Row -->
+            </div><!-- /Container -->
+        </div><!-- /Text Cont -->
+        <div class="hero-image-cont">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-desk-8">
+                        <!-- Image -->
+                        <picture class="hero-image ">
+                            <source media="(max-width: 565px)" srcset="<%= event.cover %>">
+                            <source media="(max-width: 992px)" srcset="<%= event.cover %>">
+                            <img src="<%= event.cover %>" alt="">
+                        </picture>
+                        <!-- Main Content -->
+                        <div class="richtext">
+                            <h3>
+                                <font color="#ce0000">
+                                    <%= event.title %>
+                                </font>
+                            </h3>
+                            <p>
+                                <%= event.desc %>
+                            </p>
+
+                            <p><br></p>
+                        </div>
+
+
+                    </div><!-- /Col -->
+
+                    <div class="col-12 col-desk-4">
+
+                    </div><!-- /Col -->
+                </div><!-- /Row -->
+            </div><!-- /Container -->
+        </div><!-- /Image Cont -->
+    </section>
+
+
+
+
+    <script src="https://www.buildingmaterials.co.uk/nuts-and-bolts/assets/js/frontend.js" defer></script>
+
+    <%- include("./footer.ejs") %>

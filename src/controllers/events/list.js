@@ -24,10 +24,9 @@ const listNews = async (req, res) => {
     const eventRepo = new repositories.Event(connection);
 
     const events = await eventRepo.listAll();
-    res.render('customer/news-event', { categories : navValues() })
+    res.render('customer/news-event', { categories : navValues(), events })
   } catch (exception) {
-    console.log(exception)
-    res.render('customer/news-event', { categories : navValues() })
+    res.render('customer/news-event', { categories : navValues(), events : [] })
   }
 
 }
@@ -44,5 +43,130 @@ const getMessage = (request) =>{
     return { success: null, error:null}
 
 }
+
+const navValues = () => {
+  return   [
+      {
+        name: 'Category 1',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 2',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 3',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 4',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 5',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 6',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+      {
+        name: 'Category 7',
+        children: [
+          {
+            name: 'Sub 1',
+          },
+          {
+            name: 'Sub 2',
+          },
+          {
+            name: 'Sub 3',
+          },
+          {
+            name: 'Sub 4',
+          },
+        ],
+      },
+    ]
+}
+
 
 module.exports = { list, listNews };
