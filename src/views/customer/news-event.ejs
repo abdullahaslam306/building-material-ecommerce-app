@@ -1,124 +1,124 @@
 <%- include("./header.ejs") %>
-    <main>
-
-        <section class="hero hero-grey hero-large-background hero-archive">
-            <div class="hero-text-cont">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-
-                            <!-- /Breadcrumbs -->
-
-                            <div class="hero-heading">
-                                <h1>News &amp; Events</h1>
-                            </div>
-                        </div>
-                        <!-- /Col -->
-                    </div>
-                    <!-- /Row -->
-                </div>
-                <!-- /Container -->
-            </div>
-            <!-- /Text Cont -->
-            <div class="hero-image-cont">
-                <div class="container">
-                    <div class="row">
-                        <!-- =====================
-                        Main Post
-                        ===================== -->
-                        <div class="col-12 col-desk-12">
-                            <!-- Main Post -->
-                            <a href="https://www.buildingmaterials.co.uk/nuts-and-bolts/news-and-events/covid-19-trading-update"
-                                class="video video-with-content video-bg-red">
-                                <!-- Picture -->
-                                <picture>
-                                    <source class="video-poster" media="(max-width: 565px)" srcset="
-                        https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415_550x300.jpeg
-                      " />
-                                    <source class="video-poster" media="(max-width: 992px)" srcset="
-                        https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415_992x300.jpeg
-                      " />
-                                    <img class="video-poster"
-                                        src="https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415.jpeg"
-                                        alt="" />
-                                </picture>
-                                <!-- Content -->
-                                <div class="video-content">
-                                    <h5>News &amp; Events</h5>
-                                    <span class="text-heading-2">Recent News and Events</span>
-                                    <div class="postinfo postinfo-white">
-                                        <span class="postinfo-author">MilGo Traders</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
 
 
-                        <!-- /Col -->
-                    </div>
-                    <!-- /Row -->
-                </div>
-                <!-- /Container -->
-            </div>
-            <!-- /Image Cont -->
-        </section>
-
-        <!-- =====================
-        Page Archive Components
-        ===================== -->
-        <!-- =====================
-    Blocks
-    ===================== -->
-        <!-- =====================
-    Cards (Normal Size)
-    ===================== -->
-        <section class="section section-padding section-cards-normal">
+    <section class="hero hero-grey hero-large-background hero-archive">
+        <div class="hero-text-cont">
             <div class="container">
-                <!-- Title -->
                 <div class="row">
                     <div class="col-12">
-                        <h2>More</h2>
+
+                        <!-- /Breadcrumbs -->
+
+                        <div class="hero-heading">
+                            <h1>News &amp; Events</h1>
+                        </div>
                     </div>
                     <!-- /Col -->
                 </div>
                 <!-- /Row -->
-                <!-- Cards -->
+            </div>
+            <!-- /Container -->
+        </div>
+        <!-- /Text Cont -->
+        <div class="hero-image-cont">
+            <div class="container">
                 <div class="row">
-                    <% events.forEach(function(event) { %>
-                        <div class="col-12 col-desk-6 card-col">
-                            <!-- Card -->
-                            <a href="/user/event/details/<%= event.id %>"
-                                class="card card-side-image card-bg-red card-fixed-height">
-                                <figure class="card-image">
-                                    <img class="lazy" data-src="<%= event.cover %>" alt="Houses" />
-                                </figure>
-                                <div class="card-content">
-                                    <div class="card-content-text">
-                                        <h5 class="card-category">News &amp; Events</h5>
-                                        <h3 class="card-title">
-                                            <%= event.title %>
-                                        </h3>
-
-                                    </div>
-                                    <div class="postinfo postinfo-white">
-                                        <span class="postinfo-author">MilGo Traders</span>
-                                        <span class="postinfo-date">
-                                            <%= event.createdAt %>
-                                        </span>
-                                    </div>
+                    <!-- =====================
+                        Main Post
+                        ===================== -->
+                    <div class="col-12 col-desk-12">
+                        <!-- Main Post -->
+                        <a href="https://www.buildingmaterials.co.uk/nuts-and-bolts/news-and-events/covid-19-trading-update"
+                            class="video video-with-content video-bg-red">
+                            <!-- Picture -->
+                            <picture>
+                                <source class="video-poster" media="(max-width: 565px)" srcset="
+                        https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415_550x300.jpeg
+                      " />
+                                <source class="video-poster" media="(max-width: 992px)" srcset="
+                        https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415_992x300.jpeg
+                      " />
+                                <img class="video-poster"
+                                    src="https://www.buildingmaterials.co.uk/nuts-and-bolts/storage/media/2020/5/photo-1588146256435-63ec0608c415.jpeg"
+                                    alt="" />
+                            </picture>
+                            <!-- Content -->
+                            <div class="video-content">
+                                <h5>News &amp; Events</h5>
+                                <span class="text-heading-2">Recent News and Events</span>
+                                <div class="postinfo postinfo-white">
+                                    <span class="postinfo-author">MilGo Traders</span>
                                 </div>
-                            </a><!-- /Card -->
-                        </div>
-                        <% })%>
-                            <!-- /Col -->
+                            </div>
+                        </a>
+                    </div>
 
-                            <!-- /Col -->
+
+                    <!-- /Col -->
                 </div>
                 <!-- /Row -->
             </div>
             <!-- /Container -->
-        </section>
-    </main>
+        </div>
+        <!-- /Image Cont -->
+    </section>
+
+    <!-- =====================
+        Page Archive Components
+        ===================== -->
+    <!-- =====================
+    Blocks
+    ===================== -->
+    <!-- =====================
+    Cards (Normal Size)
+    ===================== -->
+    <section class="section section-padding section-cards-normal">
+        <div class="container">
+            <!-- Title -->
+            <div class="row">
+                <div class="col-12">
+                    <h2>More</h2>
+                </div>
+                <!-- /Col -->
+            </div>
+            <!-- /Row -->
+            <!-- Cards -->
+            <div class="row">
+                <% events.forEach(function(event) { %>
+                    <div class="col-12 col-desk-6 card-col">
+                        <!-- Card -->
+                        <a href="/user/event/details/<%= event.id %>"
+                            class="card card-side-image card-bg-red card-fixed-height">
+                            <figure class="card-image">
+                                <img class="lazy" data-src="<%= event.cover %>" alt="Houses" />
+                            </figure>
+                            <div class="card-content">
+                                <div class="card-content-text">
+                                    <h5 class="card-category">News &amp; Events</h5>
+                                    <h3 class="card-title">
+                                        <%= event.title %>
+                                    </h3>
+
+                                </div>
+                                <div class="postinfo postinfo-white">
+                                    <span class="postinfo-author">MilGo Traders</span>
+                                    <span class="postinfo-date">
+                                        <%= event.createdAt %>
+                                    </span>
+                                </div>
+                            </div>
+                        </a><!-- /Card -->
+                    </div>
+                    <% })%>
+                        <!-- /Col -->
+
+                        <!-- /Col -->
+            </div>
+            <!-- /Row -->
+        </div>
+        <!-- /Container -->
+    </section>
+
     <div class=page-bottom>
         <div class=content>
             <div data-aw-csblock-block-name=csblock_home_page_bottom>
