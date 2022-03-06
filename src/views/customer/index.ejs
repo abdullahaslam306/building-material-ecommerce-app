@@ -16,6 +16,9 @@
 
   <link rel=stylesheet type="text/css" media="screen and (min-width: 768px)"
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/styles-l.min.css">
+
+  <script type="text/javascript" async src="http://cdn-sitegainer.com/sitegainer_5619301.js"></script>
+
   <link rel=stylesheet type="text/css" media=print
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/print.min.css">
   <link rel=stylesheet type="text/css" media="screen and (min-width: 1px)"
@@ -34,11 +37,10 @@
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/bold/opensans-700.woff2">
   <link rel=preload as=font crossorigin=anonymous
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/Luma-Icons.woff2">
-  <link rel=canonical href="index.html">
-  <link rel=icon type="image/x-icon" href="/media/favicon/stores/1/BM_Favicon.png">
-  <link rel="shortcut icon" type="image/x-icon" href="/media/favicon/stores/1/BM_Favicon.png">
-  <style xml="space">
-    < div.banner-hero-desktop {
+  <link rel=icon type="image/x-icon" href="/media/favicon/stores/1/milgo2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/media/favicon/stores/1/milgo2.png">
+  <style>
+    div.banner-hero-desktop {
       display: block
     }
 
@@ -88,7 +90,7 @@
         <div class="panel header">
           <ul class="trustcall">
             <li class="header-top__trust-pilot">
-              <div class="trustpilot-widget"> Trustpilot</div>
+
             </li>
             <li class="header-top__call"> <a href="tel:01628674910"> <img
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22
@@ -108,7 +110,7 @@
       <div class="header content">
         <span data-action=toggle-nav class="action nav-toggle">
           <span>Toggle Nav</span>
-        </span> <a class=logo href="index.html" title="Milgo&#x20;Traders" aria-label="store logo">
+        </span> <a class=logo href="/" title="Milgo&#x20;Traders" aria-label="store logo">
           <picture>
 
             <img src="/images/logo.jpeg" title="Milgo&#x20;Traders" alt="Milgo Logo" data-src="/images/logo.jpeg" />
@@ -128,17 +130,7 @@
 
 
         </div>
-        <div data-block=search-icon class=search-icon-wrapper> <a class="action showsearch" href="#">
-            <span class=icon>
-              <picture>
-                <source type="image/webp"
-                  srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                  data-srcset="https://www.buildingmaterials.co.uk/media/fishpig/webp/static/frontend/Rixxo/bm/en_GB/images/Search.webp" />
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/Search.png" />
-              </picture>
-            </span> <span class=text>Search</span>
-          </a></div>
+
         <div class="block block-search">
           <div class="block block-title"><strong>Search</strong></div>
           <div class="block block-content">
@@ -184,7 +176,7 @@
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
               <li class="level--1 haschildren children--3">
-                <a href="" target=_self>
+                <a target=_self>
                   <%= subcategory.name%>
                 </a>
                 <ul>
@@ -193,7 +185,7 @@
                       <a href="/category/products/<%=category.id%>" target=_self>
                         <%=category.name%>
                       </a>
-                      <div class=custom__block></div>
+
                     </li>
                     <%})%>
                 </ul>
@@ -344,77 +336,21 @@
               <div class=lmrx-carousel__items>
                 <div class=lmrx-carousel__items__item>
                   <div class="lmrx-carousel__items__item__image lmrx-carousel__items__item__image--bg"> <a
-                      class=banner-link href="trade-account.html">
+                      class=banner-link href="#">
                       <picture>
                         <source srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          media="(max-width: 767px)" data-srcset="media/wysiwyg/Banners/Mobile_1_-_.png" /><img
+                          media="(max-width: 767px)" data-srcset="/media/wysiwyg/Banners/Mobile_1_-_.png" /><img
                           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          alt="Trade Account Manager" data-src="/media/wysiwyg/Banners/desktop_1_-v2.png" />
-                      </picture>
-                    </a></div>
-                </div>
-                <div class=lmrx-carousel__items__item>
-                  <div class="lmrx-carousel__items__item__image lmrx-carousel__items__item__image--bg"> <a
-                      class=banner-link href="tools.html">
-                      <picture>
-                        <source srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          media="(max-width: 767px)" data-srcset="media/wysiwyg/Banners/Mobile_2_-.png" /><img
-                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          alt=Toolbank data-src="/media/wysiwyg/Banners/desktop_2_-v2.png" />
+                          data-src="/media/wysiwyg/Banners/desktop_1_-v2.png" />
                       </picture>
                     </a></div>
                 </div>
 
-
-
-                <div class=lmrx-carousel__items__item>
-                  <div class="lmrx-carousel__items__item__image lmrx-carousel__items__item__image--bg"> <a
-                      class=banner-link href="building-materials/lintels.html">
-                      <picture>
-                        <source srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          media="(max-width: 767px)" data-srcset="media/wysiwyg/Banners/Mobile_3_-_.png" /><img
-                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          alt="Lintels IG and Birtley" data-src="/media/wysiwyg/Banners/desktop_3_-v2.png" />
-                      </picture>
-                    </a></div>
-                </div>
-                <div class=lmrx-carousel__items__item>
-                  <div class="lmrx-carousel__items__item__image lmrx-carousel__items__item__image--bg"> <a
-                      class=banner-link href="commercial/cladding/hi-clad.html">
-                      <picture>
-                        <source srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          media="(max-width: 767px)" data-srcset="media/wysiwyg/Banners/Mobile_4_-.png" /><img
-                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          alt=Hi-clad data-src="/media/wysiwyg/Banners/desktop_4_-v2.png" />
-                      </picture>
-                    </a></div>
-                </div>
-                <div class=lmrx-carousel__items__item>
-                  <div class="lmrx-carousel__items__item__image lmrx-carousel__items__item__image--bg"> <a
-                      class=banner-link href="commercial/protective-coverings.html">
-                      <picture>
-                        <source srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          media="(max-width: 767px)" data-srcset="/media/wysiwyg/Banners/Mobile_5_-.png" /><img
-                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                          alt="Protective Coverings" data-src="/media/wysiwyg/Banners/desktop_5_-v2.png" />
-                      </picture>
-                    </a></div>
-                </div>
               </div>
 
 
 
-              <div class=lmrx-carousel__controls>
-                <div class="lmrx-carousel__controls__control lmrx-carousel__controls__control--prev"></div>
-                <div class="lmrx-carousel__controls__control lmrx-carousel__controls__control--next"></div>
-                <div class="lmrx-carousel__controls__control lmrx-carousel__controls__control--grid">
-                  <div class=lmrx-carousel__controls__control__grid-item>&nbsp;</div>
-                  <div class=lmrx-carousel__controls__control__grid-item>&nbsp;</div>
-                  <div class=lmrx-carousel__controls__control__grid-item>&nbsp;</div>
-                  <div class=lmrx-carousel__controls__control__grid-item>&nbsp;</div>
-                  <div class=lmrx-carousel__controls__control__grid-item>&nbsp;</div>
-                </div>
-              </div>
+
             </div>
             <div class=lmrx-featured-grid>
               <h2 class=lmrx-featured-grid__title>Shop The Materials You Need</h2>
@@ -426,45 +362,156 @@
 
 
                 <div class=lmrx-featured-grid__list__item>
-                  <a href="commercial.html">
+                  <a>
                     <div class=lmrx-featured-grid__list__item__image>
                       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                        width=390 data-src="/pub/media/catalog/category/C7.jpg" />
+                        width=390 data-src="/pub/media/catalog/category/accessories.jpeg" />
                     </div>
 
                     <div class=lmrx-featured-grid__list__item__text>
-                      <div class=lmrx-featured-grid__list__item__action>Browse</div>
 
-                      <div class=lmrx-featured-grid__list__item__title>Commercial</div>
+
+                      <div class=lmrx-featured-grid__list__item__title>Accessories</div>
                     </div>
                   </a>
                 </div>
 
 
 
-                <div class=lmrx-featured-grid__list__item> <a href="roofing.html">
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/plastic.jpeg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Plastic Material</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/mattres.jpeg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Mattress</div>
+                    </div>
+                  </a>
+                </div>
+
+
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/steels.png" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Steels</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/tile.jpg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Tiles</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class=lmrx-featured-grid__list__item> <a href="#">
                     <div class=lmrx-featured-grid__list__item__image><img
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
                         data-src="/pub/media/catalog/category/Brick_Cat_Image.jpg" />
                     </div>
                     <div class=lmrx-featured-grid__list__item__text>
-                      <div class=lmrx-featured-grid__list__item__action>Browse</div>
+
 
                       <div class=lmrx-featured-grid__list__item__title>Roofing</div>
                     </div>
                   </a>
                 </div>
-
-
-
-                <div class=lmrx-featured-grid__list__item> <a href="timber-joinery.html">
+                <div class=lmrx-featured-grid__list__item> <a href="#">
                     <div class=lmrx-featured-grid__list__item__image><img
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
-                        data-src="/pub/media/catalog/category/C5.jpg" /></div>
+                        data-src="/pub/media/catalog/category/C5.jpg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Woods</div>
+                    </div>
+                  </a>
+                </div>
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/cement.jpg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Cement</div>
+                    </div>
+                  </a>
+                </div>
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/plumbing.jpeg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Plumbing</div>
+                    </div>
+                  </a>
+                </div>
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/wires.png" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Electric</div>
+                    </div>
+                  </a>
+                </div>
+                <div class=lmrx-featured-grid__list__item> <a href="#">
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/paints.jpeg" />
+                    </div>
+                    <div class=lmrx-featured-grid__list__item__text>
+
+
+                      <div class=lmrx-featured-grid__list__item__title>Paints</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class=lmrx-featured-grid__list__item> <a>
+                    <div class=lmrx-featured-grid__list__item__image><img
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=390
+                        data-src="/pub/media/catalog/category/nails.jpeg" /></div>
 
                     <div class=lmrx-featured-grid__list__item__text>
-                      <div class=lmrx-featured-grid__list__item__action>Browse</div>
-                      <div class=lmrx-featured-grid__list__item__title>Timber &amp; Sheet</div>
+
+                      <div class=lmrx-featured-grid__list__item__title>Nails</div>
                     </div>
                   </a></div>
 
@@ -479,7 +526,7 @@
           <div class="widget block block-static-block"> </div>
           <div class="widget block block-static-block"> </div>
           <div class="widget block block-static-block"> </div>
-          <h2 class=home_info_cards>The Nuts & Bolts</h2>
+          <h2 class=home_info_cards>Services</h2>
           <div class=row-nuts>
             <div class=info-cards> <a href="#" class="card card-with-icon card-guides"> <img class=card-icon
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -497,12 +544,12 @@
                 <img class=card-icon
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="Resources Icon"
-                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-resources.svg" />
+                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-faqs.svg" />
                 <h2>FAQS</h2>
               </a></div>
             <div class=info-cards> <a href="/user/contact-us" class="card card-with-icon card-faqs"> <img
                   class=card-icon src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                  alt="FAQs Icon" data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-faqs.svg" />
+                  alt="FAQs Icon" data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" />
                 <h2>Contact Us</h2>
               </a></div>
             <div class=info-cards> <a href="/user/event-news" class="card card-with-icon card-news">
@@ -516,7 +563,7 @@
             <div class=info-cards> <a href="/user/about-us" class="card card-with-icon card-charity"> <img
                   class=card-icon src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="Charity Support Icon"
-                  data-src="static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-charity.svg" />
+                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-resources.svg" />
                 <h2>About Us</h2>
               </a></div>
           </div>
@@ -717,13 +764,7 @@
           </style>
 
 
-          <div class=reviews-box>
-            <div class=trustpilot-widget data-locale=en-GB data-template-id=53aa8912dec7e10d38f59f36
-              data-businessunit-id=4f4648aa00006400051316aa data-style-height=140px data-style-width="100%"
-              data-theme=light data-stars="3,4,5" data-review-languages=en> <a
-                href="https://uk.trustpilot.com/review/staging.buildingmaterials.co.uk" target=_blank
-                rel=noopener>Trustpilot</a></div>
-          </div>
+
         </div>
       </div>
     </main>
@@ -741,62 +782,54 @@
         <div class="footer links">
           <div class="menu menu--footer">
             <ul>
-              <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home
+              <li class="level--1 children--3" data-home=true><a href="#" target=_self><svg id=svg-home
                     viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
                     <path d="M0 0h24v24H0z" fill=none></path>
                   </svg></a></li>
-              <li class="level--1 haschildren children--3"><a href="nuts-and-bolts/index.html" target=_self>Information
+              <li class="level--1 haschildren children--3"><a href="#" target=_self>Information
                   Centre</a>
                 <ul>
                   <li class="level--2 0"><a href="nuts-and-bolts/index.html" target=_self>The Nuts & Bolts</a>
                     <div class=custom__block></div>
                   </li>
-                  <li class="level--2 0"><a
-                      href="nuts-and-bolts/product-data-information/identify-ceiling-grid-system.html"
-                      target=_self>Identify Ceiling Grid System</a>
+                  <li class="level--2 0"><a href="#" target=_self>Identify Ceiling Grid System</a>
                     <div class=custom__block></div>
                   </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/resources.html" target=_self>Resources</a>
+                  <li class="level--2 0"><a href="#" target=_self>Resources</a>
                     <div class=custom__block></div>
                   </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/faqs.html" target=_self>FAQ</a>
-                    <div class=custom__block></div>
-                  </li>
-                </ul>
-                <div class=custom__block></div>
-              </li>
-              <li class="level--1 haschildren children--3"><a href="nuts-and-bolts/customer-services.html"
-                  target=_self>Customer Service</a>
-                <ul>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/deliveries-and-collections.html"
-                      target=_self>Collections</a>
-                    <div class=custom__block></div>
-                  </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/returns-and-refunds.html"
-                      target=_self>Returns & Refunds</a>
-                    <div class=custom__block></div>
-                  </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/deliveries-and-collections.html"
-                      target=_self>Deliveries</a>
+                  <li class="level--2 0"><a href="#" target=_self>FAQ</a>
                     <div class=custom__block></div>
                   </li>
                 </ul>
                 <div class=custom__block></div>
               </li>
-              <li class="level--1 haschildren children--3"><a href="nuts-and-bolts/customer-services/contact-us.html"
-                  target=_self>Contact & Policies</a>
+              <li class="level--1 haschildren children--3"><a href="#" target=_self>Customer Service</a>
                 <ul>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact
+                  <li class="level--2 0"><a href="#" target=_self>Collections</a>
+                    <div class=custom__block></div>
+                  </li>
+                  <li class="level--2 0"><a href="#" target=_self>Returns & Refunds</a>
+                    <div class=custom__block></div>
+                  </li>
+                  <li class="level--2 0"><a href="#" target=_self>Deliveries</a>
+                    <div class=custom__block></div>
+                  </li>
+                </ul>
+                <div class=custom__block></div>
+              </li>
+              <li class="level--1 haschildren children--3"><a href="#" target=_self>Contact & Policies</a>
+                <ul>
+                  <li class="level--2 0"><a href="#" target=_self>Contact
                       Us</a>
                     <div class=custom__block></div>
                   </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/customer-services/about-us.html" target=_self>About
+                  <li class="level--2 0"><a href="#" target=_self>About
                       Us</a>
                     <div class=custom__block></div>
                   </li>
-                  <li class="level--2 0"><a href="nuts-and-bolts/news-and-events/price-increases.html"
-                      target=_self>Price Increase Notifications</a>
+                  <li class="level--2 0"><a href="#" target=_self>Price Increase Notifications</a>
                     <div class=custom__block></div>
                   </li>
                 </ul>
@@ -825,413 +858,7 @@
         </div>
       </div>
     </footer>
-    <style>
-      @media only screen and (max-width:767px) {
-        .form .search-autocomplete {
-          top: 82px !important
-        }
 
-        .block-search .label {
-          display: none
-        }
-
-        .amsearch-results .product {
-          width: 100%
-        }
-
-        .block.block-minicart.ui-dialog-content.ui-widget-content {
-          display: none !important
-        }
-
-        #search_mini_form .field.search .amsearch-wrapper-input #search {
-          position: static
-        }
-      }
-
-      .amazon-menu {
-        display: none
-      }
-
-      @media (min-width:768px) {
-        .customer-welcome:before {
-          content: "My Account ";
-          display: inline-block
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul {
-          height: 400px !important
-        }
-      }
-    </style>
-    <style>
-      .section__navigation .menu--main .level--1>.custom__block {
-        display: none;
-        position: absolute;
-        z-index: 10000;
-        right: 0;
-        top: 38px;
-        left: 55%;
-        width: 44vw;
-        overflow: hidden;
-        box-sizing: border-box;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        height: 420px
-      }
-
-      @media (min-width:1024px) {
-        .page-layout-1column .custom__block .block.widget .products-grid .product-item {
-          width: calc((100% - 8%)/3)
-        }
-      }
-
-      @media (min-width:768px) {
-        .menu.menu--secondary {
-          display: none
-        }
-
-        .menu:not(.menu--main) [data-home] {
-          display: none !important
-        }
-
-        .level--2>ul {
-          position: absolute;
-          left: 33%;
-          top: 21px;
-          margin-top: 0 !important;
-          display: none;
-          height: 100%
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul {
-          column-count: 1
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2 {
-          width: 66%;
-          display: block;
-          border-bottom: none;
-          padding-right: 0;
-          margin-bottom: 0
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2>a {
-          border: none;
-          position: relative
-        }
-
-        .level--2:hover>ul {
-          display: block;
-          z-index: 10000000000
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>a:before {
-          content: "";
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 7.5px 0 7.5px 7.5px;
-          border-color: transparent transparent transparent #ccc;
-          position: absolute;
-          left: 44%;
-          top: 2.5px
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>a:before {
-          border-color: transparent transparent transparent #1b3990
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul:after {
-          content: "";
-          position: absolute;
-          top: 21px;
-          left: 31.5%;
-          border-left: 1px solid #ccc;
-          height: calc(100% - 42px)
-        }
-
-        .section__navigation .menu--main .level--3 a:hover {
-          color: #1b3990
-        }
-
-        .section__navigation .menu--main .level--1 {
-          text-align: left
-        }
-
-        .section__navigation .menu--main .level--2>a {
-          padding-bottom: 10px
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul {
-          height: 384px;
-          max-width: 1280px
-        }
-
-        .section__navigation .menu--main .level--1.haschildren:hover>.custom__block:not(:empty) {
-          display: block
-        }
-
-        .custom__block .block-title strong {
-          font-weight: 700 !important;
-          color: #1b3990
-        }
-
-        .custom__block .products-grid .product-item-info:hover,
-        .custom__block .products-grid .product-item-info.active {
-          box-shadow: none !important;
-          border: none;
-          margin: 0;
-          padding: 0
-        }
-
-        .custom__block .products-grid .product-item-info:hover .product-item-inner,
-        .custom__block .products-grid .product-item-info.active .product-item-inner {
-          display: none
-        }
-
-        .section__navigation .menu--main .level--2>ul {
-          height: 375px;
-          overflow: auto;
-          padding-right: 20px
-        }
-
-        .custom__block span.product-image-wrapper {
-          padding-bottom: 100% !important
-        }
-      }
-
-      @media (max-width:1089px) and (min-width:768px) {
-        .section__navigation .menu--main .level--1 {
-          font-size: 1.32rem;
-          margin-right: 8px;
-          letter-spacing: -.6px
-        }
-      }
-
-      @media (max-width:1024px) {
-        .custom__block .products-grid .product-item:nth-child(2)~* {
-          display: none
-        }
-
-        .custom__block .products-grid .product-item {
-          width: calc((100% - 6%)/3) !important
-        }
-      }
-
-      @media (max-width:768px) {
-        .section__navigation .menu--main ul li.current>a {
-          padding: 10px 20px;
-          text-align: left
-        }
-
-        .menu--main li.level--1 a {
-          background: #1b3990;
-          color: #fff;
-          font-weight: 700
-        }
-
-        .menu--main li.level--2 a {
-          background: #fff;
-          color: #1b3990;
-          font-weight: 700
-        }
-
-        .menu--main li.level--3 a {
-          background: #fff;
-          color: #1b3990;
-          font-weight: 400
-        }
-
-        .section__navigation .menu--main>ul>li {
-          display: block
-        }
-
-        .section__navigation .menu--main ul li.previous ul li {
-          display: block
-        }
-
-        .section__navigation .menu--main ul li.previous>a {
-          display: block
-        }
-
-        .section__navigation .menu--main ul li.current>a:before {
-          display: none
-        }
-
-        .section__navigation .haschildren>a:after {
-          display: block !important
-        }
-
-        .section__navigation .haschildren>a:after {
-          content: '▾'
-        }
-
-        .section__navigation .haschildren.previous>a:after,
-        .section__navigation .haschildren.current>a:after {
-          content: '▴'
-        }
-
-        .header.panel>.header.links {
-          display: none !important
-        }
-
-        .section__navigation {
-          height: calc(100% - 74px) !important
-        }
-
-        .menu.menu--secondary a {
-          font-weight: 700;
-          background: #eee
-        }
-
-        .menu [data-home] {
-          display: none !important
-        }
-
-        .menu--main li.level--1.haschildren:hover a {
-          margin-bottom: 0 !important
-        }
-
-        .section__navigation .menu--main ul li.previous>a {
-          border-bottom: 1px solid #c6c6c6
-        }
-      }
-
-      .section__navigation .menu--main .level--1>.custom__block {
-        max-width: 550px
-      }
-    </style>
-    <style>
-      @media (min-width:768px) {
-        .section__navigation .menu span.nolink {
-          color: #575757
-        }
-
-        .section__navigation .menu span.nolink {
-          color: #575757
-        }
-
-        .section__navigation .menu--main .level--2>span.nolink {
-          font-weight: 700;
-          display: block
-        }
-
-        .section__navigation .menu--main .level--2>span.nolink {
-          font-weight: 700;
-          display: block
-        }
-
-        .section__navigation .menu--main .level--2>span.nolink {
-          padding-bottom: 10px
-        }
-
-        .section__navigation .menu--main .level--2.haschildren>span.nolink {
-          padding-bottom: 10px
-        }
-
-        .section__navigation .menu--main .level--1 .level--2>span.nolink {
-          color: #1b3990
-        }
-
-        .section__navigation .menu--main .level--2.haschildren>span.nolink {
-          padding-bottom: 10px
-        }
-
-        .section__navigation .menu--main .level--1 .level--2>span.nolink {
-          color: #1b3990
-        }
-
-        .menu--main li.level--1.haschildren:hover span.nolink {
-          margin-bottom: 2px !important
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>span.nolink:before {
-          content: "";
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 7.5px 0 7.5px 7.5px;
-          border-color: transparent transparent transparent #ccc;
-          position: absolute;
-          left: 44%;
-          top: 2.5px
-        }
-
-        .section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>span.nolink:before {
-          border-color: transparent transparent transparent #1b3990
-        }
-
-        span.nolink {
-          position: relative
-        }
-      }
-    </style>
-    <style>
-      @media (max-width:768px) {
-        span.nolink {
-          display: block
-        }
-
-        .menu--main li.level--1.haschildren:hover span.nolink {
-          margin-bottom: 0 !important
-        }
-
-        .menu--main li.level--1 span.nolink {
-          background: #1b3990;
-          color: #fff;
-          font-weight: 700
-        }
-
-        .menu--main li.level--2 span.nolink {
-          background: #fff;
-          color: #1b3990;
-          font-weight: 700
-        }
-
-        .section__navigation .haschildren>span.nolink:after {
-          font-size: 16px;
-          position: absolute;
-          top: 8px;
-          right: 20px;
-          content: '▾'
-        }
-
-        .section__navigation .haschildren.previous>a:after,
-        .section__navigation .haschildren.current>span.nolink:after {
-          content: '▴'
-        }
-
-        .section__navigation span.nolink {
-          position: relative;
-          display: block;
-          padding: 10px 20px
-        }
-
-        .section__navigation .menu--main ul li.current>span.nolink {
-          border-bottom: 1px solid #c6c6c6
-        }
-      }
-
-      @media (min-width:768px) {
-        .section__navigation .menu--main .level--1.children--3:nth-child(6)>ul {
-          column-count: inherit !important
-        }
-      }
-
-      @media (max-width:1399px) {
-        .section__navigation .menu--main .level--1>.custom__block {
-          max-width: 39.2%
-        }
-      }
-
-      .lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--prev {
-        right: calc(100% + -30px) !important
-      }
-
-      .lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--next {
-        left: calc(100% + -30px) !important
-      }
-    </style>
 
   </div>
 </body>
@@ -1440,3 +1067,10 @@
 
   }
 </script>
+
+<script src="https://www.buildingmaterials.co.uk/nuts-and-bolts/assets/js/frontend.js" defer></script>
+
+<script>var BASE_URL = 'https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F'; var require = { 'baseUrl': 'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB' } 
+</script>
+<script
+  src="https://www.buildingmaterials.co.uk/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
