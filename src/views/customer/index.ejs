@@ -297,32 +297,15 @@
       </div>
     </div>
 
+
+
     <main id=maincontent class=page-main><a id=contentarea tabindex=-1></a>
       <div class=page-title-wrapper>
-        <h1 class=page-title> <span class=base data-ui-id=page-title-wrapper>Building Materials &amp; Building Supplies
-            | Trade, Self-Build &amp; DIY | Buildingmaterials.co.uk</span> </h1>
+
 
 
       </div>
-      <div class="page messages">
-        <div data-placeholder=messages></div>
-        <div data-bind="scope: 'messages'">
-          <!-- ko if: cookieMessages && cookieMessages.length > 0 -->
-          <div role=alert data-bind="foreach: { data: cookieMessages, as: 'message' }" class=messages>
-            <div
-              data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
-              <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
-            </div>
-          </div><!-- /ko -->
-          <!-- ko if: messages().messages && messages().messages.length > 0 -->
-          <div role=alert data-bind="foreach: { data: messages().messages, as: 'message' }" class=messages>
-            <div
-              data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
-              <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
-            </div>
-          </div><!-- /ko -->
-        </div>
-      </div>
+
       <div class=columns>
         <div class="column main">
           <div data-aw-csblock-block-name=csblock_home_content_top></div> <input name=form_key type=hidden
