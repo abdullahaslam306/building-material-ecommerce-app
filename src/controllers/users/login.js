@@ -1,3 +1,4 @@
+const env = require('../../configs/env');
 const bcrypt = require('bcrypt');
 const { database, repositories } = require('../../lib');
 
@@ -31,4 +32,11 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    res.clearCookie(env.SESSION_NAME);
+    res.redirect('/admin/');
+  });
+};
+
+module.exports = { login, logout };
