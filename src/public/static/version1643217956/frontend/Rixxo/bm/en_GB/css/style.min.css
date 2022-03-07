@@ -20717,7 +20717,7 @@ body.page-products.catalog-category-view
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  height: 180px;
+  height: 50px;
   -ms-flex-direction: column;
   -ms-flex-pack: justify;
   justify-content: space-between;

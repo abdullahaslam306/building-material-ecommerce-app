@@ -1,422 +1,24 @@
-
-
-
-<!doctype html><html lang=en>
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-
-<head>
-    <script type="text/javascript">var Opti=(function(){var pWebP=(function(){var c=[];c.push([]);c.push([]);var n='opti-webp',v,x;function t(c){s(1,c);};function f(c){s(0,c);};function s(x,f){c[x].push(f);r();};function v(x){v=parseInt(x);r();};function r(){if(v!==null&&typeof c[v]==='object'){while(c[v].length>0){(c[v].pop())();}}};function w(x){v(x);var d=new Date;d.setTime(d.getTime()+24*60*60*1000*365);document.cookie=n+"="+x+";path=/;expires="+d.toGMTString();};if(x=document.cookie.match('(^|;) ?'+n+'=([^;]*)(;|$)')){v(x[2]);}else{var i=new Image();i.onerror=w.bind(this,0);i.onload=function(){w(i.width>0&&i.height>0?1:0);};i.src='data:image/webp;base64,'+'UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA';}function rElemParams(sel,callback) {[].forEach.call((typeof sel==='string'?document.querySelectorAll(sel):sel),function(e){if (!e.hasAttributes()){return;}var ats=e.attributes;for(var i=ats.length-1;i>=0;i--){var n=ats[i].name;if(n&&n.length>5&&n.substr(-5)==='-webp'){var nn=n.substr(0,n.length-5);if(nn==='data-href'){nn='href';}if(nn==='data-style'){nn='style';}if(nn==='src'&&e.src.indexOf('data:image')>-1&&e.getAttribute('data-src')){e.setAttribute('data-src',ats[i].value);}e.setAttribute(nn,ats[i].value);e.removeAttribute(n);}}if(typeof callback!=='undefined'){callback(e);}});};return {on:t,off:f,replaceElemParams:rElemParams};})();return {canMinifyJs:function(){return !0},canMinifyHtml:function(){return !0},isVarnish:function(){return !0},isFrontend:function(){return !0},WebP:pWebP};})()</script>
-    <script>
-        if(typeof Opti.LazyLoad === 'undefined') {
-            Opti.LazyLoad=(function(){
-                var flags = { semaphore: false, pending: false, status: false };
-                var db    = { total: 0, current: 0, interval: 250, timeout: 0 };
-                var ofs = 0;
-
-                function _flag(t, v) {
-                    if (typeof v === 'boolean') {
-                        flags[t] = v;
-                    }
-
-                    return flags[t];
-                };
-
-                function _debounce(t, v) {
-                    if (typeof v !== 'undefined') {
-                        db[t] = v === '++' ? db[t]+1 : v;
-                    }
-
-                    return db[t];
-                };
-
-                function onscroll() {
-                    _debounce('current', 0);
-                    ofs = 75;
-                    if (_debounce('timeout')) {
-                        clearTimeout(_debounce('timeout'));
-                        _debounce('timeout', 0), _flag('pending', false), _flag('semaphore', false);
-                    }
-
-                    start();
-                };
-
-                function isInView(e) {
-                    var r = e.getBoundingClientRect();
-
-                    return e.offsetParent !== null && r.top <= window.innerHeight+ofs && r.bottom >= 0-ofs;
-                };
-
-                function ev(e, a, v) {
-                    if (v) {
-                        e.setAttribute(a,v);
-                        e.removeAttribute('data-' + a);
-                    }
-                };
-
-                function collectImagesAndStart() {
-                    imgs = document.querySelectorAll('img[data-src],img[data-srcset],iframe[data-src]');
-
-                    if (imgs.length > 0) {
-                        start();
-                    }
-                };
-
-                function start() {
-                    if (!_flag('status')) {
-                        window.addEventListener('scroll', onscroll);
-                        _flag('status', true);
-                    }
-
-                    lazyload();
-                };
-
-                function stop() {
-                    if (_flag('status')) {
-                        _flag('status', false);
-                        _flag('pending', false);
-                        _flag('semaphore', false);
-
-                        _debounce('current', 0);
-
-                        window.removeEventListener('scroll', onscroll);
-                    }
-                };
-
-                function lazyload() {
-                    if (!_flag('status')) {
-                        _flag('semaphore', false);
-                        _flag('pending', false);
-
-                        return false;
-                    }
-
-                    if (_flag('semaphore')) {
-                        _flag('pending', true);
-
-                        return false;
-                    }
-
-                    _flag('pending', false);
-                    _flag('semaphore', true);
-
-                    var len = imgs.length;
-
-                    if (len > 0) {
-                        [].forEach.call(imgs, function(e) {
-                            var v1 = e.getAttribute('data-src');
-                            var v2 = e.getAttribute('data-srcset');
-
-                            if ((v1 || v2) && isInView(e)) {
-                                if (e.tagName !== 'IFRAME') {
-                                    var p = e.previousSibling;
-
-                                    if (p && p.tagName === 'SOURCE') {
-                                        ev(p, 'srcset', p.getAttribute('data-srcset'));
-                                    }
-
-                                    ev(e, 'srcset', v2);
-                                }
-
-                                ev(e, 'src', v1);
-
-                                len--;
-                            }
-                        });
-                    }
-
-                    if (len === 0) {
-                        stop();
-                    }
-                    else {
-                        _debounce('current', '++');
-                        _debounce('total', '++');
-
-                        var x = 1;
-
-                        if (_flag('pending')) {
-                            _debounce('current', 1);
-                        }
-                        else {
-                            x = _debounce('current') * _debounce('interval');
-                        }
-
-                        setTimeout(function() {
-                            _debounce('timeout', setTimeout(function() {
-                                _flag('pending',false);
-                                _flag('semaphore', false);
-                                start();
-                            }, x));
-                        }, 50);
-                    }
-                };
-
-                collectImagesAndStart();
-
-                document.addEventListener('DOMContentLoaded', function() {
-                    collectImagesAndStart();
-
-                    setTimeout(collectImagesAndStart, 1000);
-                    setTimeout(collectImagesAndStart, 2000);
-                    setTimeout(collectImagesAndStart, 4000);
-                    setTimeout(collectImagesAndStart, 6000);
-                });
-
-                return {run: collectImagesAndStart};
-            })();
-        }
-
-    </script>
-    <script async src="/static/version1643217956/frontend/Rixxo/bm/en_GB/Rixxo_PageSpeed/js/lazyload.min.js" id=fp-lazyloader></script>
-    <meta charset=utf-8 />
-    <meta name=title content="Acoustic Access Panels | Building Materials"/>
-    <meta name=description content="Check out our range of acoustic and soundproof access panels today. Enjoy nationwide delivery and competitive prices, with trade accounts available."/>
-    <meta name=keywords content="acoustic access panels"/>
-    <meta name=robots content="INDEX,FOLLOW"/>
-    <meta name=viewport content="width=device-width, initial-scale=1"/>
-    <meta name=format-detection content="telephone=no"/>
-    <title>Acoustic Access Panels | Building Materials</title>
-    <link rel=stylesheet type="text/css" media=all href="/static/version1643217956/_cache/merged/4d0c65b6b724a36a7c93bfbfc562082d.min.css">
-    <link rel=stylesheet type="text/css" media="screen and (min-width: 768px)" href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/styles-l.min.css">
-    <link rel=stylesheet type="text/css" media=print href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/print.min.css">
-    <link rel=stylesheet type="text/css" media="screen and (min-width: 1px)" href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/style.min.css">
-    <link rel=stylesheet type="text/css" media="print and (min-width: 1px)" href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/print-lumarix.min.css">
-    <link rel=stylesheet type="text/css" media=all href="/static/version1643217956/frontend/Rixxo/bm/en_GB/Apptrian_Subcategories/css/apptrian_subcategories.min.css">
-    <link rel=preload as=font crossorigin=anonymous href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/light/opensans-300.woff2">
-    <link rel=preload as=font crossorigin=anonymous href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/regular/opensans-400.woff2">
-    <link rel=preload as=font crossorigin=anonymous href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/semibold/opensans-600.woff2">
-    <link rel=preload as=font crossorigin=anonymous href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/bold/opensans-700.woff2">
-    <link rel=preload as=font crossorigin=anonymous href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/Luma-Icons.woff2">
-    <link rel=canonical href="acoustic.html">
-    <link rel=icon type="image/x-icon" href="/media/favicon/stores/1/BM_Favicon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/media/favicon/stores/1/BM_Favicon.png">
-    <style xml="space"><div.banner-hero-desktop{display:block}div.banner-hero-mobile{display:none}@media screen and (max-width:768px){div.banner-hero-desktop{display:none}div.banner-hero-mobile{display:block}div.banner-item img{height:auto}.page-wrapper{overflow-x:hidden}}@font-face{font-family:'FontAwesome';src:url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfont5b62.eot?v=4.6.3');src:url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfontd41d.eot?#iefix&v=4.6.3') format('embedded-opentype'),url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfont5b62.woff2?v=4.6.3') format('woff2'),url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfont5b62.woff?v=4.6.3') format('woff'),url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfont5b62.ttf?v=4.6.3') format('truetype'),url('/pub/static/frontend/Rixxo/bm/en_US/Mageplaza_Core/css/fonts/fontawesome-webfont5b62.svg?v=4.6.3#fontawesomeregular') format('svg');font-weight:400;font-style:normal}
-    </style>
-    <style>.ec-gtm-cookie-directive>div{background:#fff;color:#000}.ec-gtm-cookie-directive>div>div>div a.action.accept{color:#8bc53f}.ec-gtm-cookie-directive>div>div>div .ec-gtm-cookie-directive-note-toggle{color:#8bc53f}</style>
-</head>
-<body data-container=body data-mage-init='{"loaderAjax":[],"loader":{"icon":"https://www.buildingmaterials.co.uk/static/version1643217956/frontend/Rixxo/bm/en_GB/images/loader-2.gif"}}' class="customer-logged-out page-with-filter page-products categorypath-building-materials-access-panels-acoustic category-acoustic catalog-category-view page-layout-2columns-left">
-<div id=cookie-status> The store will not work correctly in the case when cookies are disabled.</div>
-<noscript>
-    <div class="message global noscript">
-        <div class=content>
-            <p>
-                <strong>JavaScript seems to be disabled in your browser.</strong>
-                <span> For the best experience on our site, be sure to turn on Javascript in your browser. </span>
-            </p>
-        </div>
-    </div>
-</noscript>
-<div role=alertdialog tabindex=-1 class="message global cookie" id=notice-cookie-block>
-    <div role=document class=content tabindex=0>
-        <p>
-            <strong>We use cookies to make your experience better.</strong>
-            <span>To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies. </span>
-            <a href="/privacy-policy-cookie-restriction-mode/index.html">Learn more</a>.
-        </p>
-        <div class=actions>
-            <button id=btn-cookie-allow class="action allow primary">
-                <span>Allow Cookies</span>
-            </button>
-        </div>
-    </div>
-</div>
-<noscript>
-    <iframe height=0 width=0 style="display:none;visibility:hidden" data-src="https://www.googletagmanager.com/ns.html?id=GTM-NT2PNDZ"></iframe>
-    </iframe>
-</noscript>
-<div class=page-wrapper>
-<header class=page-header>
-    <div class="panel wrapper">
-        <div class="panel header">
-            <ul class=trustcall>
-                <li class=header-top__trust-pilot>
-                    <div class=trustpilot-widget data-locale=en-GB data-template-id=5419b732fbfb950b10de65e5 data-businessunit-id=4f4648aa00006400051316aa data-style-height=20px data-style-width=270px data-theme=light>
-                        <a href="https://uk.trustpilot.com/review/www.buildingmaterials.co.uk" target=_blank rel=noopener>Trustpilot</a>
-                    </div>
-                </li>
-                <li class=trustpilot-header>
-                    <div class=trustpilot-widget data-locale=en-GB data-template-id=5419b732fbfb950b10de65e5 data-businessunit-id=4f4648aa00006400051316aa data-style-height=20px data-style-width="100%" data-theme=dark data-text-color="#ffffff">
-                        <a href="https://uk.trustpilot.com/review/www.buildingmaterials.co.uk" target=_blank rel=noopener>Trustpilot</a>
-                    </div>
-                </li>
-                <li class=header-top__call>
-                    <a href="tel:01628674910">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22 data-src="../../static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg"/>
-                        <span>Call our trade experts&nbsp;|&nbsp;</span>
-                        <span class=InfinityNumber>01628674910</span>
-                    </a>
-                </li>
-            </ul>
-            <a class="action skip contentarea" href="#contentarea">
-                <span> Skip to Content </span>
-            </a>
-        </div>
-    </div>
-    <div class="header content">
-																	<span data-action=toggle-nav class="action nav-toggle">
-																		<span>Toggle Nav</span>
-																	</span>
-        <a class=logo href="../../index.html" title="Building&#x20;Materials" aria-label="store logo">
+<%- include("./header.ejs") %>
+    <div class=custom-category-banner>
+        <div class=category-image>
             <picture>
-                <source type="image/webp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-srcset="../../media/fishpig/webp/logo/stores/1/Building_Materials.webp"/>
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="Building&#x20;Materials" alt="Building&#x20;Materials" width=170 data-src="../../media/logo/stores/1/Building_Materials.png"/>
+                <source type="image/webp"
+                    srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    data-srcset="../../media/fishpig/webp/catalog/category/Acoustic.webp" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=Acoustic
+                    title=Acoustic class=image data-src="../../media/catalog/category/Acoustic.jpg" />
             </picture>
-        </a>
-        <div class=dropdownix>
-            <div class=dropdown-menu>
-                <div class=dropdownwelcome>
-                    <div class="greet welcome" data-bind="scope: 'customer'">
-                        <!-- ko if: customer().fullname  -->
-                        <span class=logged-in data-bind="text: new String('Welcome, %1!').replace('%1', customer().firstname)"></span>
-                        <!-- /ko -->
-                    </div>
-                </div>
-                <ul class=dropdown-menu-actions>
-                    <li>
-                        <a class=dropdown-menu-actions-link--button href="../../customer/account/index.html">My Account</a>
-                    </li>
-                    <li>
-                        <a class=dropdown-menu-actions-link--button href="../../customer/account/logout/index.html">Sign Out</a>
-                    </li>
-                </ul>
-            </div>
-            <style>@media (min-width:768px){body.logged-in .dropdownix{display:block;float:right;padding-left:22px;margin-top:15px}body.logged-in .header.links{display:none !important}}.dropdownix{display:none}.dropdownwelcome .welcome{font-size:14px;font-weight:700;line-height:20px}.dropdown-menu{float:right;background-color:#ca1f26;color:#fff;padding:10px;padding-top:10px;padding-bottom:10px;padding-right:40px;border-radius:3px;position:relative;min-width:150px;box-sizing:border-box;height:40px}.dropdown-menu:after{content:"";position:absolute;top:50%;right:10px;width:0;height:0;border-style:solid;border-width:8.7px 5px 0;border-color:#fff transparent transparent;transform:translateY(-50%)}.dropdown-menu-actions{opacity:0;pointer-events:none;position:absolute;top:100%;width:100%;transition:opacity .3s ease-in-out;background-color:#ca1f26;left:0;border-radius:2px;padding:2px;box-sizing:border-box;z-index:10}.dropdown-menu-actions li{margin-bottom:0;border-bottom:1px solid #c2c2c2}.dropdown-menu-actions li:last-child{border-bottom:0}.dropdown-menu:hover .dropdown-menu-actions,.dropdown-menu.clicked .dropdown-menu-actions{opacity:1;pointer-events:all}.dropdown-menu.first-visit .dropdown-menu-actions{opacity:1;transition:opacity 2s ease-in-out;pointer-events:all}.dropdown-menu-actions:before{content:"";position:absolute;height:15px;width:100%;left:0;top:-15px;background:0 0}.dropdown-menu-actions-link--button{background:#fff;color:#000;width:100%;text-align:center;display:block;padding:10px;font-weight:700;box-sizing:border-box}.dropdown-menu-actions-link--button:hover,.dropdown-menu-actions-link--button:visited,.dropdown-menu-actions-link--button:active{text-decoration:none !important;color:#333 !important}.dropdown-menu-actions-link--text{text-decoration:underline;color:#fff !important;font-weight:600}@media (max-width:1023px) and (min-width:768px){.dropdown-menu{float:left}.header.content div.block-search{left:220px;width:calc(100% - 600px);top:calc(50% - 25px);transform:none}}@media (max-width:767px){.dropdown-menu{position:absolute;top:2px;left:150px;font-size:75%;width:100px;padding-right:30px}.dropdown-menu-actions *:not(a){display:none}.dropdown-menu-actions-link--button{padding:7.55px;font-weight:700;margin-bottom:10px}.dropdown-menu-actions-link--text{background:#fff;color:#ca1f25 !important;text-decoration:none !important;width:100%;text-align:center;display:block;padding:7.55px;font-weight:700;border-radius:6px;box-sizing:border-box}}</style>
         </div>
-        <ul class="header links">
-            <li class=authorization-link data-label=or>
-                <a href="../../customer/account/login/referer/aHR0cHM6Ly93d3cuYnVpbGRpbmdtYXRlcmlhbHMuY28udWsvYnVpbGRpbmctbWF0ZXJpYWxzL2FjY2Vzcy1wYW5lbHMvYWNvdXN0aWM%2c/index.html"> Sign In </a>
-            </li>
-            <li>
-                <a href="../../customer/account/create/index.html" id=idG9xwIWIt>Open a Trade Account</a>
-            </li>
-        </ul>
-        <div data-block=minicart class=minicart-wrapper>
-            <a class="action showcart" href="../../checkout/cart/index.html" data-bind="scope: 'minicart_content'">
-																			<span class=icon>
-																				<svg viewBox="0 0 25 25">
-																					<use xlink:href="../../static/version1643217956/frontend/Rixxo/bm/en_GB/icons/svg-symbols.svg#icon-basket"></use>
-																				</svg>
-																			</span>
-                <span class=text>Basket</span>
-                <span class="counter qty empty" data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
-																				<span class=counter-number>
-																					<!-- ko text: getCartParam('summary_count') -->
-                                                                                    <!-- /ko -->
-																				</span>
-																				<span class=counter-label>
-																					<!-- ko if: getCartParam('summary_count') -->
-                                                                                    <!-- ko text: getCartParam('summary_count') -->
-                                                                                    <!-- /ko -->
-                                                                                    <!-- ko i18n: 'items' -->
-                                                                                    <!-- /ko -->
-                                                                                    <!-- /ko -->
-																				</span>
-																			</span>
-            </a>
-            <div class="block block-minicart empty" data-role=dropdownDialog data-mage-init='{"dropdownDialog":{"appendTo":"[data-block=minicart]","triggerTarget":".showcart","timeout":"2000","closeOnMouseLeave":false,"closeOnEscape":true,"triggerClass":"active","parentClass":"active","buttons":[]}}'>
-                <div id=minicart-content-wrapper data-bind="scope: 'minicart_content'">
-                    <!-- ko template: getTemplate() -->
-                    <!-- /ko -->
-                </div>
+        <div class=custom-category-banner__content>
+            <div class=page-title-wrapper>
+                <h1 class=page-title id=page-title-heading aria-labelledby="page-title-heading&#x20;toolbar-amount">
+                    <span class=base data-ui-id=page-title-wrapper>
+                        <%= categoryName %>
+                    </span>
+                </h1>
             </div>
-        </div>
-        <div data-block=search-icon class=search-icon-wrapper>
-            <a class="action showsearch" href="#">
-																			<span class=icon>
-																				<picture>
-																					<source type="image/webp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-srcset="https://www.buildingmaterials.co.uk/media/fishpig/webp/static/frontend/Rixxo/bm/en_GB/images/Search.webp"/>
-																					<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/Search.png"/>
-																				</picture>
-																			</span>
-                <span class=text>Search</span>
-            </a>
-        </div>
-        <div class="block block-search">
-            <div class="block block-title">
-                <strong>Search</strong>
-            </div>
-            <div class="block block-content">
-                <form class="form minisearch" id=search_mini_form action="https://www.buildingmaterials.co.uk/catalogsearch/result/">
-                    <div class="field search">
-                        <label class=label for=search data-role=minisearch-label>
-                            <span>Search</span>
-                        </label>
-                        <div class=control>
-                            <input id=search data-mage-init='{"quickSearch":{"formSelector":"#search_mini_form","url":"https://www.buildingmaterials.co.uk/search/ajax/suggest/","destinationSelector":"#search_autocomplete","minSearchLength":"3"}}' type=text name=q value="" placeholder="Search&#x20;for&#x20;products,&#x20;categories,&#x20;..." class=input-text maxlength=128 role=combobox aria-haspopup=false aria-autocomplete=both autocomplete=off aria-expanded=false style="height: 50px !important; border-color: #1b3990!important; border-radius: 5px 0 0 5px !important;"/>
-                            <div id=search_autocomplete class=search-autocomplete></div>
-                            <div class=nested>
-                                <a class="action advanced" href="../../catalogsearch/advanced/index.html" data-action=advanced-search> Advanced Search </a>
-                            </div>
-                            <div id=amasty-xsearch-preload class=amasty-xsearch-preload data-amsearch-js=preload></div>
-                        </div>
-                    </div>
-                    <div class=actions>
-                        <button type=submit title=Search class="action search" aria-label=Search>
-                            <span>Search</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class=header__mobile-phone>
-            <a href="tel:01628674910">
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22 data-src="../../static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg"/>
-                <span class=InfinityNumber>01628674910</span>
-            </a>
         </div>
     </div>
-</header>
-<div class="section section__navigation">
-    <div class="section section__navigation_inner">
-        <div class="menu menu--main">
-            <ul>
-                <li class="level--1 children--3" data-home=true><a href="/user" target=_self>
-                        <svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
-                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
-                            </path><path d="M0 0h24v24H0z" fill=none></path>
-                        </svg></a></li>
-                <% categories.forEach(function(subcategory){ %>
-                    <li class="level--1 haschildren children--3">
-                        <a href="/user/category/product/<%=subcategory.id%>" target=_self><%= subcategory.name%></a> <ul>
-                            <% if(subcategory.level == 0) {
-                            subcategory.children.forEach(function(category){ %>
-                            <li class="level--2 0">
-                                <a href="/user/category/product/<%=category.id%>" target=_self><%=category.name%></a>
-                                <div class=custom__block></div>
-                            </li>
-                            <%})%>
-                        </ul>
-                    </li>
-                <%}})%>
-            </ul></div>
-
-        <!-- Nav BAr ends here -->
-
-        <div class="menu menu--secondary"> <ul> <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); "><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path><path d="M0 0h24v24H0z" fill=none></path></svg></a></li><li class="level--1 0"><a href="support.html" target=_self>Customer Service</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>Delivery</a><div class=custom__block></div></li><li class="level--1 0"><a href="index.html" target=_self>FAQ</a><div class=custom__block></div></li></ul></div></div></div>
-<div class=custom-category-banner>
-    <div class=category-image>
-        <picture>
-            <source type="image/webp" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-srcset="../../media/fishpig/webp/catalog/category/Acoustic.webp"/>
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=Acoustic title=Acoustic class=image data-src="../../media/catalog/category/Acoustic.jpg"/>
-        </picture>
-    </div>
-    <div class=custom-category-banner__content>
-        <div class=page-title-wrapper>
-            <h1 class=page-title id=page-title-heading aria-labelledby="page-title-heading&#x20;toolbar-amount">
-                <span class=base data-ui-id=page-title-wrapper><%= categoryName %></span>
-            </h1>
-        </div>
-        <div class=category-description>
-            <p>Our acoustic access panel range consists of beaded frames with metal doors. These products provide tight-knit sound insulation, ideal for reducing the travel of acoustics through plasterboard walls and ceilings via the panel.</p>
-            <p>All available in a variety of sizes, while retaining the same high quality finish and acoustic insulation, these acoustically rated access panels can be thoroughly customised to suit your needs. These ceiling access panels are ideal in areas where sound is significantly enhanced at times, such as schools or hotels. But that is not to suggest they aren’t ideal for domestic settings, either. Whatever the setting, if you’re after noise reduction, then an access panel from the range below will do the job perfectly.</p>
-            <p>To see how we can help, please don’t hesitate to
-                <strong>
-                    <a href="../../support.html">get in touch</a>
-                </strong> with us today.
-            </p>
-        </div>
-    </div>
-</div>
 
 
     <main id=maincontent class=page-main>
@@ -426,14 +28,16 @@
             <div data-bind="scope: 'messages'">
                 <!-- ko if: cookieMessages && cookieMessages.length > 0 -->
                 <div role=alert data-bind="foreach: { data: cookieMessages, as: 'message' }" class=messages>
-                    <div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+                    <div
+                        data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
                         <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
                     </div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: messages().messages && messages().messages.length > 0 -->
                 <div role=alert data-bind="foreach: { data: messages().messages, as: 'message' }" class=messages>
-                    <div data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
+                    <div
+                        data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
                         <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
                     </div>
                 </div>
@@ -443,7 +47,8 @@
         <div class="widget block block-static-block"></div>
         <div class=columns>
             <div class="column main">
-                <div data-role=aw-requisitionlist-create-list-wrapper data-bind="scope: 'awRequisitionListParent'" class=aw-rl__create-list-wrapper>
+                <div data-role=aw-requisitionlist-create-list-wrapper data-bind="scope: 'awRequisitionListParent'"
+                    class=aw-rl__create-list-wrapper>
                     <!-- ko template: getTemplate() -->
                     <!-- /ko -->
                 </div>
@@ -454,111 +59,76 @@
                 </div>
                 <div data-aw-csblock-block-name=csblock_category_content_top></div>
                 <div>
-                    <style>.price.no-before:before{display:none}</style>
+                    <style>
+                        .price.no-before:before {
+                            display: none
+                        }
+                    </style>
                     <div class="category-large-wrapper products wrapper grid products-grid">
                         <ol class="products list items product-items">
 
                             <% products.forEach(function(product) { %>
 
-                            <li class="item product product-item category-lg-container ">
-                                <div class=product-item-info data-container=product-grid>
-                                    <div class=product-lg-top>
-                                        <div class=product-lg-top__left>
-                                            <div class=product-lg-top__left--image>
-                                                <a href="/user/product/<%=product.id%>" class="product photo product-item-photo" tabindex=-1>
-														<span class="product-image-container product-image-container-35096">
+                                <li class="item product product-item category-lg-container ">
+                                    <div class=product-item-info data-container=product-grid>
+                                        <div class=product-lg-top>
+                                            <div class=product-lg-top__left>
+                                                <div class=product-lg-top__left--image>
+                                                    <a href="/user/product/<%=product.id%>"
+                                                        class="product photo product-item-photo" tabindex=-1>
+                                                        <span
+                                                            class="product-image-container product-image-container-35096">
                                                             <span class=product-image-wrapper>
                                                                 <picture>
-                                                                    <img class=product-image-photo src="<%= product.image %>" loading=lazy width=240 height=300 />
+                                                                    <img class=product-image-photo
+                                                                        src="<%= product.image %>" loading=lazy
+                                                                        width=240 height=300 />
                                                                 </picture>
                                                             </span>
                                                         </span>
-                                                    <style>.product-image-container-35096{width:240px}.product-image-container-35096 span.product-image-wrapper{padding-bottom:125%}</style>
+                                                        <style>
+                                                            .product-image-container-35096 {
+                                                                width: 240px
+                                                            }
+
+                                                            .product-image-container-35096 span.product-image-wrapper {
+                                                                padding-bottom: 125%
+                                                            }
+                                                        </style>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class=product-lg-top__right>
+                                                <div class=product-lg-top__right--title>
+                                                    <strong class="product name product-item-name">
+                                                        <a class=product-item-link href="/user/product/<%=product.id%>">
+                                                            <%= product.name %>
+                                                        </a>
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product details product-item-details">
+                                            <div class=product-item-inner-large>
+                                                <a href="/user/product/<%=product.id%>"> <button type=submit
+                                                        title="Add to Basket" class="action tocart primary">
+                                                        <span>View Details</span>
+                                                    </button>
                                                 </a>
                                             </div>
-                                        </div>
-                                        <div class=product-lg-top__right>
-                                            <div class=product-lg-top__right--title>
-                                                <strong class="product name product-item-name">
-                                                    <a class=product-item-link href="/user/product/<%=product.id%>"><%= product.name %>  </a>
-                                                </strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product details product-item-details">
-                                        <div class=product-item-inner-large>
-                                            <a href="/user/product/<%=product.id%>"> <button type=submit title="Add to Basket" class="action tocart primary">
-                                                <span>View Details</span>
-                                            </button>
-                                            </a>
-                                    </div>
 
-                                </div>
-                                </div>
-                            </li>
+                                        </div>
+                                    </div>
+                                </li>
 
                                 <% }) %>
                         </ol>
                     </div>
-                    <div class="toolbar toolbar-products" data-mage-init='{"productListToolbarForm":{"mode":"product_list_mode","direction":"product_list_dir","order":"product_list_order","limit":"product_list_limit","modeDefault":"grid","directionDefault":"asc","orderDefault":"position","limitDefault":24,"url":"https://www.buildingmaterials.co.uk/building-materials/access-panels/acoustic","formKey":"9aTciXnHPxp7CfQX","post":false}}'>
-                        <div class=modes></div>
-                        <p class=toolbar-amount id=toolbar-amount>
-                            <span class=toolbar-number>12</span> Items
-                        </p>
-                        <div class="field limiter">
-                            <label class=label for=limiter>
-                                <span>Show</span>
-                            </label>
-                            <div class=control>
-                                <select id=limiter data-role=limiter class=limiter-options>
-                                    <option value=24 selected> 24 </option>
-                                    <option value=48> 48 </option>
-                                    <option value=72> 72 </option>
-                                    <option value=all> All </option>
-                                </select>
-                            </div>
-                            <span class=limiter-text>per page</span>
-                        </div>
-                        <div class="toolbar-sorter sorter">
-                            <label class=sorter-label for=sorter>Sort By</label>
-                            <select id=sorter data-role=sorter class=sorter-options>
-                                <option value=position selected> Position </option>
-                                <option value=name> Product Name </option>
-                                <option value=price> Price </option>
-                            </select>
-                            <a title="Set Descending Direction" href="#" class="action sorter-action sort-asc" data-role=direction-switcher data-value=desc>
-                                <span>Set Descending Direction</span>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-            <div class="sidebar sidebar-main">
-                <div id=layered-selected-filters-block data-role=aw-layered-nav-selected-filters></div>
-                <div id=layered-filter-block class="block filter" data-role=filter-block data-mage-init='{"collapsible":{"openedState":"active","collapsible":true,"active":false,"collateral":{"openedState":"filter-active","element":"body"}}}'>
-                    <div class="block-title filter-title">
-                        <strong data-role=title>Shop By</strong>
-                    </div>
-                    <div id=aw-layered-nav-popup class="aw-layered-nav-popover aw-layered-nav-popover" data-role=aw-layered-nav-popover data-mage-init='{"awLayeredNavPopover":{"filtersContainer":"#layered-filter-block","isPopoverDisabled":true,"hasActiveFilters":false}}'>
-                        <div class=aw-layered-nav-popover__content>
-                            <div id=aw-layered-nav-popover__items data-role=items-count-container class=aw-layered-nav-popover__items></div>
-                            <div class=aw-layered-nav-popover__loader>
-                                <div class=aw-layered-nav-popover__loader-itself></div>
-                            </div>
-                            <div class=aw-layered-nav-popover__action>
-                                <button data-role=show-button class="action primary show-button">Show</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=aw-layered-nav-overlay></div>
-                </div>
-                <div data-aw-csblock-block-name=csblock_category_sidebar_top></div>
-                <style>.filter-options-content .items{overflow:auto;max-height:500px;padding:2px}</style>
-            </div>
-            <div class="sidebar sidebar-additional">
-                <div></div>
-                <div data-aw-csblock-block-name=csblock_category_sidebar_bottom></div>
-            </div>
+
+
         </div>
     </main>
     <div class=page-bottom>
@@ -573,7 +143,8 @@
                     <ul>
                         <li class="level--1 children--3" data-home=true>
                             <a href="/index.html" target=_self>
-                                <svg id=svg-home viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
+                                <svg id=svg-home viewBox="0 0 24 24"
+                                    style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
                                     <path d="M0 0h24v24H0z" fill=none></path>
                                 </svg>
@@ -587,7 +158,8 @@
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/product-data-information/identify-ceiling-grid-system.html" target=_self>Identify Ceiling Grid System</a>
+                                    <a href="/nuts-and-bolts/product-data-information/identify-ceiling-grid-system.html"
+                                        target=_self>Identify Ceiling Grid System</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
@@ -605,51 +177,62 @@
                             <a href="/nuts-and-bolts/customer-services.html" target=_self>Customer Service</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html" target=_self>Collections</a>
+                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html"
+                                        target=_self>Collections</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/returns-and-refunds.html" target=_self>Returns & Refunds</a>
+                                    <a href="/nuts-and-bolts/customer-services/returns-and-refunds.html"
+                                        target=_self>Returns & Refunds</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html" target=_self>Deliveries</a>
-                                    <div class=custom__block></div>
-                                </li>
-                            </ul>
-                            <div class=custom__block></div>
-                        </li>
-                        <li class="level--1 haschildren children--3">
-                            <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact & Policies</a>
-                            <ul>
-                                <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact Us</a>
-                                    <div class=custom__block></div>
-                                </li>
-                                <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/about-us.html" target=_self>About Us</a>
-                                    <div class=custom__block></div>
-                                </li>
-                                <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/news-and-events/price-increases.html" target=_self>Price Increase Notifications</a>
+                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html"
+                                        target=_self>Deliveries</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
                             <div class=custom__block></div>
                         </li>
                         <li class="level--1 haschildren children--3">
-                            <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html" target=_self>Terms & Conditions</a>
+                            <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact &
+                                Policies</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html" target=_self>Terms & Conditions</a>
+                                    <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact
+                                        Us</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/privacy-policy.html" target=_self>Privacy Policy</a>
+                                    <a href="/nuts-and-bolts/customer-services/about-us.html" target=_self>About
+                                        Us</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="/nuts-and-bolts/customer-services/cookie-policy.html" target=_self>Cookie Policy</a>
+                                    <a href="/nuts-and-bolts/news-and-events/price-increases.html" target=_self>Price
+                                        Increase Notifications</a>
+                                    <div class=custom__block></div>
+                                </li>
+                            </ul>
+                            <div class=custom__block></div>
+                        </li>
+                        <li class="level--1 haschildren children--3">
+                            <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html" target=_self>Terms
+                                & Conditions</a>
+                            <ul>
+                                <li class="level--2 0">
+                                    <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html"
+                                        target=_self>Terms & Conditions</a>
+                                    <div class=custom__block></div>
+                                </li>
+                                <li class="level--2 0">
+                                    <a href="/nuts-and-bolts/customer-services/privacy-policy.html" target=_self>Privacy
+                                        Policy</a>
+                                    <div class=custom__block></div>
+                                </li>
+                                <li class="level--2 0">
+                                    <a href="/nuts-and-bolts/customer-services/cookie-policy.html" target=_self>Cookie
+                                        Policy</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
@@ -660,174 +243,422 @@
             </div>
         </div>
     </footer>
-    <style>@media only screen and (max-width:767px){.form .search-autocomplete{top:82px !important}.block-search .label{display:none}.amsearch-results .product{width:100%}.block.block-minicart.ui-dialog-content.ui-widget-content{display:none !important}#search_mini_form .field.search .amsearch-wrapper-input #search{position:static}}.amazon-menu{display:none}@media (min-width:768px){.customer-welcome:before{content:"My Account ";display:inline-block}.section__navigation .menu--main .level--1.children--3>ul{height:400px !important}}</style>
-    <style>.section__navigation .menu--main .level--1>.custom__block{display:none;position:absolute;z-index:10000;right:0;top:38px;left:55%;width:44vw;overflow:hidden;box-sizing:border-box;padding-top:20px;padding-bottom:20px;height:420px}@media (min-width:1024px){.page-layout-1column .custom__block .block.widget .products-grid .product-item{width:calc((100% - 8%)/3)}}@media (min-width:768px){.menu.menu--secondary{display:none}.menu:not(.menu--main) [data-home]{display:none !important}.level--2>ul{position:absolute;left:33%;top:21px;margin-top:0 !important;display:none;height:100%}.section__navigation .menu--main .level--1.children--3>ul{column-count:1}.section__navigation .menu--main .level--1.children--3>ul>li.level--2{width:66%;display:block;border-bottom:none;padding-right:0;margin-bottom:0}.section__navigation .menu--main .level--1.children--3>ul>li.level--2>a{border:none;position:relative}.level--2:hover>ul{display:block;z-index:10000000000}.section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>a:before{content:"";width:0;height:0;border-style:solid;border-width:7.5px 0 7.5px 7.5px;border-color:transparent transparent transparent #ccc;position:absolute;left:44%;top:2.5px}.section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>a:before{border-color:transparent transparent transparent #1b3990}.section__navigation .menu--main .level--1.children--3>ul:after{content:"";position:absolute;top:21px;left:31.5%;border-left:1px solid #ccc;height:calc(100% - 42px)}.section__navigation .menu--main .level--3 a:hover{color:#1b3990}.section__navigation .menu--main .level--1{text-align:left}.section__navigation .menu--main .level--2>a{padding-bottom:10px}.section__navigation .menu--main .level--1.children--3>ul{height:384px;max-width:1280px}.section__navigation .menu--main .level--1.haschildren:hover>.custom__block:not(:empty){display:block}.custom__block .block-title strong{font-weight:700 !important;color:#1b3990}.custom__block .products-grid .product-item-info:hover,.custom__block .products-grid .product-item-info.active{box-shadow:none !important;border:none;margin:0;padding:0}.custom__block .products-grid .product-item-info:hover .product-item-inner,.custom__block .products-grid .product-item-info.active .product-item-inner{display:none}.section__navigation .menu--main .level--2>ul{height:375px;overflow:auto;padding-right:20px}.custom__block span.product-image-wrapper{padding-bottom:100% !important}}@media (max-width:1089px) and (min-width:768px){.section__navigation .menu--main .level--1{font-size:1.32rem;margin-right:8px;letter-spacing:-.6px}}@media (max-width:1024px){.custom__block .products-grid .product-item:nth-child(2)~*{display:none}.custom__block .products-grid .product-item{width:calc((100% - 6%)/3) !important}}@media (max-width:768px){.section__navigation .menu--main ul li.current>a{padding:10px 20px;text-align:left}.menu--main li.level--1 a{background:#1b3990;color:#fff;font-weight:700}.menu--main li.level--2 a{background:#fff;color:#1b3990;font-weight:700}.menu--main li.level--3 a{background:#fff;color:#1b3990;font-weight:400}.section__navigation .menu--main>ul>li{display:block}.section__navigation .menu--main ul li.previous ul li{display:block}.section__navigation .menu--main ul li.previous>a{display:block}.section__navigation .menu--main ul li.current>a:before{display:none}.section__navigation .haschildren>a:after{display:block !important}.section__navigation .haschildren>a:after{content:'▾'}.section__navigation .haschildren.previous>a:after,.section__navigation .haschildren.current>a:after{content:'▴'}.header.panel>.header.links{display:none !important}.section__navigation{height:calc(100% - 74px)!important}.menu.menu--secondary a{font-weight:700;background:#eee}.menu [data-home]{display:none !important}.menu--main li.level--1.haschildren:hover a{margin-bottom:0 !important}.section__navigation .menu--main ul li.previous>a{border-bottom:1px solid #c6c6c6}}.section__navigation .menu--main .level--1>.custom__block{max-width:550px}</style>
-    <style>@media (min-width:768px){.section__navigation .menu span.nolink{color:#575757}.section__navigation .menu span.nolink{color:#575757}.section__navigation .menu--main .level--2>span.nolink{font-weight:700;display:block}.section__navigation .menu--main .level--2>span.nolink{font-weight:700;display:block}.section__navigation .menu--main .level--2>span.nolink{padding-bottom:10px}.section__navigation .menu--main .level--2.haschildren>span.nolink{padding-bottom:10px}.section__navigation .menu--main .level--1 .level--2>span.nolink{color:#1b3990}.section__navigation .menu--main .level--2.haschildren>span.nolink{padding-bottom:10px}.section__navigation .menu--main .level--1 .level--2>span.nolink{color:#1b3990}.menu--main li.level--1.haschildren:hover span.nolink{margin-bottom:2px!important}.section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>span.nolink:before{content:"";width:0;height:0;border-style:solid;border-width:7.5px 0 7.5px 7.5px;border-color:transparent transparent transparent #ccc;position:absolute;left:44%;top:2.5px}.section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>span.nolink:before{border-color:transparent transparent transparent #1b3990}span.nolink{position:relative}}</style>
-    <style>@media (max-width:768px){span.nolink{display:block}.menu--main li.level--1.haschildren:hover span.nolink{margin-bottom:0 !important}.menu--main li.level--1 span.nolink{background:#1b3990;color:#fff;font-weight:700}.menu--main li.level--2 span.nolink{background:#fff;color:#1b3990;font-weight:700}.section__navigation .haschildren>span.nolink:after{font-size:16px;position:absolute;top:8px;right:20px;content:'▾'}.section__navigation .haschildren.previous>a:after,.section__navigation .haschildren.current>span.nolink:after{content:'▴'}.section__navigation span.nolink{position:relative;display:block;padding:10px 20px}.section__navigation .menu--main ul li.current>span.nolink{border-bottom:1px solid #c6c6c6}}@media (min-width:768px){.section__navigation .menu--main .level--1.children--3:nth-child(6)>ul{column-count:inherit !important}}@media (max-width:1399px){.section__navigation .menu--main .level--1>.custom__block{max-width:39.2%}}.lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--prev{right:calc(100% + -30px) !important}.lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--next{left:calc(100% + -30px) !important}</style>
-    <div class=copyright__container>
-        <div class=copyright__inner>
-            <small class=copyright>
-                <span>Copyright © Building Materials Nationwide Ltd All rights reserved.</span>
-            </small>
-            <small class=site_by_rixxo>
-																																																																															<span>Site by
-																																																																																<a href="http://www.rixxo.com/" target=_blank rel="noreferrer noopener">Rixxo</a>
-																																																																															</span>
-            </small>
-        </div>
-    </div>
-</div>
+    <style>
+        @media only screen and (max-width:767px) {
+            .form .search-autocomplete {
+                top: 82px !important
+            }
 
-<script>var BASE_URL='https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F';var require={'baseUrl':'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB'}</script>
-<script src="https://www.buildingmaterials.co.uk/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
-<script type="application/ld+json">{
-        "@context": "http:\/\/schema.org\/",
-        "@type": "Product",
-        "name": "Acoustic Access Panel Metal Door\/Beaded Frame 600mm x 600mm 40db (0.36m2)",
-        "description": "This acoustic access panel, made from plasterboard, is available from us in a wide range of sizes to suit your requirements. These acoustic panels are surrounded by a beaded frame, which means that taping and jointing are straightforward. They provide a hatch, to give immediate, easy access to whatever they\u2019re concealing.\r\n\r\nSoundproof panels are ideal for reducing the amount of sound passing through walls and ceilings via the access panel. Where sound insulation is of particular concern, these access doors are the most suitable choices. \r\n\r\nPlease note that these sound rated access panels, while they have an acoustic reduction of up to 46db, they do not carry any fire rating. Should you need more information, please refer to our fire-rated access panels page.\r\n\r\nFor more information about plasterboard access doors\u00b8 please speak to one of our team directly.",
-        "sku": "033\/201\/005",
-        "url": "https:\/\/www.buildingmaterials.co.uk\/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2",
-        "image": "https:\/\/www.buildingmaterials.co.uk\/pub\/media\/catalog\/product\/A\/c\/AcousticAccessPanelMetalDoor_BeadedFrame.jpg",
-        "offers": {
-            "@type": "Offer",
-            "priceCurrency": "GBP",
-            "price": 249.64,
-            "itemOffered": 1,
-            "availability": "http:\/\/schema.org\/InStock",
-            "url": "https:\/\/www.buildingmaterials.co.uk\/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2"
-        },
-        "gtin8": "033\/201\/005",
-        "brand": {
-            "@type": "Thing",
-            "name": "Acoustic Access Panel Metal Door\/Beaded Frame 600mm x 600mm 40db (0.36m2)"
+            .block-search .label {
+                display: none
+            }
+
+            .amsearch-results .product {
+                width: 100%
+            }
+
+            .block.block-minicart.ui-dialog-content.ui-widget-content {
+                display: none !important
+            }
+
+            #search_mini_form .field.search .amsearch-wrapper-input #search {
+                position: static
+            }
         }
-    }</script>
-<script data-ommit="true">window.dataLayer=window.dataLayer||[];AEC.Const={TIMING_CATEGORY_ADD_TO_CART:'Add To Cart Time',TIMING_CATEGORY_REMOVE_FROM_CART:'Remove From Cart Time',TIMING_CATEGORY_PRODUCT_CLICK:'Product Detail Click Time',TIMING_CATEGORY_CHECKOUT:'Checkout Time',TIMING_CATEGORY_CHECKOUT_STEP:'Checkout Step Time',TIMING_CATEGORY_PRODUCT_WISHLIST:'Add to Wishlist Time',TIMING_CATEGORY_PRODUCT_COMPARE:'Add to Compare Time'};AEC.Const.URL='https://www.buildingmaterials.co.uk/';AEC.Const.VARIANT_DELIMITER='-';AEC.Const.VARIANT_DELIMITER_ATT=':';AEC.Const.CHECKOUT_STEP_SHIPPING=1;AEC.Const.CHECKOUT_STEP_PAYMENT=2;AEC.Const.CHECKOUT_STEP_ORDER=3;AEC.Const.DIMENSION_SEARCH=18;AEC.Const.COOKIE_DIRECTIVE=false;AEC.Const.COOKIE_DIRECTIVE_CONSENT_GRANTED=false;AEC.Const.COOKIE_DIRECTIVE_SEGMENT_MODE=false;AEC.Const.COOKIE_DIRECTIVE_SEGMENT_MODE_EVENTS=["cookieConsentGranted"];AEC.Const.COOKIE_DIRECTIVE_CONSENT_GRANTED_EVENT="cookieConsentGranted";AEC.Const.COOKIE_DIRECTIVE_CONSENT_DECLINE_EVENT="cookieConsentDeclined";AEC.Const.CATALOG_CATEGORY_ADD_TO_CART_REDIRECT_EVENT="catalogCategoryAddToCartRedirect";AEC.Message={confirm:true,confirmRemoveTitle:"Are you sure?",confirmRemove:"Are you sure you would like to remove this item from the shopping cart?"};AEC.storeName="Building Materials UK";AEC.currencyCode="GBP";AEC.useDefaultValues=false;AEC.facebook=false;AEC.facebookInitParams=[];AEC.eventCallback=false;AEC.SUPER=[];AEC.CONFIGURABLE_SIMPLES=[];AEC.BUNDLE={"bundles":[],"options":[]};AEC.localStorage=true</script>
-<script type="text/javascript">requirejs(['jquery'],function(jQuery){(function($){(function(a,c,b,e){a[b]=a[b]||{};a[b].initial={accountCode:"DISTR11120",host:"DISTR11120.pcapredict.com"};a[b].on=a[b].on||function(){(a[b].onq=a[b].onq||[]).push(arguments)};var d=c.createElement("script");d.async=!0;d.src=e;c=c.getElementsByTagName("script")[0];c.parentNode.insertBefore(d,c)})(window,document,"pca","/"+"/DISTR11120.pcapredict.com/js/sensor.js");pca.magento=pca.magento||{};pca.magento.currentUrl=window.location.href;pca.magento.checkout=false;pca.magento.isElementVisible=function(elem){return!!(elem.offsetWidth||elem.offsetHeight||elem.getClientRects().length);};pca.magento.setupCheckout=function(){pca.magento.checkout=true;pca.magento.doLoad();};pca.on('data',function(source,key,address,variations){switch(source){case"address":if(pca.magento.checkout){var provinceField=null;for(var c=0;c
-    <pca.capturePlus.controls.length;c++){var cont=pca.capturePlus.controls[c];if(cont.key==key){for(var f=0;f
-    <cont.fields.length;f++){var element=pca.getElement(cont.fields[f].element);if(cont.fields[f].field==='{ProvinceName}'){provinceField=element;}
-        pca.fire(element,'change');}}}
-        if(provinceField){pca.setValue(provinceField,address.ProvinceName);pca.fire(provinceField,'change');}}
-        break;}});var loadHitCounter=0;pca.on("load",function(type,key,control){if(type=="capture+"){for(var f=0;f
-    <control.fields.length;f++){if(control.fields[f].element.indexOf('wait_')==0){control.fields[f].element=control.fields[f].element.replace('wait_','');}
-        if(document.getElementById(control.fields[f].element)){}else{var elementsMatchedByName=document.getElementsByName(control.fields[f].element);if(elementsMatchedByName.length>loadHitCounter){control.fields[f].element=elementsMatchedByName[loadHitCounter].id;}else{control.fields[f].element="wait_"+control.fields[f].element;}}}
-        control.reload();loadHitCounter++;}});pca.magento.reloadPCA=function(){if(console&&console.log)console.log("Loading PCA");loadHitCounter=0;pca.load();}
-        pca.magento.loadPCA=function(){pca.magento.reloadPCA();var buttons=document.getElementsByTagName('button');for(var b=0;b
-        <buttons.length;b++){if(buttons[b].className.indexOf('action-show-popup')>-1){$(buttons[b]).off('click.pca').on('click.pca',function(){pca.magento.reloadPCA();});}}
-            var els=document.getElementsByName('billing-address-same-as-shipping');if(els&&els.length){for(var i=0;i
-            <els.length;i++){$(els[i]).off('click.pca').on('click.pca',function(){if(this.checked===false){pca.magento.reloadPCA();}});}}
-            var els=document.getElementsByName('billing_address_id');if(els&&els.length){for(var i=0;i
-            <els.length;i++){$(els[i]).off('change.pca').on('change.pca',function(){pca.magento.reloadPCA();});}}
-            if(pca.magento.checkout){pca.magento.checkUrlChange();}};pca.magento.checkUrlChange=function(){if(window.location.href!=pca.magento.currentUrl){pca.magento.currentUrl=window.location.href;window.setTimeout(pca.magento.loadPCA,500);}
-        else{window.setTimeout(pca.magento.checkUrlChange,1000);}};pca.magento.dynamicMagentoFieldsExist=function(){var isDynamicRegExp=new RegExp("^[A-Z0-9]{7}$");var col=document.getElementsByTagName("*");for(var i=0;i
-        <col.length;i++){if(isDynamicRegExp.test(col[i].id)&&pca.magento.isElementVisible(col[i])){return true;}}}
-        pca.magento.doLoad=function(){if(pca&&pca.platform&&typeof pca.platform.elementExists==='function'&&(pca.platform.getBindingsForService("PLATFORM_CAPTUREPLUS").length>0||pca.platform.getBindingsForService("PLATFORM_MOBILEVALIDATION").length>0||pca.platform.getBindingsForService("PLATFORM_EMAILVALIDATION").length>0)&&(!pca.magento.checkout||pca.magento.dynamicMagentoFieldsExist())){window.setTimeout(pca.magento.loadPCA,500);}
-        else{window.setTimeout(pca.magento.doLoad,500);}};})(jQuery);})
-</script>
-<script type="text&#x2F;javascript">document.querySelector("#cookie-status").style.display = "none";</script>
-<script type="text/x-magento-init">{"*":{"cookieStatus":[]}}</script>
-<script type="text/x-magento-init">{"*":{"mage/cookies":{"expires":null,"path":"/","domain":".www.buildingmaterials.co.uk","secure":false,"lifetime":"604800"}}}</script>
-<script type="text&#x2F;javascript">var elem5HKS5vnM = document.querySelector('div#notice-cookie-block');
-    if (elem5HKS5vnM) {
-        elem5HKS5vnM.style.display = 'none';
-    }</script>
-<script type="text/x-magento-init">{"#notice-cookie-block":{"cookieNotices":{"cookieAllowButtonSelector":"#btn-cookie-allow","cookieName":"user_allowed_save_cookie","cookieValue":{"1":1},"cookieLifetime":31536000,"noCookiesUrl":"https://www.buildingmaterials.co.uk/cookie/index/noCookies/"}}}</script>
-<script>true</script>
-<script>require.config({map:{'*':{wysiwygAdapter:'mage/adminhtml/wysiwyg/tiny_mce/tinymce4Adapter'}}})</script>
-<script>require.config({paths:{'dmpt':"//r1-t.trackedlink.net/_dmpt"}})</script>
-<script type="text/x-magento-init">{"*":{"dmpt":[]}}</script>
-<script src="http://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<script type="text/x-magento-init">{"*":{"Magento_Ui/js/core/app":{"components":{"customer":{"component":"Magento_Customer/js/view/customer"}}}}}</script>
-<script>function runLoginHoverLogic(){document.querySelector(".dropdown-menu").addEventListener("click",function(){console.log("click")})
-        function getCookie(cname){var name=cname+"=";var decodedCookie=decodeURIComponent(document.cookie);var ca=decodedCookie.split(';');for(var i=0;i
-        <ca.length;i++){var c=ca[i];while(c.charAt(0)==' '){c=c.substring(1);}
-            if(c.indexOf(name)==0){return c.substring(name.length,c.length);}}
-            return"";}
-        function setCookie(cname,cvalue,exdays){var d=new Date();d.setTime(d.getTime()+(exdays*24*60*60*1000));var expires="expires="+d.toUTCString();document.cookie=cname+"="+cvalue+";"+expires+";path=/";}
-        if(getCookie("first-visit").length==0){setCookie("first-visit","true",1);document.querySelector(".dropdown-menu").classList.add("first-visit");setTimeout(function(){document.querySelector(".dropdown-menu").classList.remove("first-visit")},60*1000)}}
-    if(document.readyState!='loading')runLoginHoverLogic();else if(document.addEventListener)document.addEventListener('DOMContentLoaded',runLoginHoverLogic);else document.attachEvent('onreadystatechange',function(){if(document.readyState=='complete')runLoginHoverLogic();})
-</script>
-<script>window.checkout={"shoppingCartUrl":"https:\/\/www.buildingmaterials.co.uk\/checkout\/cart\/","checkoutUrl":"https:\/\/www.buildingmaterials.co.uk\/checkout\/","updateItemQtyUrl":"https:\/\/www.buildingmaterials.co.uk\/checkout\/sidebar\/updateItemQty\/","removeItemUrl":"https:\/\/www.buildingmaterials.co.uk\/checkout\/sidebar\/removeItem\/","imageTemplate":"Magento_Catalog\/product\/image_with_borders","baseUrl":"https:\/\/www.buildingmaterials.co.uk\/","minicartMaxItemsVisible":5,"websiteId":"1","maxItemsToDisplay":10,"storeId":"1","storeGroupId":"1","customerLoginUrl":"https:\/\/www.buildingmaterials.co.uk\/customer\/account\/login\/referer\/aHR0cHM6Ly93d3cuYnVpbGRpbmdtYXRlcmlhbHMuY28udWsvYWNvdXN0aWMtYWNjZXNzLXBhbmVsLW1ldGFsLWRvb3ItYmVhZGVkLWZyYW1lLTYwMG1tLXgtNjAwbW0tNDBkYi0wLTM2bTI%2C\/","isRedirectRequired":false,"autocomplete":"off","captcha":{"user_login":{"isCaseSensitive":false,"imageHeight":50,"imageSrc":"","refreshUrl":"https:\/\/www.buildingmaterials.co.uk\/captcha\/refresh\/","isRequired":false,"timestamp":1646169406}}}</script>
-<script type="text/x-magento-init">{"[data-block='minicart']":{"Magento_Ui/js/core/app":{"components":{"minicart_content":{"children":{"subtotal.container":{"children":{"subtotal":{"children":{"subtotal.totals":{"config":{"display_cart_subtotal_incl_tax":0,"display_cart_subtotal_excl_tax":1,"template":"Magento_Tax/checkout/minicart/subtotal/totals"},"children":{"subtotal.totals.msrp":{"component":"Magento_Msrp/js/view/checkout/minicart/subtotal/totals","config":{"displayArea":"minicart-subtotal-hidden","template":"Magento_Msrp/checkout/minicart/subtotal/totals"}}},"component":"Magento_Tax/js/view/checkout/minicart/subtotal/totals"}},"component":"uiComponent","config":{"template":"Magento_Checkout/minicart/subtotal"}}},"component":"uiComponent","config":{"displayArea":"subtotalContainer"}},"item.renderer":{"component":"uiComponent","config":{"displayArea":"defaultRenderer","template":"Magento_Checkout/minicart/item/default"},"children":{"item.image":{"component":"Magento_Catalog/js/view/image","config":{"template":"Magento_Catalog/product/image","displayArea":"itemImage"}},"checkout.cart.item.price.sidebar":{"component":"uiComponent","config":{"template":"Magento_Checkout/minicart/item/price","displayArea":"priceSidebar"}}}},"extra_info":{"component":"uiComponent","config":{"displayArea":"extraInfo"}},"promotion":{"component":"uiComponent","config":{"displayArea":"promotion"}}},"config":{"itemRenderer":{"default":"defaultRenderer","simple":"defaultRenderer","virtual":"defaultRenderer"},"template":"Magento_Checkout/minicart/content"},"component":"Magento_Checkout/js/view/minicart"}},"types":[]}},"*":{"Magento_Ui/js/block-loader":"https://www.buildingmaterials.co.uk/static/version1643217956/frontend/Rixxo/bm/en_GB/images/loader-1.gif"}}</script>
-<script>require(['Amasty_Xsearch/js/form-mini',],function(autoComplete,searchClick){'use strict';window.xsearch_options={"url":"https:\/\/www.buildingmaterials.co.uk\/amasty_xsearch\/autocomplete\/index\/","isDynamicWidth":true,"isProductBlockEnabled":true,"width":600,"minChars":3,"currentUrlEncoded":"aHR0cHM6Ly93d3cuYnVpbGRpbmdtYXRlcmlhbHMuY28udWsvYWNvdXN0aWMtYWNjZXNzLXBhbmVsLW1ldGFsLWRvb3ItYmVhZGVkLWZyYW1lLTYwMG1tLXgtNjAwbW0tNDBkYi0wLTM2bTI,"};})</script>
-<script type="text/x-magento-init">{"*":{"amastyXsearchAnalyticsCollector":[]}}</script>
-<script type="text/x-magento-init">{".breadcrumbs":{"breadcrumbs":{"categoryUrlSuffix":"","useCategoryPathInUrl":0,"product":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)"}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Ui/js/core/app":{"components":{"messages":{"component":"Magento_Theme/js/view/messages"}}}}}</script>
-<script type="text/x-magento-init">{"[data-role=aw-requisitionlist-create-list-wrapper]":{"Magento_Ui/js/core/app":{"components":{"awRequisitionListParent":{"component":"uiComponent","children":{"awRequisitionListCreateLink":{"component":"Aheadworks_RequisitionLists/js/ui/components/requisition-list/create-list-link","deps":["awRequisitionListProvider"],"config":{"isShow":false}},"awRequisitionList":{"component":"Magento_Ui/js/modal/modal-component","modalClass":"aw_requisitionlist__modal-create-list","config":{"options":{"title":"New Project List","modalClass":"aw_requisitionlist__modal-create-list-wrapper"}},"deps":["awRequisitionListProvider"],"children":{"awRequisitionListForm":{"component":"Aheadworks_RequisitionLists/js/ui/form/form","deps":["awRequisitionListProvider"],"dataScope":"data","children":{"fieldset":{"component":"Magento_Ui/js/form/components/fieldset","label":"","template":"Aheadworks_RequisitionLists/form/element/fieldset","children":{"list_name":{"component":"Magento_Ui/js/form/element/abstract","dataScope":"name","provider":"awRequisitionListProvider","template":"ui/form/field","label":"List Name","default":"My List","validation":{"required-entry":true,"validate-no-html-tags":true},"sortOrder":"10"},"description":{"component":"Magento_Ui/js/form/element/textarea","dataScope":"description","provider":"awRequisitionListProvider","template":"ui/form/field","label":"Description","previewSettings":{"maxCountOfWords":"5"},"validation":{"validate-no-html-tags":true},"sortOrder":"20"},"create":{"component":"Magento_Ui/js/form/components/button","provider":"awRequisitionListProvider","title":"Create","sortOrder":"30","buttonClasses":"action primary","actions":[{"targetName":"awRequisitionListParent.awRequisitionList.awRequisitionListForm","actionName":"save"}]}}}}}}}}},"awRequisitionListProvider":{"component":"Magento_Ui/js/form/provider","clientConfig":{"urls":{"save":"https://www.buildingmaterials.co.uk/aw_rl/rlist/save/"}}}}}}}</script>
-<script type="text/x-magento-init">{"[data-gallery-role=gallery-placeholder]":{"mage/gallery/gallery":{"mixins":["magnifier/magnify"],"magnifierOpts":{"fullscreenzoom":"20","top":"","left":"","width":"","height":"","eventType":"hover","enabled":false,"mode":"outside"},"data":[{"thumb":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/0402dca10f091ea90b224f3e9c4e4c16/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","img":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/86517bb13f04c4cc6f0e319afa740db0/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","full":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/e017703b48542abd93cff164a875dd5a/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","caption":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","position":null,"isMain":true,"type":"image","videoUrl":null,"webp":{"thumb":"https://www.buildingmaterials.co.uk/media/fishpig/webp/catalog/product/cache/0402dca10f091ea90b224f3e9c4e4c16/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.webp","img":"https://www.buildingmaterials.co.uk/media/fishpig/webp/catalog/product/cache/86517bb13f04c4cc6f0e319afa740db0/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.webp","full":"https://www.buildingmaterials.co.uk/media/fishpig/webp/catalog/product/cache/e017703b48542abd93cff164a875dd5a/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.webp"}}],"options":{"nav":"thumbs","loop":true,"keyboard":true,"arrows":true,"allowfullscreen":true,"showCaption":false,"width":700,"thumbwidth":88,"thumbheight":110,"height":700,"transitionduration":500,"transition":"slide","navarrows":true,"navtype":"slides","navdir":"horizontal"},"fullscreen":{"nav":"thumbs","loop":true,"navdir":"horizontal","navarrows":false,"navtype":"slides","arrows":true,"showCaption":false,"transitionduration":500,"transition":"slide"},"breakpoints":{"mobile":{"conditions":{"max-width":"767px"},"options":{"options":{"nav":"dots"}}}}}}}</script>
-<script type="text/x-magento-init">{"[data-gallery-role=gallery-placeholder]":{"Magento_ProductVideo/js/fotorama-add-video-events":{"videoData":[{"mediaType":"image","videoUrl":null,"isBase":true}],"videoSettings":[{"playIfBase":"0","showRelated":"0","videoAutoRestart":"0"}],"optionsVideoData":[]}}}</script>
-<script type="text/x-magento-init">{"#instant-purchase":{"Magento_Ui/js/core/app":{"components":{"instant-purchase":{"component":"Magento_InstantPurchase/js/view/instant-purchase","config":{"template":"Magento_InstantPurchase/instant-purchase","buttonText":"Instant Purchase","purchaseUrl":"https://www.buildingmaterials.co.uk/instantpurchase/button/placeOrder/"}}}}}}</script>
-<script type="text/x-magento-init">{"#product_addtocart_form":{"Magento_Catalog/js/validate-product":[]}}</script>
-<script type="text/x-magento-init">{"[data-role=priceBox][data-price-box=product-id-2886]":{"priceBox":{"priceConfig":{"productId":"2886","priceFormat":{"pattern":"\u00a3%s","precision":2,"requiredPrecision":2,"decimalSymbol":".","groupSymbol":",","groupLength":3,"integerRequired":false}}}}}</script>
-<script type="text/x-magento-init">{"body":{"addToWishlist":{"productType":"simple"}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Ui/js/core/app":{"components":{"addToProductLink":{"component":"Aheadworks_RequisitionLists/js/ui/components/requisition-list/add-to","urlToRequisitionList":"https://www.buildingmaterials.co.uk/aw_rl/rlist/","isLoggined":"","addToRequisitionListUrl":"https://www.buildingmaterials.co.uk/aw_rl/rlist/add/"}}}}}</script>
-<script>window.authenticationPopup = {"autocomplete":"off","customerRegisterUrl":"https:\/\/www.buildingmaterials.co.uk\/customer\/account\/create\/","customerForgotPasswordUrl":"https:\/\/www.buildingmaterials.co.uk\/customer\/account\/forgotpassword\/","baseUrl":"https:\/\/www.buildingmaterials.co.uk\/"}</script>
-<script type="text/x-magento-init">{"#authenticationPopup":{"Magento_Ui/js/core/app":{"components":{"authenticationPopup":{"component":"Magento_Customer/js/view/authentication-popup","children":{"messages":{"component":"Magento_Ui/js/view/messages","displayArea":"messages"},"captcha":{"component":"Magento_Captcha/js/view/checkout/loginCaptcha","displayArea":"additional-login-form-fields","formId":"user_login","configSource":"checkout"}}}}}},"*":{"Magento_Ui/js/block-loader":"https://www.buildingmaterials.co.uk/static/version1643217956/frontend/Rixxo/bm/en_GB/images/loader-1.gif"}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Customer/js/section-config":{"sections":{"stores/store/switch":["*"],"stores/store/switchrequest":["*"],"directory/currency/switch":["*"],"*":["messages"],"customer/account/logout":["*","recently_viewed_product","recently_compared_product","persistent"],"customer/account/loginpost":["*"],"customer/account/createpost":["*"],"customer/account/editpost":["*"],"customer/ajax/login":["checkout-data","cart","captcha"],"catalog/product_compare/add":["compare-products"],"catalog/product_compare/remove":["compare-products"],"catalog/product_compare/clear":["compare-products"],"sales/guest/reorder":["cart"],"sales/order/reorder":["cart"],"checkout/cart/add":["cart","directory-data"],"checkout/cart/delete":["cart"],"checkout/cart/updatepost":["cart"],"checkout/cart/updateitemoptions":["cart"],"checkout/cart/couponpost":["cart"],"checkout/cart/estimatepost":["cart"],"checkout/cart/estimateupdatepost":["cart"],"checkout/onepage/saveorder":["cart","checkout-data","last-ordered-items"],"checkout/sidebar/removeitem":["cart"],"checkout/sidebar/updateitemqty":["cart"],"rest/*/v1/carts/*/payment-information":["cart","last-ordered-items","instant-purchase"],"rest/*/v1/guest-carts/*/payment-information":["cart"],"rest/*/v1/guest-carts/*/selected-payment-method":["cart","checkout-data"],"rest/*/v1/carts/*/selected-payment-method":["cart","checkout-data","instant-purchase"],"customer/address/*":["instant-purchase"],"customer/account/*":["instant-purchase"],"vault/cards/deleteaction":["instant-purchase"],"multishipping/checkout/overviewpost":["cart"],"paypal/express/placeorder":["cart","checkout-data"],"paypal/payflowexpress/placeorder":["cart","checkout-data"],"paypal/express/onauthorization":["cart","checkout-data"],"persistent/index/unsetcookie":["persistent"],"review/product/post":["review"],"wishlist/index/add":["wishlist"],"wishlist/index/remove":["wishlist"],"wishlist/index/updateitemoptions":["wishlist"],"wishlist/index/update":["wishlist"],"wishlist/index/cart":["wishlist","cart"],"wishlist/index/fromcart":["wishlist","cart"],"wishlist/index/allcart":["wishlist","cart"],"wishlist/shared/allcart":["wishlist","cart"],"wishlist/shared/cart":["cart"],"braintree/paypal/placeorder":["cart","checkout-data"],"braintree/googlepay/placeorder":["cart","checkout-data"]},"clientSideSections":["checkout-data","cart-data","chatData"],"baseUrls":["https://www.buildingmaterials.co.uk/"],"sectionNames":["messages","customer","compare-products","last-ordered-items","cart","directory-data","captcha","instant-purchase","loggedAsCustomer","persistent","review","wishlist","requisitionlist","chatData","recently_viewed_product","recently_compared_product","product_data_storage","paypal-billing-agreement"]}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Customer/js/customer-data":{"sectionLoadUrl":"https://www.buildingmaterials.co.uk/customer/section/load/","expirableSectionLifetime":60,"expirableSectionNames":["cart","persistent"],"cookieLifeTime":"604800","updateSessionUrl":"https://www.buildingmaterials.co.uk/customer/account/updateSession/"}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Customer/js/invalidation-processor":{"invalidationRules":{"website-rule":{"Magento_Customer/js/invalidation-rules/website-rule":{"scopeConfig":{"websiteId":"1"}}}}}}}</script>
-<script type="text/x-magento-init">{"body":{"pageCache":{"url":"https://www.buildingmaterials.co.uk/page_cache/block/render/id/2886/","handles":["default","catalog_product_view","catalog_product_view_type_simple","catalog_product_view_id_2886","catalog_product_view_sku_033%2F201%2F005","mpseo_remove_schema","catalog_product_view_secure_trading_form"],"originalRequest":{"route":"catalog","controller":"product","action":"view","uri":"/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2"},"versionCookieName":"private_content_version"}}}</script>
-<script type="text/x-magento-init">{"body":{"awArpAjax":{"url":"https://www.buildingmaterials.co.uk/autorelated/view/process/id/2886/"}}}</script>
-<script type="text/x-magento-init">{"body":{"requireCookie":{"noCookieUrl":"https://www.buildingmaterials.co.uk/cookie/index/noCookies/","triggers":[".action.towishlist"],"isRedirectCmsPage":true}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Catalog/js/product/view/provider":{"data":{"items":{"2886":{"add_to_cart_button":{"post_data":"{\"action\":\"https:\\/\\/www.buildingmaterials.co.uk\\/checkout\\/cart\\/add\\/uenc\\/%25uenc%25\\/product\\/2886\\/\",\"data\":{\"product\":\"2886\",\"uenc\":\"%uenc%\"}}","url":"https://www.buildingmaterials.co.uk/checkout/cart/add/uenc/%25uenc%25/product/2886/","required_options":false},"add_to_compare_button":{"post_data":null,"url":"{\"action\":\"https:\\/\\/www.buildingmaterials.co.uk\\/catalog\\/product_compare\\/add\\/\",\"data\":{\"product\":\"2886\",\"uenc\":\"aHR0cHM6Ly93d3cuYnVpbGRpbmdtYXRlcmlhbHMuY28udWsvYWNvdXN0aWMtYWNjZXNzLXBhbmVsLW1ldGFsLWRvb3ItYmVhZGVkLWZyYW1lLTYwMG1tLXgtNjAwbW0tNDBkYi0wLTM2bTI,\"}}","required_options":null},"price_info":{"final_price":299.568001,"max_price":299.568001,"max_regular_price":299.568001,"minimal_regular_price":299.568001,"special_price":null,"minimal_price":299.568001,"regular_price":299.568001,"formatted_prices":{"final_price":"
-																																																	<span class=\"price\">\u00a3299.57</span>","max_price":"
-																																																	<span class=\"price\">\u00a3299.57</span>","minimal_price":"
-																																																	<span class=\"price\">\u00a3299.57</span>","max_regular_price":"
-																																																	<span class=\"price\">\u00a3299.57</span>","minimal_regular_price":null,"special_price":null,"regular_price":"
-																																																	<span class=\"price\">\u00a3299.57</span>"},"extension_attributes":{"msrp":{"msrp_price":"
-																																																	<span class=\"price\">\u00a30.00</span>","is_applicable":"","is_shown_price_on_gesture":"","msrp_message":"","explanation_message":"Our price is lower than the manufacturer&#039;s &quot;minimum advertised price.&quot; As a result, we cannot show you the price in catalog or the product page.
-																																																	<br>
-																																																		<br> You have no obligation to purchase the product once you know the price. You can simply remove the item from your cart."},"tax_adjustments":{"final_price":249.64,"max_price":249.64,"max_regular_price":249.64,"minimal_regular_price":249.64,"special_price":249.64,"minimal_price":249.64,"regular_price":249.64,"formatted_prices":{"final_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>","max_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>","minimal_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>","max_regular_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>","minimal_regular_price":null,"special_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>","regular_price":"
-																																																			<span class=\"price\">\u00a3249.64</span>"}},"weee_attributes":[],"weee_adjustment":"
-																																																			<span class=\"price\">\u00a3299.57</span>"}},"images":[{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/90090bd1e179e591a4dd5479efab4594/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_viewed_products_grid_content_widget","height":300,"width":240,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":240,"resized_height":300},{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/3a5e7b7dbd4b8188ebfc120cd3665519/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_viewed_products_list_content_widget","height":340,"width":270,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":270,"resized_height":340},{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/9129fba16819ec97cafc2df1884566e0/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_viewed_products_images_names_widget","height":90,"width":75,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":75,"resized_height":90},{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/90090bd1e179e591a4dd5479efab4594/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_compared_products_grid_content_widget","height":300,"width":240,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":240,"resized_height":300},{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/3a5e7b7dbd4b8188ebfc120cd3665519/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_compared_products_list_content_widget","height":340,"width":270,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":270,"resized_height":340},{"url":"https://www.buildingmaterials.co.uk/media/catalog/product/cache/9129fba16819ec97cafc2df1884566e0/A/c/AcousticAccessPanelMetalDoor_BeadedFrame.jpg","code":"recently_compared_products_images_names_widget","height":90,"width":75,"label":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","resized_width":75,"resized_height":90}],"url":"https://www.buildingmaterials.co.uk/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2","id":2886,"name":"Acoustic Access Panel Metal Door/Beaded Frame 600mm x 600mm 40db (0.36m2)","type":"simple","is_salable":"1","store_id":1,"currency_code":"GBP","extension_attributes":{"review_html":"","wishlist_button":{"post_data":null,"url":"{\"action\":\"https:\\/\\/www.buildingmaterials.co.uk\\/wishlist\\/index\\/add\\/\",\"data\":{\"product\":2886,\"uenc\":\"aHR0cHM6Ly93d3cuYnVpbGRpbmdtYXRlcmlhbHMuY28udWsvYWNvdXN0aWMtYWNjZXNzLXBhbmVsLW1ldGFsLWRvb3ItYmVhZGVkLWZyYW1lLTYwMG1tLXgtNjAwbW0tNDBkYi0wLTM2bTI,\"}}","required_options":null}}}},"store":"1","currency":"GBP","productCurrentScope":"website"}}}}
-																																																		</script>
-<script type="text/x-magento-init">{"body":{"awAdvancedReportsAjax":{"url":"https://www.buildingmaterials.co.uk/aw_advancedreports/countViews/product/id/2886/"}}}</script>
-<script type="text/x-magento-init">{"*":{"Magento_Ui/js/core/app":{"components":{"storage-manager":{"component":"Magento_Catalog/js/storage-manager","appendTo":"","storagesConfiguration":{"recently_viewed_product":{"requestConfig":{"syncUrl":"https://www.buildingmaterials.co.uk/catalog/product/frontend_action_synchronize/"},"lifetime":"1000","allowToSendRequest":null},"recently_compared_product":{"requestConfig":{"syncUrl":"https://www.buildingmaterials.co.uk/catalog/product/frontend_action_synchronize/"},"lifetime":"1000","allowToSendRequest":null},"product_data_storage":{"updateRequestConfig":{"url":"https://www.buildingmaterials.co.uk/rest/default/V1/products-render-info"},"requestConfig":{"syncUrl":"https://www.buildingmaterials.co.uk/catalog/product/frontend_action_synchronize/"},"allowToSendRequest":null}}}}}}}</script>
-<script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "1 The Pavilions",
-            "addressLocality": "Ruscombe Business Park, Twyford",
-            "postalCode": "RG10 9NN",
-            "addressCountry": "GB"
-        },
-        "sameAs": [
-            "https://www.facebook.com/www.buildingmaterials.co.uk",
-            "https://www.linkedin.com/company/buildingmaterialsnationwideltd"
-        ]
-    }
-</script>
-<script>var jQueryInt=setInterval(function(){if(typeof jQuery!="undefined"){clearInterval(jQueryInt);jQuery(document).on("touchstart",".action.showcart",function(){if(window.getComputedStyle(jQuery(".action.nav-toggle")[0]).display=="block"){window.location.href=jQuery(this).attr("href");}});jQuery(document).on("click",".menu .previous",function(e){if(jQuery(e.target).parent().hasClass("level--1")){jQuery(this).removeClass("previous");jQuery(this).removeClass("current");jQuery(this).find(".previous").removeClass("previous")}})}},100)</script>
-<script src="http://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<script type="text/x-magento-init">{"body":{"awCsblockAjax":{"url":"https://www.buildingmaterials.co.uk/csblock/block/render/id/2886/","originalRequest":{"route":"catalog","controller":"product","action":"view","uri":"/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2"}}}}</script>
-<script data-ommit="true">require(['jquery'],function($){(function($,dataLayer){var events={addToCart:function(){AEC.ajax(this,dataLayer);},removeFromCart:function(){AEC.remove(this,dataLayer);},productClick:function(){AEC.click(this,dataLayer);},addToWishlist:function(){AEC.wishlist(this,dataLayer);},addToCompare:function(){AEC.compare(this,dataLayer);},addToCartSwatch:function(){AEC.ajaxSwatch(this,dataLayer);}};var b=function(events){$.each(events,function(event,callback){var elements=$('[data-event]').filter(function(){return $(this).data('event')==event;});elements.each(function(){$(this).off('click.ec').on('click.ec',callback);});});};b(events);(function(events){$(document).ajaxComplete(function(event,request,settings){b(events);});})(events);})($,dataLayer);})</script>
-<script data-ommit="true">require(['jquery'],function($){$(document).ready(function(){var PromotionTrack=(function($,dataLayer){return{apply:function(){var promotions=[],position=0;$('[data-promotion]').each(function(){promotions.push({id:$(this).data('promotion-id'),name:$(this).data('promotion-name'),creative:$(this).data('promotion-creative'),position:++position});$(this).on({click:function(){var data={'event':'promotionClick','ecommerce':{'promoClick':{'promotions':[{'id':$(this).data('promotion-id'),'name':$(this).data('promotion-name'),'creative':$(this).data('promotion-creative'),'position':$(this).data('promotion-position')}]}}};AEC.Cookie.promotionClick(data).push(dataLayer);AEC.Persist.push(AEC.Persist.CONST_KEY_PROMOTION,{'promotion':data.ecommerce.promoClick.promotions[0]});}});});if(promotions.length){AEC.Cookie.promotion({'event':'promoViewNonInteractive','ecommerce':{'promoView':{'promotions':promotions}}}).push(dataLayer);}
-            return this;}}})($,dataLayer).apply();});})</script>
-<script data-ommit="true">if(typeof dataLayer!=="undefined"){if('undefined'!==typeof fbq){}
-        for(a=0,b=EC.length;a
-        <b;a++){EC[a].apply(this,[dataLayer]);EC[a].apply(this,[dataLayerTransport]);}
-        if(window.google_tag_params){(function(callback){if(AEC.Const.COOKIE_DIRECTIVE){if(!AEC.Const.COOKIE_DIRECTIVE_CONSENT_GRANTED){AEC.CookieConsent.queue(callback);}
-        else{callback.apply(window,[]);}}
-        else{callback.apply(window,[]);}})
-        ((function(dataLayer){return function(){AEC.Cookie.remarketing({'event':'fireRemarketingTag','google_tag_params':window.google_tag_params}).push(dataLayer);}})(dataLayer));}
-        require(['jquery'],function($){$(window).on({load:function(){if(!AEC.gtm()){}}});});if(typeof FB!=='undefined'){FB.Event.subscribe('edge.create',function(href){dataLayer.push({'event':'socialInt','socialNetwork':'Facebook','socialAction':'Like','socialTarget':href});});}
-        window.sendPlus=function(g){dataLayer.push({'event':'socialInt','socialNetwork':'Google','socialAction':'+1','socialTarget':g.href});};if(typeof twttr!=='undefined'){twttr.ready(function(twttr){twttr.events.bind('click',function(){dataLayer.push({'event':'socialInt','socialNetwork':'Twitter','socialAction':'tweet','socialTarget':window.location.href});});});}}
-    else{log('dataLayer[] is not intialized. Check if GTM is installed properly');}
-</script>
-<script type="text/x-magento-init">{"*":{"Dotdigitalgroup_Email/js/emailCapture":{"type":"newsletter","url":"https://www.buildingmaterials.co.uk/connector/ajax/emailcapture/","enabled":"1"}}}</script>
-<script data-ommit="true">window.dataLayer=window.dataLayer||[];var dataLayerTransport=(function(){var data=[];return{data:[],push:function(data){this.data.push(data);return this;},serialize:function(){return this.data;}}})()</script>
-<script data-ommit="true">var EC=[],Purchase=[];window.google_tag_params=window.google_tag_params||{};window.google_tag_params.ecomm_pagetype='product';window.G=[];window.revenue=0;window.DoubleClick={DoubleClickRevenue:0,DoubleClickTransaction:0,DoubleClickQuantity:0};var visitor={"visitorLoginState":"Logged out","visitorLifetimeValue":0,"visitorExistingCustomer":"No","visitorType":"NOT LOGGED IN","currentStore":"Building Materials UK"};AEC.Cookie.visitor(visitor).push(dataLayer,false);dataLayer.push({pageType:"product"})</script>
-<script data-ommit="true">window.google_tag_params.ecomm_pagetype='product';window.google_tag_params.ecomm_category='Building Materials/Access Panels/Acoustic';window.google_tag_params.ecomm_prodid='033/201/005';window.google_tag_params.ecomm_totalvalue=299.568001;window.google_tag_params.returnCustomer=false;AEC.Cookie.detail({"ecommerce":{"currencyCode":"GBP","detail":{"products":[{"id":"033\/201\/005","name":"Acoustic Access Panel Metal Door\/Beaded Frame 600mm x 600mm 40db (0.36m2)","price":299.568001,"brand":"Rapid Access","category":"Building Materials\/Access Panels\/Acoustic","dimension10":"In stock","quantity":1}],"actionField":{"list":"Acoustic"}},"impressions":[]},"currentStore":"Building Materials UK"}).push(dataLayer,false);dataLayerTransport.push({"ecommerce":{"currencyCode":"GBP","detail":{"products":[{"id":"033\/201\/005","name":"Acoustic Access Panel Metal Door\/Beaded Frame 600mm x 600mm 40db (0.36m2)","price":299.568001,"brand":"Rapid Access","category":"Building Materials\/Access Panels\/Acoustic","dimension10":"In stock","quantity":1}],"actionField":{"list":"Acoustic"}},"impressions":[]},"currentStore":"Building Materials UK"});window.G=[]</script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NT2PNDZ')</script>
-<script data-ommit="true">AEC.Bind.apply({"performance":false})</script>
-</body>
-<!-- Mirrored from www.buildingmaterials.co.uk/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Mar 2022 21:32:52 GMT -->
-</html>
+
+        .amazon-menu {
+            display: none
+        }
+
+        @media (min-width:768px) {
+            .customer-welcome:before {
+                content: "My Account ";
+                display: inline-block
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul {
+                height: 400px !important
+            }
+        }
+    </style>
+    <style>
+        .section__navigation .menu--main .level--1>.custom__block {
+            display: none;
+            position: absolute;
+            z-index: 10000;
+            right: 0;
+            top: 38px;
+            left: 55%;
+            width: 44vw;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            height: 420px
+        }
+
+        @media (min-width:1024px) {
+            .page-layout-1column .custom__block .block.widget .products-grid .product-item {
+                width: calc((100% - 8%)/3)
+            }
+        }
+
+        @media (min-width:768px) {
+            .menu.menu--secondary {
+                display: none
+            }
+
+            .menu:not(.menu--main) [data-home] {
+                display: none !important
+            }
+
+            .level--2>ul {
+                position: absolute;
+                left: 33%;
+                top: 21px;
+                margin-top: 0 !important;
+                display: none;
+                height: 100%
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul {
+                column-count: 1
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2 {
+                width: 66%;
+                display: block;
+                border-bottom: none;
+                padding-right: 0;
+                margin-bottom: 0
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2>a {
+                border: none;
+                position: relative
+            }
+
+            .level--2:hover>ul {
+                display: block;
+                z-index: 10000000000
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>a:before {
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 7.5px 0 7.5px 7.5px;
+                border-color: transparent transparent transparent #ccc;
+                position: absolute;
+                left: 44%;
+                top: 2.5px
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>a:before {
+                border-color: transparent transparent transparent #1b3990
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul:after {
+                content: "";
+                position: absolute;
+                top: 21px;
+                left: 31.5%;
+                border-left: 1px solid #ccc;
+                height: calc(100% - 42px)
+            }
+
+            .section__navigation .menu--main .level--3 a:hover {
+                color: #1b3990
+            }
+
+            .section__navigation .menu--main .level--1 {
+                text-align: left
+            }
+
+            .section__navigation .menu--main .level--2>a {
+                padding-bottom: 10px
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul {
+                height: 384px;
+                max-width: 1280px
+            }
+
+            .section__navigation .menu--main .level--1.haschildren:hover>.custom__block:not(:empty) {
+                display: block
+            }
+
+            .custom__block .block-title strong {
+                font-weight: 700 !important;
+                color: #1b3990
+            }
+
+            .custom__block .products-grid .product-item-info:hover,
+            .custom__block .products-grid .product-item-info.active {
+                box-shadow: none !important;
+                border: none;
+                margin: 0;
+                padding: 0
+            }
+
+            .custom__block .products-grid .product-item-info:hover .product-item-inner,
+            .custom__block .products-grid .product-item-info.active .product-item-inner {
+                display: none
+            }
+
+            .section__navigation .menu--main .level--2>ul {
+                height: 375px;
+                overflow: auto;
+                padding-right: 20px
+            }
+
+            .custom__block span.product-image-wrapper {
+                padding-bottom: 100% !important
+            }
+        }
+
+        @media (max-width:1089px) and (min-width:768px) {
+            .section__navigation .menu--main .level--1 {
+                font-size: 1.32rem;
+                margin-right: 8px;
+                letter-spacing: -.6px
+            }
+        }
+
+        @media (max-width:1024px) {
+            .custom__block .products-grid .product-item:nth-child(2)~* {
+                display: none
+            }
+
+            .custom__block .products-grid .product-item {
+                width: calc((100% - 6%)/3) !important
+            }
+        }
+
+        @media (max-width:768px) {
+            .section__navigation .menu--main ul li.current>a {
+                padding: 10px 20px;
+                text-align: left
+            }
+
+            .menu--main li.level--1 a {
+                background: #1b3990;
+                color: #fff;
+                font-weight: 700
+            }
+
+            .menu--main li.level--2 a {
+                background: #fff;
+                color: #1b3990;
+                font-weight: 700
+            }
+
+            .menu--main li.level--3 a {
+                background: #fff;
+                color: #1b3990;
+                font-weight: 400
+            }
+
+            .section__navigation .menu--main>ul>li {
+                display: block
+            }
+
+            .section__navigation .menu--main ul li.previous ul li {
+                display: block
+            }
+
+            .section__navigation .menu--main ul li.previous>a {
+                display: block
+            }
+
+            .section__navigation .menu--main ul li.current>a:before {
+                display: none
+            }
+
+            .section__navigation .haschildren>a:after {
+                display: block !important
+            }
+
+            .section__navigation .haschildren>a:after {
+                content: '▾'
+            }
+
+            .section__navigation .haschildren.previous>a:after,
+            .section__navigation .haschildren.current>a:after {
+                content: '▴'
+            }
+
+            .header.panel>.header.links {
+                display: none !important
+            }
+
+            .section__navigation {
+                height: calc(100% - 74px) !important
+            }
+
+            .menu.menu--secondary a {
+                font-weight: 700;
+                background: #eee
+            }
+
+            .menu [data-home] {
+                display: none !important
+            }
+
+            .menu--main li.level--1.haschildren:hover a {
+                margin-bottom: 0 !important
+            }
+
+            .section__navigation .menu--main ul li.previous>a {
+                border-bottom: 1px solid #c6c6c6
+            }
+        }
+
+        .section__navigation .menu--main .level--1>.custom__block {
+            max-width: 550px
+        }
+    </style>
+    <style>
+        @media (min-width:768px) {
+            .section__navigation .menu span.nolink {
+                color: #575757
+            }
+
+            .section__navigation .menu span.nolink {
+                color: #575757
+            }
+
+            .section__navigation .menu--main .level--2>span.nolink {
+                font-weight: 700;
+                display: block
+            }
+
+            .section__navigation .menu--main .level--2>span.nolink {
+                font-weight: 700;
+                display: block
+            }
+
+            .section__navigation .menu--main .level--2>span.nolink {
+                padding-bottom: 10px
+            }
+
+            .section__navigation .menu--main .level--2.haschildren>span.nolink {
+                padding-bottom: 10px
+            }
+
+            .section__navigation .menu--main .level--1 .level--2>span.nolink {
+                color: #1b3990
+            }
+
+            .section__navigation .menu--main .level--2.haschildren>span.nolink {
+                padding-bottom: 10px
+            }
+
+            .section__navigation .menu--main .level--1 .level--2>span.nolink {
+                color: #1b3990
+            }
+
+            .menu--main li.level--1.haschildren:hover span.nolink {
+                margin-bottom: 2px !important
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2.haschildren>span.nolink:before {
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 7.5px 0 7.5px 7.5px;
+                border-color: transparent transparent transparent #ccc;
+                position: absolute;
+                left: 44%;
+                top: 2.5px
+            }
+
+            .section__navigation .menu--main .level--1.children--3>ul>li.level--2:hover>span.nolink:before {
+                border-color: transparent transparent transparent #1b3990
+            }
+
+            span.nolink {
+                position: relative
+            }
+        }
+    </style>
+    <style>
+        @media (max-width:768px) {
+            span.nolink {
+                display: block
+            }
+
+            .menu--main li.level--1.haschildren:hover span.nolink {
+                margin-bottom: 0 !important
+            }
+
+            .menu--main li.level--1 span.nolink {
+                background: #1b3990;
+                color: #fff;
+                font-weight: 700
+            }
+
+            .menu--main li.level--2 span.nolink {
+                background: #fff;
+                color: #1b3990;
+                font-weight: 700
+            }
+
+            .section__navigation .haschildren>span.nolink:after {
+                font-size: 16px;
+                position: absolute;
+                top: 8px;
+                right: 20px;
+                content: '▾'
+            }
+
+            .section__navigation .haschildren.previous>a:after,
+            .section__navigation .haschildren.current>span.nolink:after {
+                content: '▴'
+            }
+
+            .section__navigation span.nolink {
+                position: relative;
+                display: block;
+                padding: 10px 20px
+            }
+
+            .section__navigation .menu--main ul li.current>span.nolink {
+                border-bottom: 1px solid #c6c6c6
+            }
+        }
+
+        @media (min-width:768px) {
+            .section__navigation .menu--main .level--1.children--3:nth-child(6)>ul {
+                column-count: inherit !important
+            }
+        }
+
+        @media (max-width:1399px) {
+            .section__navigation .menu--main .level--1>.custom__block {
+                max-width: 39.2%
+            }
+        }
+
+        .lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--prev {
+            right: calc(100% + -30px) !important
+        }
+
+        .lmrx-carousel.lmrx-carousel--full-window-width.lmrx-carousel--with-content .lmrx-carousel__controls__control--next {
+            left: calc(100% + -30px) !important
+        }
+    </style>
+
+    </div>
+
+    <script>var BASE_URL = 'https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F'; var require = { 'baseUrl': 'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB' } 
+    </script>
+    <script
+        src="https://www.buildingmaterials.co.uk/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
+
+    </body>
+
+
+    </html>
