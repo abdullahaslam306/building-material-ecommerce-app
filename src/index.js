@@ -54,7 +54,7 @@ app.use(session({
 }));
 database.syncDatabase();
 
-app.use('/user', indexRoutes);
+app.use('/', indexRoutes);
 app.use('/admin', AdminRoutes);
 // 404 page
 app.use((req, res) => {

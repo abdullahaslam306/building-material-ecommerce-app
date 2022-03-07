@@ -167,7 +167,7 @@
       <div class="section section__navigation_inner">
         <div class="menu menu--main">
           <ul>
-            <li class="level--1 children--3" data-home=true><a href="/user" target=_self>
+            <li class="level--1 children--3" data-home=true><a href="/" target=_self>
                 <svg id=svg-home viewBox="0 0 24 24"
                   style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
@@ -176,13 +176,13 @@
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
               <li class="level--1 haschildren children--3">
-                <a href="/user/category/product/<%=subcategory.id%>">
+                <a href="/category/product/<%=subcategory.id%>">
                   <%= subcategory.name%>
                 </a>
                 <ul>
                   <% if(subcategory.level==0) { subcategory.children.forEach(function(category){ %>
                     <li class="level--2 0">
-                      <a href="/user/category/products/<%=category.id%>" target=_self>
+                      <a href="/category/products/<%=category.id%>" target=_self>
                         <%=category.name%>
                       </a>
 
@@ -517,25 +517,25 @@
                   data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-how-to-guides.svg" />
                 <h2>How to Guides</h2>
               </a></div>
-            <div class=info-cards> <a href="/user/privacy/policy" class="card card-with-icon card-product-info"> <img
+            <div class=info-cards> <a href="/privacy/policy" class="card card-with-icon card-product-info"> <img
                   class=card-icon src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="Product Information Icon"
                   data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-product-info.svg" />
                 <h2>Privacy Policy</h2>
               </a></div>
-            <div class=info-cards> <a href="/user/faqs" class="card card-with-icon card-resources">
+            <div class=info-cards> <a href="/faqs" class="card card-with-icon card-resources">
                 <img class=card-icon
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="Resources Icon"
                   data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-faqs.svg" />
                 <h2>FAQS</h2>
               </a></div>
-            <div class=info-cards> <a href="/user/contact-us" class="card card-with-icon card-faqs"> <img
-                  class=card-icon src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                  alt="FAQs Icon" data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" />
+            <div class=info-cards> <a href="/contact-us" class="card card-with-icon card-faqs"> <img class=card-icon
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="FAQs Icon"
+                  data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" />
                 <h2>Contact Us</h2>
               </a></div>
-            <div class=info-cards> <a href="/user/event-news" class="card card-with-icon card-news">
+            <div class=info-cards> <a href="/event-news" class="card card-with-icon card-news">
                 <img class=card-icon
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="News &amp; Events Icon"
@@ -543,8 +543,8 @@
                 <h2>News &amp; Events</h2>
               </a>
             </div>
-            <div class=info-cards> <a href="/user/about-us" class="card card-with-icon card-charity"> <img
-                  class=card-icon src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            <div class=info-cards> <a href="/about-us" class="card card-with-icon card-charity"> <img class=card-icon
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                   alt="Charity Support Icon"
                   data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-resources.svg" />
                 <h2>About Us</h2>
