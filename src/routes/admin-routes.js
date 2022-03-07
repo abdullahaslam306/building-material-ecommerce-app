@@ -51,14 +51,13 @@ const redirectAdminLogin = (req, res, next) => {
   }
 };
 
-
-
 // admin login route
 router.get('/', (req, res) => {
   res.render('admin/admin-login', { success: null, error: null });
 });
 
 router.post('/login', UserLogin.login);
+router.get('/logout', UserLogin.logout);
 
 router.get('/recover-password', (req, res) => {
   res.render('admin/recover-password');
@@ -124,22 +123,22 @@ router.post('/user/update', redirectAdminLogin, UpdateUser.update);
  * Category Routes
  */
 
-router.get('/category/create', CreateCategory.loadCreatePage);
-router.post('/category/create', CreateCategory.create);
-router.get('/category/list', ListCategory.listAll);
-router.get('/category/test', ListCategory.listNav);
-router.get('/category/delete/:id', DeleteCategory.deleteCategory);
-router.get('/category/edit/:id', UpdateCategory.loadUpdatePage);
-router.post('/category/edit/', UpdateCategory.update);
+router.get('/category/create', userAuthentication, CreateCategory.loadCreatePage);
+router.post('/category/create', userAuthentication, CreateCategory.create);
+router.get('/category/list', userAuthentication, ListCategory.listAll);
+router.get('/category/test', userAuthentication, ListCategory.listNav);
+router.get('/category/delete/:id', userAuthentication, DeleteCategory.deleteCategory);
+router.get('/category/edit/:id', userAuthentication, UpdateCategory.loadUpdatePage);
+router.post('/category/edit/', userAuthentication, UpdateCategory.update);
 
 /**
  * Product Routes
  */
-router.get('/product/create', CreateProduct.loadCreatePage);
-router.post('/product/create', CreateProduct.upload.single('image'), CreateProduct.create);
-router.get('/product/list', ListProduct.listAll);
-router.get('/product/delete/:id', DeleteProduct.deleteProduct);
-router.get('/product/edit/:id', UpdateProduct.loadUpdatePage);
-router.post('/product/edit', UpdateProduct.upload.single('image'), UpdateProduct.update);
+router.get('/product/create', userAuthentication, CreateProduct.loadCreatePage);
+router.post('/product/create', userAuthentication, CreateProduct.upload.single('image'), CreateProduct.create);
+router.get('/product/list', userAuthentication, ListProduct.listAll);
+router.get('/product/delete/:id', userAuthentication, DeleteProduct.deleteProduct);
+router.get('/product/edit/:id', userAuthentication, UpdateProduct.loadUpdatePage);
+router.post('/product/edit', userAuthentication, UpdateProduct.upload.single('image'), UpdateProduct.update);
 
 module.exports = router;
