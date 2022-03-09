@@ -180,19 +180,30 @@
                   <path d="M0 0h24v24H0z" fill=none></path>
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
+             <%if( subcategory.level==0 ) {%>
               <li class="level--1 haschildren children--3">
-                <a href="/category/product/<%=subcategory.id%>">
-                  <%= subcategory.name%>
+                <a href="/category/products/<%=subcategory.id%>">
+                  <%= subcategory.name %>
                 </a>
                 <ul>
-                  <% if(subcategory.level==0) { subcategory.children.forEach(function(category){ %>
-                    <li class="level--2 0">
+                  <%  subcategory.children.forEach(function(category){
+                  categories.forEach(function (categoryToMatch) {
+                  if(categoryToMatch.id == category.id) { %>
+                    <li class="level--2 haschildren children--3">
                       <a href="/category/products/<%=category.id%>" target=_self>
                         <%=category.name%>
                       </a>
-
+                      <ul>
+                          <% if(categoryToMatch.children) {categoryToMatch.children.forEach(function(child){%>
+                          <li class="level--3 0">
+                            <a href="/category/products/<%=child.id%>" target=_self>
+                              <%=child.name%>
+                            </a>
+                          </li>
+                        <% }) }%>
+                      </ul>
                     </li>
-                    <%})%>
+                    <%} })  }) %>
                 </ul>
               </li>
               <%}})%>

@@ -59,19 +59,15 @@
                             <div class="col-sm-10">
                                 <select name="parent" class="form-control" id="">
                                     <option value=""></option>
-                                    <% categories.forEach(function(category) {
-
-                                    %>
-                                        <option value="<%= category.id %>"  <% if(category.parentData) { if(category.name === categoryToUpdate.parentData.name) { %> selected="selected" <% }%>>
+                                    <% categories.forEach(function(category) { %>
+                                        <option value="<%= category.id %>"  <% if(category.parentData) { if(category.name === categoryToUpdate.parentData.name) { %> selected="selected" <% } }%>>
                                             <%= category.name  %></option>
-                                    <%  } }) %>
+                                    <%  }) %>
                                 </select>
                             </div>
                         </div>
                         <div class="button-items">
                             <button type="submit" class="btn btn-success waves-effect waves-light btn-lg">Save</button>
-
-
 
                         </div>
 

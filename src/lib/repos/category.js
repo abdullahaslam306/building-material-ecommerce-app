@@ -30,7 +30,7 @@ class Category {
 
     const categories = await this.dbInstance.categories.findAll({ include });
 
-    if ((categories === null || categories.length === 0)) {
+    if (categories === null || categories.length === 0) {
       throw new Error('No Categories Found.');
     }
     return categories;
@@ -39,11 +39,11 @@ class Category {
   async listParentCategories() {
     const where = {
       level: {
-        [Op.ne]: 1,
+        [Op.ne]: 2,
       },
     };
     const categories = await this.dbInstance.categories.findAll({ where });
-    if ((categories === null || categories.length === 0)) {
+    if (categories === null || categories.length === 0) {
       throw new Error('Exception in listing category.');
     }
     return categories;
@@ -57,7 +57,7 @@ class Category {
     };
     const events = await this.dbInstance.categories.findAll({ where });
     console.log(events);
-    if ((events === null || events.length === 0)) {
+    if (events === null || events.length === 0) {
       throw new Error('Exception in listing category.');
     }
     return events;
@@ -82,21 +82,20 @@ class Category {
     return allProducts;
   }
 
-  async getProducts(categorId) {
-
-  }
+  async getProducts(categorId) {}
 
   async getCategoriesList() {
     const include = {
       model: this.dbInstance.categories,
       as: 'children',
     };
-    const category = await this.dbInstance.categories.findAll({ include });
-    console.log(category);
-    if ((category === null || category.length === 0)) {
+    const categories = await this.dbInstance.categories.findAll({ include });
+    console.log(categories);
+    if (categories === null || categories.length === 0) {
       throw new Error('Exception in getting category.');
     }
-    return category;
+
+    return categories;
   }
 
   async getById(id) {
@@ -105,9 +104,12 @@ class Category {
       as: 'parentData',
     };
     const where = { id };
-    const category = await this.dbInstance.categories.findOne({ include, where });
+    const category = await this.dbInstance.categories.findOne({
+      include,
+      where,
+    });
     console.log(category);
-    if ((category === null || category.length === 0)) {
+    if (category === null || category.length === 0) {
       throw new Error('Exception in getting category.');
     }
     return category;
@@ -119,9 +121,12 @@ class Category {
       as: 'children',
     };
     const where = { id };
-    const category = await this.dbInstance.categories.findOne({ include, where });
+    const category = await this.dbInstance.categories.findOne({
+      include,
+      where,
+    });
     console.log(category);
-    if ((category === null || category.length === 0)) {
+    if (category === null || category.length === 0) {
       throw new Error('Exception in getting category.');
     }
     return category;
@@ -135,11 +140,14 @@ class Category {
   async update(id, name, parent, level) {
     const where = { id };
 
-    const updatedRows = await this.dbInstance.categories.update({
-      name,
-      level,
-      parent,
-    }, { where });
+    const updatedRows = await this.dbInstance.categories.update(
+      {
+        name,
+        level,
+        parent,
+      },
+      { where },
+    );
 
     if (!updatedRows) {
       throw new Error('Unable to update category.');
