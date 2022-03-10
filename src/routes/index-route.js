@@ -36,7 +36,7 @@ router.get('/event/details/:id',loadNav, GetEvent.getPublicEvent);
 
 router.get('/event-news', loadNav , ListEvents.listNews);
 
-router.get('/category/product/:id', loadNav, ListCategory.listProductByCategory);
-router.get('/product/:id', loadNav, ListProduct.getProduct);
+router.get('/category/products/:id', loadNav, ListCategory.listProductByCategory);
+router.get('/products/:id', loadNav, ListProduct.getProduct);
 
 module.exports = router;

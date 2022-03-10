@@ -27,6 +27,7 @@ const create = async (req, res) => {
 
     res.render('admin/add-category', { categories, success: 'Category created successfully', error: null });
   } catch (exception) {
+    console.log(exception)
     res.render('admin/add-category', { categories: [], success: null, error: exception.message });
   }
 };
