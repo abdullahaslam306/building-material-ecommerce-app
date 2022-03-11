@@ -36,6 +36,21 @@ class Category {
     return categories;
   }
 
+  removeSemiParent(categories) {
+    let filteredCategories = [];
+    for (const category of categories) {
+      let flag = true;
+      for (const category1 of categories) {
+        if (category1.parent === category.id) {
+          flag = false;
+        }
+      }
+      if (flag) filteredCategories.push(category);
+    }
+
+    return filteredCategories;
+  }
+
   async listParentCategories() {
     const where = {
       level: {
@@ -46,6 +61,7 @@ class Category {
     if (categories === null || categories.length === 0) {
       throw new Error('Categories Not found.');
     }
+
     return categories;
   }
 
@@ -55,17 +71,18 @@ class Category {
         [Op.ne]: 0,
       },
     };
-    const events = await this.dbInstance.categories.findAll({ where });
-    console.log(events);
-    if (events === null || events.length === 0) {
+    let categories = await this.dbInstance.categories.findAll({ where });
+    console.log(categories);
+    if (categories === null || categories.length === 0) {
       throw new Error('Exception in listing category.');
     }
-    return events;
+    categories = this.removeSemiParent(categories);
+    return categories;
   }
 
   async getProductsByCategory(id) {
     const category = await this.getByIdWithChildren(id);
-    if (category.level === 1) {
+    if (category.level === 2) {
       const where = { category: category.id };
       const products = await this.dbInstance.product.findAll({ where });
       return products;
