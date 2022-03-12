@@ -9,11 +9,12 @@ class Category {
     this.dbInstance = dbConnection;
   }
 
-  async create(name, parent, level) {
+  async create(name, parent, level, image) {
     const category = await this.dbInstance.categories.create({
       name,
       level,
       parent,
+      image,
     });
     console.log(category);
     if (!(category instanceof this.dbInstance.categories)) {
@@ -37,9 +38,11 @@ class Category {
   }
 
   removeSemiParent(categories) {
-    let filteredCategories = [];
+    const filteredCategories = [];
+    // eslint-disable-next-line no-restricted-syntax
     for (const category of categories) {
       let flag = true;
+      // eslint-disable-next-line no-restricted-syntax
       for (const category1 of categories) {
         if (category1.parent === category.id) {
           flag = false;
@@ -154,17 +157,21 @@ class Category {
     await this.dbInstance.categories.destroy({ where });
   }
 
-  async update(id, name, parent, level) {
-    const where = { id };
+  async update(id, name, parent, level, image) {
+    const where = {
+      id,
+    };
+    console.log(image);
+    const categoryToUpdate = {
+      name,
+      parent,
+      level,
+    };
+    if (image !== undefined || image != null) {
+      categoryToUpdate.image = image;
+    }
 
-    const updatedRows = await this.dbInstance.categories.update(
-      {
-        name,
-        level,
-        parent,
-      },
-      { where },
-    );
+    const updatedRows = await this.dbInstance.event.update(categoryToUpdate, { where });
 
     if (!updatedRows) {
       throw new Error('Unable to update category.');

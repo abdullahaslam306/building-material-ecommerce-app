@@ -12,6 +12,10 @@ module.exports = (sequelize, sequelizeDataTypes) => {
       type: sequelizeDataTypes.STRING,
       allowNull: false,
     },
+    'image': {
+      type: sequelizeDataTypes.STRING,
+      allowNull: false,
+    },
     'level': {
       type: sequelizeDataTypes.INTEGER,
       allowNull: false,

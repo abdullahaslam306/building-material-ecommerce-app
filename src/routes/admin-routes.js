@@ -30,24 +30,20 @@ const {
 const router = express.Router();
 
 const userAuthentication = (req, res, next) => {
-  console.log('email', req.session.email)
-  if(req.session.email)
-  next();
-  else
-  {
-    console.log(req.session)
+  console.log('email', req.session.email);
+  if (req.session.email) next();
+  else {
+    console.log(req.session);
     res.redirect('/admin/');
   }
   // next();
 };
 
 const redirectAdminLogin = (req, res, next) => {
-  if(req.session.type != 'admin')
-  {
-    res.redirect('/admin/dashboard')
-  }
-  else{
-  next();
+  if (req.session.type != 'admin') {
+    res.redirect('/admin/dashboard');
+  } else {
+    next();
   }
 };
 
@@ -124,12 +120,12 @@ router.post('/user/update', redirectAdminLogin, UpdateUser.update);
  */
 
 router.get('/category/create', userAuthentication, CreateCategory.loadCreatePage);
-router.post('/category/create', userAuthentication, CreateCategory.create);
+router.post('/category/create', userAuthentication, CreateCategory.upload.single('image'), CreateCategory.create);
 router.get('/category/list', userAuthentication, ListCategory.listAll);
 router.get('/category/test', userAuthentication, ListCategory.listNav);
 router.get('/category/delete/:id', userAuthentication, DeleteCategory.deleteCategory);
 router.get('/category/edit/:id', userAuthentication, UpdateCategory.loadUpdatePage);
-router.post('/category/edit/', userAuthentication, UpdateCategory.update);
+router.post('/category/edit/', userAuthentication, UpdateCategory.upload.single('image'), UpdateCategory.update);
 
 /**
  * Product Routes

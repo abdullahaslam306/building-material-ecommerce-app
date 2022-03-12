@@ -1,4 +1,5 @@
 const { database, repositories } = require('../../lib');
+const multer = require('multer');
 
 const create = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ const create = async (req, res) => {
 
     // eslint-disable-next-line prefer-const
     let { name, parent } = req.body;
-
+    const fileName = `/uploads/${req.file.filename}`;
     const connection = await database.openConnection();
 
     const categoryRepo = new repositories.Category(connection);
@@ -19,7 +20,7 @@ const create = async (req, res) => {
       level = parentData.level + 1;
     }
 
-    await categoryRepo.create(name, id, level);
+    await categoryRepo.create(name, id, level, fileName);
 
     const categories = await categoryRepo.listParentCategories();
 
@@ -49,4 +50,17 @@ const loadCreatePage = async (req, res) => {
   }
 };
 
-module.exports = { create, loadCreatePage };
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './src/public/uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `category-${Date.now()}`);
+  },
+});
+
+const upload = multer({ storage });
+
+
+
+module.exports = { create, loadCreatePage,upload };
