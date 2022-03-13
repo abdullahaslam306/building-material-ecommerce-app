@@ -57,7 +57,7 @@ const loadCreatePage = async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '/home/dev/building-material-ecommerce-app/src/src/public/uploads');
+    cb(null, '/home/dev/building-material-ecommerce-app/src/public/uploads');
     ///home/dev/building-material-ecommerce-app/src
   },
   filename: (req, file, cb) => {

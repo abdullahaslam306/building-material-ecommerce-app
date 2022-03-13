@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const indexRoutes = require('./routes/index-route');
 const AdminRoutes = require('./routes/admin-routes');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 const env = require('./configs/env');
 const { database } = require('./lib');
 // express app
