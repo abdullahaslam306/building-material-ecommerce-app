@@ -62,7 +62,7 @@ class Category {
     };
     const categories = await this.dbInstance.categories.findAll({ where });
     if (categories === null || categories.length === 0) {
-      throw new Error('Exception in listing category.');
+      throw new Error('No Categories Found.');
     }
 
     return categories;
@@ -77,7 +77,7 @@ class Category {
     let categories = await this.dbInstance.categories.findAll({ where });
     console.log(categories);
     if (categories === null || categories.length === 0) {
-      throw new Error('Exception in listing category.');
+      throw new Error('No Categories Found.');
     }
     categories = this.removeSemiParent(categories);
     return categories;
@@ -85,24 +85,24 @@ class Category {
 
   async getProductsByCategory(id) {
     const category = await this.getByIdWithChildren(id);
-    if (category.level === 2) {
+    if (category.level === 2 || category.children === null || category.children.length === 0) {
       const where = { category: category.id };
       const products = await this.dbInstance.product.findAll({ where });
       return products;
     }
 
     const allProducts = [];
+    // eslint-disable-next-line no-restricted-syntax
     for await (const subCategory of category.children) {
       const where = { category: subCategory.id };
       const products = await this.dbInstance.product.findAll({ where });
+      // eslint-disable-next-line no-restricted-syntax
       for (const product of products) {
         allProducts.push(product);
       }
     }
     return allProducts;
   }
-
-  async getProducts(categorId) {}
 
   async getCategoriesList() {
     const include = {
@@ -112,7 +112,7 @@ class Category {
     const categories = await this.dbInstance.categories.findAll({ include });
     console.log(categories);
     if (categories === null || categories.length === 0) {
-      throw new Error('Exception in getting category.');
+      throw new Error('No Categories Found.');
     }
 
     return categories;
@@ -130,7 +130,7 @@ class Category {
     });
     console.log(category);
     if (category === null || category.length === 0) {
-      throw new Error('Exception in getting category.');
+      throw new Error('No Categories Found.');
     }
     return category;
   }
@@ -147,7 +147,7 @@ class Category {
     });
     console.log(category);
     if (category === null || category.length === 0) {
-      throw new Error('Exception in getting category.');
+      throw new Error('No Categories Found.');
     }
     return category;
   }
