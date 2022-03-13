@@ -1,3 +1,4 @@
+const multer = require('multer');
 const { database, repositories } = require('../../lib');
 
 const update = async (req, res) => {
@@ -10,7 +11,10 @@ const update = async (req, res) => {
     let parentId = Number.parseInt(parent);
 
     const connection = await database.openConnection();
-
+    let filename = null;
+    if (req.file) {
+      filename = `/uploads/${req.file.filename}`;
+    }
     const categoryRepo = new repositories.Category(connection);
 
     if (parent) {
@@ -19,7 +23,7 @@ const update = async (req, res) => {
       level = parentData.level + 1;
     }
 
-    await categoryRepo.update(id, name, parentId, level);
+    await categoryRepo.update(id, name, parentId, level,filename);
 
     await database.closeConnection(connection);
 
@@ -51,4 +55,17 @@ const loadUpdatePage = async (req, res) => {
   }
 };
 
-module.exports = { update, loadUpdatePage };
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './src/public/uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `category-${Date.now()}`);
+  },
+});
+
+const upload = multer({ storage });
+
+
+module.exports = { update, loadUpdatePage, upload };

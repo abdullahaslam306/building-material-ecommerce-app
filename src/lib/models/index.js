@@ -50,6 +50,7 @@ async function openConnection() {
       connection[modelName].associate(connection);
     }
   });
+
   connection.sequelize = sequelize;
   connection.Sequelize = Sequelize;
 

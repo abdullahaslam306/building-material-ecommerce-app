@@ -169,39 +169,38 @@
           <ul>
             <li class="level--1 children--3" data-home=true><a href="/" target=_self>
                 <svg id=svg-home viewBox="0 0 24 24"
-                     style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
+                  style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
                   </path>
                   <path d="M0 0h24v24H0z" fill=none></path>
                 </svg></a></li>
             <% categories.forEach(function(subcategory){ %>
-            <%if( subcategory.level==0 ) {%>
-            <li class="level--1 haschildren children--3">
-              <a href="">
-                <%= subcategory.name %>
-              </a>
-              <ul>
-                <%  subcategory.children.forEach(function(category){
-                categories.forEach(function (categoryToMatch) {
-                if(categoryToMatch.id == category.id) { %>
-                <li class="level--2 haschildren children--3">
-                  <a href="/category/products/<%=category.id%>" target=_self>
-                    <%=category.name%>
+              <%if( subcategory.level==0 ) {%>
+                <li class="level--1 haschildren children--3">
+                  <a href="/category/subcategory/<%= subcategory.id %>">
+                    <%= subcategory.name %>
                   </a>
                   <ul>
-                    <% if(categoryToMatch.children) {categoryToMatch.children.forEach(function(child){%>
-                    <li class="level--3 0">
-                      <a href="/category/products/<%=child.id%>" target=_self>
-                        <%=child.name%>
-                      </a>
-                    </li>
-                    <% }) }%>
+                    <% subcategory.children.forEach(function(category){ categories.forEach(function (categoryToMatch) {
+                      if(categoryToMatch.id==category.id) { %>
+                      <li class="level--2 haschildren children--3">
+                        <a href="/category/products/<%=category.id%>" target=_self>
+                          <%=category.name%>
+                        </a>
+                        <ul>
+                          <% if(categoryToMatch.children) {categoryToMatch.children.forEach(function(child){%>
+                            <li class="level--3 0">
+                              <a href="/category/products/<%=child.id%>" target=_self>
+                                <%=child.name%>
+                              </a>
+                            </li>
+                            <% }) }%>
+                        </ul>
+                      </li>
+                      <%} }) }) %>
                   </ul>
                 </li>
-                <%} })  }) %>
-              </ul>
-            </li>
-            <%}})%>
+                <%}})%>
           </ul>
         </div>
 

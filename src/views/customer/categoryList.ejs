@@ -1,35 +1,23 @@
 <%- include("./header.ejs") %>
+    <div class=custom-category-banner>
+        <div class=category-image>
+            <picture>
+                <source type="image/webp"
+                    srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    data-srcset="../../media/fishpig/webp/catalog/category/Acoustic.webp" />
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt=Acoustic
+                    title=Acoustic class=image data-src="../../media/catalog/category/Acoustic.jpg" />
+            </picture>
+        </div>
+        <div class=custom-category-banner__content>
 
-
-    <div data-aw-csblock-block-name=csblock_product_menu_top></div>
-    <div data-aw-csblock-block-name=csblock_product_menu_bottom></div>
-    <div class=top-container>
-        <div class="widget block block-static-block"></div>
+        </div>
     </div>
-    <div class=breadcrumbs></div>
+
+
     <main id=maincontent class=page-main>
         <a id=contentarea tabindex=-1></a>
-        <div class="page messages">
-            <div data-placeholder=messages></div>
-            <div data-bind="scope: 'messages'">
-                <!-- ko if: cookieMessages && cookieMessages.length > 0 -->
-                <div role=alert data-bind="foreach: { data: cookieMessages, as: 'message' }" class=messages>
-                    <div
-                        data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
-                        <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
-                    </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: messages().messages && messages().messages.length > 0 -->
-                <div role=alert data-bind="foreach: { data: messages().messages, as: 'message' }" class=messages>
-                    <div
-                        data-bind="attr: { class: 'message-' + message.type + ' ' + message.type + ' message', 'data-ui-id': 'message-' + message.type }">
-                        <div data-bind="html: $parent.prepareMessageForHtml(message.text)"></div>
-                    </div>
-                </div>
-                <!-- /ko -->
-            </div>
-        </div>
+        <h2>SubCategories</h2>
         <div class="widget block block-static-block"></div>
         <div class=columns>
             <div class="column main">
@@ -38,125 +26,90 @@
                     <!-- ko template: getTemplate() -->
                     <!-- /ko -->
                 </div>
-                <div data-aw-csblock-block-name=csblock_product_content_top></div>
-                <div class="product media">
-                    <a id=gallery-prev-area tabindex=-1></a>
-                    <div class=action-skip-wrapper>
-                        <a class="action skip gallery-next-area" href="#gallery-next-area">
-                            <span> Skip to the end of the images gallery </span>
-                        </a>
-                    </div>
-                    <div class="gallery-placeholder _block-content-loading" data-gallery-role=gallery-placeholder>
-                        <picture>
-                            <img src="<%= product.image %>" />
-                        </picture>
-                    </div>
-                    <div class=action-skip-wrapper>
-                        <a class="action skip gallery-prev-area" href="#gallery-prev-area">
-                            <span> Skip to the beginning of the images gallery </span>
-                        </a>
-                    </div>
-                    <a id=gallery-next-area tabindex=-1></a>
-                </div>
-                <div class=product-info-main>
-                    <div class="page-title-wrapper&#x20;product">
-                        <h1 class=page-title>
-                            <span class=base data-ui-id=page-title-wrapper itemprop=name>
-                                <%= product.name %>
-                            </span>
-                        </h1>
-                    </div>
-                    <div class="product-reviews-summary empty">
-                        <div class=reviews-actions>
-                            <a class="action add"
-                                href="https://www.buildingmaterials.co.uk/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2#review-form">
-                                Be the first to review this product </a>
-                        </div>
-                    </div>
-                    <div class="product-additional accordion-item">
-                        <div class="product-additional__title accordion-item__title"><strong>
-                                <%= product.name %>
-                            </strong> </div>
-                        <div class="product-additional__content accordion-item__content">
-                            <div class="additional-attributes-wrapper table-wrapper">
-                                <table class="data table additional-attributes" id=product-attribute-specs-table>
-                                    <caption class=table-caption>More Information</caption>
-                                    <tbody>
-                                        <tr>
-                                            <th>More Details</th>
-                                            <td> <a target=_blank href="http://<%= product.link %>"> Link</a></td>
-                                        <tr>
-
-                                        </tr>
-                                        </tr>
-                                        <% properties.forEach(function (property) { %>
-                                            <tr>
-                                                <th class="col label" scope=row>
-                                                    <%= property.key%>
-                                                </th>
-                                                <td class="col data">
-                                                    <%= property.value%>
-                                                </td>
-                                            </tr>
-                                            <% })%>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=product-social-links>
-                        <div class=product-addto-links data-role=add-to-links>
-                            <div>
-                                <div class=aw-rl__list-wrapper data-role=aw-rl-listing
-                                    data-bind="scope: 'addToProductLink'">
-                                    <!-- ko template: getTemplate() -->
-                                    <!-- /ko -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product info detailed">
-                    <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
-                        <div class="product-details_grid ">
-                            <div class=product-info>
-                                <div class=product-info__tabs>
-                                    <div class="product-info__tabs__each active" data-tab=1>Details</div>
-                                </div>
-                                <div class=product-info__grid>
-                                    <div class="product-info__grid__each active" data-tab=1>
-                                        <div class=product-description__row>
-                                            <div class="product-description accordion-item">
-                                                <div class="product-description__title accordion-item__title">
-                                                    Details </div>
-                                                <div class="product-description__content accordion-item__content">
-                                                    <div class="product attribute description">
-                                                        <div class=value>
-                                                            <%- product.desc %>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=product-also-bought></div>
                 <input name=form_key type=hidden value=9aTciXnHPxp7CfQX>
                 <div id=authenticationPopup data-bind="scope:'authenticationPopup', style: {display: 'none'}">
                     <!-- ko template: getTemplate() -->
                     <!-- /ko -->
                 </div>
+                <div data-aw-csblock-block-name=csblock_category_content_top></div>
+                <div>
+                    <style>
+                        .price.no-before:before {
+                            display: none
+                        }
+                    </style>
+                    <div class="category-large-wrapper products wrapper grid products-grid">
+                        <ol class="products list items product-items">
+
+                            <% subCategories.forEach(function(product) { %>
+
+                                <li class="item product product-item category-lg-container ">
+                                    <div class=product-item-info data-container=product-grid>
+                                        <div class=product-lg-top>
+                                            <div class=product-lg-top__left>
+                                                <div class=product-lg-top__left--image>
+                                                    <a href="/category/subcategory/<%= product.id %>""
+                                                        class=" product photo product-item-photo" tabindex=-1>
+                                                        <span
+                                                            class="product-image-container product-image-container-35096">
+                                                            <span class=product-image-wrapper>
+                                                                <picture>
+                                                                    <img class=product-image-photo
+                                                                        src="<%= product.image %>" loading=lazy
+                                                                        width=240 height=300 />
+                                                                </picture>
+                                                            </span>
+                                                        </span>
+                                                        <style>
+                                                            .product-image-container-35096 {
+                                                                width: 240px
+                                                            }
+
+                                                            .product-image-container-35096 span.product-image-wrapper {
+                                                                padding-bottom: 125%
+                                                            }
+                                                        </style>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class=product-lg-top__right>
+                                                <div class=product-lg-top__right--title>
+                                                    <strong class="product name product-item-name">
+                                                        <a class=product-item-link
+                                                            href="/category/subcategory/<%= product.id %>"">
+                                                            <%= product.name %>
+                                                        </a>
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" product details product-item-details">
+                                                            <div class=product-item-inner-large>
+                                                                <a href="/category/subcategory/<%= product.id %>""> <button type=submit
+                                                                        title=" Add to Basket"
+                                                                    class="action tocart primary">
+                                                                    <span>View Details</span>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+
+                                                </div>
+                                            </div>
+                                </li>
+
+                                <% }) %>
+                        </ol>
+                    </div>
+
+                </div>
             </div>
+
+
         </div>
     </main>
     <div class=page-bottom>
         <div class=content>
-            <div data-aw-csblock-block-name=csblock_product_page_bottom></div>
+            <div data-aw-csblock-block-name=csblock_category_page_bottom></div>
         </div>
     </div>
     <footer class=page-footer>
@@ -165,7 +118,7 @@
                 <div class="menu menu--footer">
                     <ul>
                         <li class="level--1 children--3" data-home=true>
-                            <a href="#" target=_self>
+                            <a href="/index.html" target=_self>
                                 <svg id=svg-home viewBox="0 0 24 24"
                                     style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
@@ -174,78 +127,88 @@
                             </a>
                         </li>
                         <li class="level--1 haschildren children--3">
-                            <a href="#" target=_self>Information
-                                Centre</a>
+                            <a href="/nuts-and-bolts/index.html" target=_self>Information Centre</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>The
-                                        Nuts & Bolts</a>
+                                    <a href="/nuts-and-bolts/index.html" target=_self>The Nuts & Bolts</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Identify Ceiling Grid System</a>
+                                    <a href="/nuts-and-bolts/product-data-information/identify-ceiling-grid-system.html"
+                                        target=_self>Identify Ceiling Grid System</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Resources</a>
+                                    <a href="/nuts-and-bolts/resources.html" target=_self>Resources</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>FAQ</a>
+                                    <a href="/nuts-and-bolts/customer-services/faqs.html" target=_self>FAQ</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
                             <div class=custom__block></div>
                         </li>
                         <li class="level--1 haschildren children--3">
-                            <a href="#" target=_self>Customer Service</a>
+                            <a href="/nuts-and-bolts/customer-services.html" target=_self>Customer Service</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Collections</a>
+                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html"
+                                        target=_self>Collections</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Returns & Refunds</a>
+                                    <a href="/nuts-and-bolts/customer-services/returns-and-refunds.html"
+                                        target=_self>Returns & Refunds</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Deliveries</a>
+                                    <a href="/nuts-and-bolts/customer-services/deliveries-and-collections.html"
+                                        target=_self>Deliveries</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
                             <div class=custom__block></div>
                         </li>
                         <li class="level--1 haschildren children--3">
-                            <a href="#" target=_self>Contact & Policies</a>
+                            <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact &
+                                Policies</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Contact Us</a>
+                                    <a href="/nuts-and-bolts/customer-services/contact-us.html" target=_self>Contact
+                                        Us</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>About Us</a>
+                                    <a href="/nuts-and-bolts/customer-services/about-us.html" target=_self>About
+                                        Us</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Price Increase Notifications</a>
+                                    <a href="/nuts-and-bolts/news-and-events/price-increases.html" target=_self>Price
+                                        Increase Notifications</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
                             <div class=custom__block></div>
                         </li>
                         <li class="level--1 haschildren children--3">
-                            <a href="#" target=_self>Terms & Conditions</a>
+                            <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html" target=_self>Terms
+                                & Conditions</a>
                             <ul>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Terms & Conditions</a>
+                                    <a href="/nuts-and-bolts/customer-services/terms-and-conditions.html"
+                                        target=_self>Terms & Conditions</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Privacy Policy</a>
+                                    <a href="/nuts-and-bolts/customer-services/privacy-policy.html" target=_self>Privacy
+                                        Policy</a>
                                     <div class=custom__block></div>
                                 </li>
                                 <li class="level--2 0">
-                                    <a href="#" target=_self>Cookie Policy</a>
+                                    <a href="/nuts-and-bolts/customer-services/cookie-policy.html" target=_self>Cookie
+                                        Policy</a>
                                     <div class=custom__block></div>
                                 </li>
                             </ul>
@@ -665,11 +628,13 @@
     </style>
 
     </div>
-    <script>var BASE_URL = 'https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F'; var require = { 'baseUrl': 'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB' }
+
+    <script>var BASE_URL = 'https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F'; var require = { 'baseUrl': 'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB' } 
     </script>
     <script
         src="https://www.buildingmaterials.co.uk/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
+
     </body>
-    <!-- Mirrored from www.buildingmaterials.co.uk/acoustic-access-panel-metal-door-beaded-frame-600mm-x-600mm-40db-0-36m2 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Mar 2022 21:32:52 GMT -->
+
 
     </html>

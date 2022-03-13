@@ -39,4 +39,6 @@ router.get('/event-news', loadNav , ListEvents.listNews);
 router.get('/category/products/:id', loadNav, ListCategory.listProductByCategory);
 router.get('/products/:id', loadNav, ListProduct.getProduct);
 
+router.get('/category/subcategory/:id', loadNav, ListCategory.listSubCategories)
+
 module.exports = router;
