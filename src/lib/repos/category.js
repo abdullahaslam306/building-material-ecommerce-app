@@ -62,7 +62,7 @@ class Category {
     };
     const categories = await this.dbInstance.categories.findAll({ where });
     if (categories === null || categories.length === 0) {
-      throw new Error('No Categories Found.');
+      throw new Error('Categories Not found.');
     }
 
     return categories;
