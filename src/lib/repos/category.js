@@ -145,10 +145,7 @@ class Category {
       include,
       where,
     });
-    console.log(category);
-    if (category === null || category.length === 0) {
-      throw new Error('No Categories Found.');
-    }
+ 
     return category;
   }
 

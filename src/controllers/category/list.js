@@ -105,6 +105,23 @@ const listProductByCategory = async (req, res) => {
   }
 };
 
+const listSubCategories = async (req, res) => {
+
+    const connection = await database.openConnection();
+
+    const categoryRepo = new repositories.Category(connection);
+
+    const { children } = await categoryRepo.getByIdWithChildren(req.params.id);
+      console.log(children);
+    if(children.length > 0) { 
+      res.render('customer/categoryList', {subCategories : children});
+    }
+    else {
+      res.redirect('/category/products/'+req.params.id);
+    }
+}
+
+
 module.exports = {
-  listAll, listNav, listProductByCategory, listCategoriesNavbar,
+  listAll, listNav, listProductByCategory, listCategoriesNavbar, listSubCategories
 };
