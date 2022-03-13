@@ -69,12 +69,7 @@ class Category {
   }
 
   async listCategoriesForProductSelection() {
-    const where = {
-      level: {
-        [Op.ne]: 0,
-      },
-    };
-    let categories = await this.dbInstance.categories.findAll({ where });
+    let categories = await this.dbInstance.categories.findAll();
     console.log(categories);
     if (categories === null || categories.length === 0) {
       throw new Error('No Categories Found.');
