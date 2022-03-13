@@ -183,7 +183,7 @@
             <% categories.forEach(function(subcategory){ %>
               <%if( subcategory.level==0 ) {%>
                 <li class="level--1 haschildren children--3">
-                  <a href="">
+                  <a href="/category/subcategory/<%= subcategory.id %>">
                     <%= subcategory.name %>
                   </a>
                   <ul>
