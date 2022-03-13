@@ -31,7 +31,7 @@ const listAll = async (req, res) => {
     const productRepo = new repositories.Product(connection);
 
     const products = await productRepo.listAll();
-
+      
     await database.closeConnection(connection);
 
     res.render('admin/manage-product', { products, success, error });

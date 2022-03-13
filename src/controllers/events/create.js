@@ -19,7 +19,7 @@ const create = async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './src/public/uploads');
+    cb(null, '/home/dev/building-material-ecommerce-app/src/public/uploads');
   },
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}`);
