@@ -54,7 +54,7 @@
                                         <div class=product-lg-top>
                                             <div class=product-lg-top__left>
                                                 <div class=product-lg-top__left--image>
-                                                    <a href="/product/<%=product.id%>"
+                                                    <a href="/products/<%=product.id%>"
                                                         class="product photo product-item-photo" tabindex=-1>
                                                         <span
                                                             class="product-image-container product-image-container-35096">
@@ -62,13 +62,13 @@
                                                                 <picture>
                                                                     <img class=product-image-photo
                                                                         src="<%= product.image %>" loading=lazy
-                                                                        width=240 height=300 />
+                                                                        width=340 height=300 />
                                                                 </picture>
                                                             </span>
                                                         </span>
                                                         <style>
                                                             .product-image-container-35096 {
-                                                                width: 240px
+                                                                width: 340px
                                                             }
 
                                                             .product-image-container-35096 span.product-image-wrapper {
@@ -80,18 +80,18 @@
                                             </div>
                                             <div class=product-lg-top__right>
                                                 <div class=product-lg-top__right--title>
-                                                    <strong class="product name product-item-name">
-                                                        <a class=product-item-link href="/products/<%=product.id%>">
-                                                            <%= product.name %>
-                                                        </a>
-                                                    </strong>
+                                                    <center> <strong class="product name product-item-name">
+                                                            <a class=product-item-link href="/products/<%=product.id%>">
+                                                                <%= product.name %>
+                                                            </a>
+                                                        </strong></center>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product details product-item-details">
                                             <div class=product-item-inner-large>
                                                 <a href="/products/<%=product.id%>"> <button type=submit
-                                                        title="Add to Basket" class="action tocart primary">
+                                                        class="action tocart primary">
                                                         <span>View Details</span>
                                                     </button>
                                                 </a>

@@ -182,9 +182,9 @@
                   </a>
                   <ul>
                     <% subcategory.children.forEach(function(category){ categories.forEach(function (categoryToMatch) {
-                      if(categoryToMatch.id==category.id) { %>
+                      if(categoryToMatch.id==category.id ) { %>
                       <li class="level--2 haschildren children--3">
-                        <a href="/category/products/<%=category.id%>" target=_self>
+                        <a href="/category/subcategory/<%= category.id %>" target=_self>
                           <%=category.name%>
                         </a>
                         <ul>
@@ -197,7 +197,7 @@
                             <% }) }%>
                         </ul>
                       </li>
-                      <%} }) }) %>
+                      <%} }) })%>
                   </ul>
                 </li>
                 <%}})%>
