@@ -52,7 +52,7 @@ app.use(session({
   saveUninitialized: true,
   secret: env.SESSION_SECRET,
 }));
-database.syncDatabase();
+// database.syncDatabase();
 
 app.use('/', indexRoutes);
 app.use('/admin', AdminRoutes);
