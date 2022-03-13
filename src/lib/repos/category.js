@@ -164,11 +164,11 @@ class Category {
       parent,
       level,
     };
-    if (image !== undefined || image != null) {
+    if (image !== undefined && image !== null) {
       categoryToUpdate.image = image;
     }
 
-    const updatedRows = await this.dbInstance.event.update(categoryToUpdate, { where });
+    const updatedRows = await this.dbInstance.categories.update(categoryToUpdate, { where });
 
     if (!updatedRows) {
       throw new Error('Unable to update category.');
