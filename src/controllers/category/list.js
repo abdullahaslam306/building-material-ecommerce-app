@@ -111,10 +111,10 @@ const listSubCategories = async (req, res) => {
 
     const categoryRepo = new repositories.Category(connection);
 
-    const { children } = await categoryRepo.getByIdWithChildren(req.params.id);
+    const { name, children } = await categoryRepo.getByIdWithChildren(req.params.id);
       console.log(children);
     if(children.length > 0) { 
-      res.render('customer/categoryList', {subCategories : children});
+      res.render('customer/categoryList', {categoryName: name, subCategories : children});
     }
     else {
       res.redirect('/category/products/'+req.params.id);
