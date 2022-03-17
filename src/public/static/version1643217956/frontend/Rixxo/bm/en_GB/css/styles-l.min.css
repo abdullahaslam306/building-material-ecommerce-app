@@ -171,7 +171,7 @@
   height: 450px;
 }
 .lmrx-carousel .lmrx-carousel__items__item__image img {
-  height: auto;
+  height: 500px;
 }
 .lmrx-carousel .lmrx-carousel__controls__control--prev {
   right: calc(100% + -30px);

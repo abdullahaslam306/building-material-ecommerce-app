@@ -11,14 +11,12 @@
   <meta name=viewport content="width=device-width, initial-scale=1" />
   <meta name=format-detection content="telephone=no" />
   <title>Milgo Traders</title>
+  <link rel="stylesheet" href="/app.css" />
   <link rel=stylesheet type="text/css" media=all
     href="/static/version1643217956/_cache/merged/4d0c65b6b724a36a7c93bfbfc562082d.min.css">
 
   <link rel=stylesheet type="text/css" media="screen and (min-width: 768px)"
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/styles-l.min.css">
-
-  <script type="text/javascript" async src="http://cdn-sitegainer.com/sitegainer_5619301.js"></script>
-
   <link rel=stylesheet type="text/css" media=print
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/css/print.min.css">
   <link rel=stylesheet type="text/css" media="screen and (min-width: 1px)"
@@ -37,8 +35,18 @@
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/opensans/bold/opensans-700.woff2">
   <link rel=preload as=font crossorigin=anonymous
     href="/static/version1643217956/frontend/Rixxo/bm/en_GB/fonts/Luma-Icons.woff2">
+  <link rel=canonical href="index.html">
   <link rel=icon type="image/x-icon" href="/media/favicon/stores/1/milgo2.png">
   <link rel="shortcut icon" type="image/x-icon" href="/media/favicon/stores/1/milgo2.png">
+
+
+  <link rel="canonical" href="https://www.buildingmaterials.co.uk/nuts-and-bolts/news-and-events" />
+  <meta charset="utf-8" />
+  <!-- CSS -->
+
+
+  <!-- Symplify -->
+  <script type="text/javascript" async src="http://cdn-sitegainer.com/sitegainer_5619301.js"></script>
   <style>
     div.banner-hero-desktop {
       display: block
@@ -81,9 +89,7 @@
   data-mage-init='{"loaderAjax":[],"loader":{"icon":"/static/version1643217956/frontend/Rixxo/bm/en_GB/images/loader-2.gif"}}'
   class="customer-logged-out cms-home cms-index-index page-layout-1column">
 
-  <noscript><iframe height=0 width=0 style="display:none;visibility:hidden"
-      data-src="https://www.googletagmanager.com/ns.html?id=GTM-NT2PNDZ"></iframe>
-    </iframe></noscript>
+
   <div class=page-wrapper>
     <header class=page-header>
       <div class="panel wrapper">
@@ -92,17 +98,16 @@
             <li class="header-top__trust-pilot">
 
             </li>
-            <li class="header-top__call"> <a href="tel:092499972"> <img
+            <li class="header-top__call" style="text-align:center"> <a href="tel:+211924999972"> <img
                   src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22
                   data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" />
                 <span>Call our trade experts&nbsp;|&nbsp;</span>
                 <span class=InfinityNumber>
-                  092499972
+                  +(211) 924999972
                 </span>
               </a>
             </li>
           </ul>
-
 
           <a class="action skip contentarea" href="#contentarea"> <span> Skip to Content </span></a>
         </div>
@@ -155,10 +160,10 @@
             </form>
           </div>
         </div>
-        <div class=header__mobile-phone> <a href="tel:092499972"> <img
+        <div class=header__mobile-phone> <a href="tel:+211924999972"> <img
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width=22
               data-src="/static/version1643217956/frontend/Rixxo/bm/en_GB/images/icon-phone.svg" /> <span
-              class=InfinityNumber>092499972</span>
+              class=InfinityNumber>+(211) 924999972</span>
           </a>
         </div>
       </div>
@@ -182,7 +187,7 @@
                   </a>
                   <ul>
                     <% subcategory.children.forEach(function(category){ categories.forEach(function (categoryToMatch) {
-                      if(categoryToMatch.id==category.id ) { %>
+                      if(categoryToMatch.id==category.id) { %>
                       <li class="level--2 haschildren children--3">
                         <a href="/category/subcategory/<%= category.id %>" target=_self>
                           <%=category.name%>
@@ -197,38 +202,19 @@
                             <% }) }%>
                         </ul>
                       </li>
-                      <%} }) })%>
+                      <%} }) }) %>
                   </ul>
                 </li>
                 <%}})%>
           </ul>
         </div>
 
-        <!-- Nav BAr ends here -->
 
-        <div class="menu menu--secondary">
-          <ul>
-            <li class="level--1 children--3" data-home=true><a href="index.html" target=_self><svg id=svg-home
-                  viewBox="0 0 24 24" style=" width: 15px; fill: white; transform: scale(1.6) translateY(2px); ">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
-                  <path d="M0 0h24v24H0z" fill=none></path>
-                </svg></a></li>
-            <li class="level--1 0"><a href="support.html" target=_self>Customer Service</a>
-              <div class=custom__block></div>
-            </li>
-            <li class="level--1 0"><a href="index.html" target=_self>Delivery</a>
-              <div class=custom__block></div>
-            </li>
-            <li class="level--1 0"><a href="index.html" target=_self>FAQ</a>
-              <div class=custom__block></div>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
     <div data-aw-csblock-block-name=csblock_home_menu_top></div>
     <div data-aw-csblock-block-name=csblock_home_menu_bottom></div>
-    <div class=top-container>
+    <div class="top-container">
       <div class="widget block block-static-block"> </div>
     </div>
     <div class="widget block block-static-block">
@@ -1053,4 +1039,5 @@
 
 <script>var BASE_URL = 'https://www.buildingmaterials.co.uk/https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002F'; var require = { 'baseUrl': 'https\u003A\u002F\u002Fwww.buildingmaterials.co.uk\u002Fstatic\u002Fversion1643217956\u002Ffrontend\u002FRixxo\u002Fbm\u002Fen_GB' } 
 </script>
-<script src="/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
+<script
+  src="https://www.buildingmaterials.co.uk/static/version1643217956/_cache/merged/b3b1f450816d4832cd1a91add92117ae.min.js"></script>
